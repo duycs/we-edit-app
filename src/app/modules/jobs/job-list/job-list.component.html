@@ -1,0 +1,16 @@
+<add-job></add-job>
+<ejs-grid style="padding-top: 50px;" [dataSource]='data' [allowPaging]="true" [allowSorting]="true" [pageSettings]="pageSettings">
+  <e-columns>
+    <e-column field='id' headerText='Id' textAlign='Left' width=90></e-column>
+    <e-column field='date' headerText='Date' textAlign='Left' format='yMd' width=90></e-column>
+    <e-column field='location' headerText='Location' textAlign='Left' width=90></e-column>
+    <e-column field='cso.fullName' headerText='CSO' textAlign='Right'  width=90></e-column>
+    <e-column field='jobId' headerText='Job ID' textAlign='Right' width=90></e-column>
+    <e-column field='code' headerText='Code' textAlign='Right' width=90></e-column>
+    <e-column field='instruction' headerText='Instruction' textAlign='Right' width=90></e-column>
+    <e-column field='inputNumber' headerText='Input' textAlign='Right' width=90></e-column>
+    <e-column field='productLevel.name' headerText='Product' textAlign='Right' width=90></e-column>
+    <e-column field='outputNumber' headerText='Output' textAlign='Right' width=90></e-column>
+    <e-column field='status' headerText='Status' textAlign='Right' width=90></e-column>
+  </e-columns>
+</ejs-grid>

@@ -1,0 +1,181 @@
+<button class="e-control e-btn" style="position: absolute; z-index: 9999; margin: 12px;" id="targetButton"
+  (click)="onOpenDialog($event)">
+  Add Job
+</button>
+
+<div #container class='root-container' style="z-index:9999; position: fixed; left:30% ">
+
+  <div class="control-section">
+    <div class="col-lg-12">
+      <div class="control_wrapper" id="control_wrapper" style="margin: 10px auto;">
+        <ejs-dialog id="addJobDialog" #addJobDialog width='450px' [showCloseIcon]='true' target='.control-section'>
+          <ng-template #content>
+            <form id="template_driven" #userForm="ngForm" novalidate>
+
+              <div class="form-group" style="padding-top: 11px;">
+                <div class="e-float-input">
+                  <input type="date" id="date" #dateval='ngModel' name="date" required ngModel>
+                  <span class="e-float-line"></span>
+                  <label class="e-float-text e-label-top" for="date">Date</label>
+                  <div *ngIf="(dateval.invalid && (dateval.dirty || dateval.touched))">
+                    <div class="e-error" *ngIf="dateval.errors?.['required']">
+                      * Enter Date
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group" style="padding-top: 11px;">
+                <div class="e-float-input">
+                  <input type="number" id="locationId" #locationIdval='ngModel' name="locationId" required ngModel>
+                  <span class="e-float-line"></span>
+                  <label class="e-float-text e-label-top" for="locationId">Location</label>
+                  <div *ngIf="(locationIdval.invalid && (locationIdval.dirty || locationIdval.touched))">
+                    <div class="e-error" *ngIf="locationIdval.errors?.['required']">
+                      * Enter Location
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group" style="padding-top: 11px;">
+                <div class="e-float-input">
+                  <input type="number" id="cso" #csoval='ngModel' name="cso" required ngModel>
+                  <span class="e-float-line"></span>
+                  <label class="e-float-text e-label-top" for="cso">CSO</label>
+                  <div *ngIf="(csoval.invalid && (csoval.dirty || csoval.touched))">
+                    <div class="e-error" *ngIf="csoval.errors?.['required']">
+                      * Enter CSO Staff
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group" style="padding-top: 11px;">
+                <div class="e-float-input">
+                  <input type="text" id="jobName" #jobNameval='ngModel' name="jobName" required ngModel>
+                  <span class="e-float-line"></span>
+                  <label class="e-float-text e-label-top" for="jobName">Job Name</label>
+                  <div *ngIf="(jobNameval.invalid && (jobNameval.dirty || jobNameval.touched))">
+                    <div class="e-error" *ngIf="jobNameval.errors?.['required']">
+                      * Enter Job Name
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group" style="padding-top: 11px;">
+                <div class="e-float-input">
+                  <input type="text" id="code" #codeval='ngModel' name="code" required ngModel>
+                  <span class="e-float-line"></span>
+                  <label class="e-float-text e-label-top" for="code">Code</label>
+                  <div *ngIf="(codeval.invalid && (codeval.dirty || codeval.touched))">
+                    <div class="e-error" *ngIf="codeval.errors?.['required']">
+                      * Enter Code
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group" style="padding-top: 11px;">
+                <div class="e-float-input">
+                  <input type="number" id="picNumber" #picNumberval='ngModel' name="picNumber" required ngModel>
+                  <span class="e-float-line"></span>
+                  <label class="e-float-text e-label-top" for="picNumber">Number</label>
+                  <div *ngIf="(picNumberval.invalid && (picNumberval.dirty || picNumberval.touched))">
+                    <div class="e-error" *ngIf="picNumberval.errors?.['required']">
+                      * Enter Number
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group" style="padding-top: 11px;">
+                <div class="e-float-input">
+                  <input type="text" id="instruction" #instructionval='ngModel' name="instruction" required ngModel>
+                  <span class="e-float-line"></span>
+                  <label class="e-float-text e-label-top" for="instruction">Instruction</label>
+                  <div *ngIf="(instructionval.invalid && (instructionval.dirty || instructionval.touched))">
+                    <div class="e-error" *ngIf="instructionval.errors?.['required']">
+                      * Enter Instruction
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group" style="padding-top: 11px;">
+                <div class="e-float-input">
+                  <input type="number" id="deliverTypeId" #deliverTypeIdval='ngModel' name="deliverTypeId" required
+                    ngModel>
+                  <span class="e-float-line"></span>
+                  <label class="e-float-text e-label-top" for="deliverTypeId">Deliver Type</label>
+                  <div *ngIf="(deliverTypeIdval.invalid && (deliverTypeIdval.dirty || deliverTypeIdval.touched))">
+                    <div class="e-error" *ngIf="deliverTypeIdval.errors?.['required']">
+                      * Enter Deliver Type
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group" style="padding-top: 11px;">
+                <div class="e-float-input">
+                  <input type="number" id="productLevelId" #productLevelIdval='ngModel' name="productLevelId" required
+                    ngModel>
+                  <span class="e-float-line"></span>
+                  <label class="e-float-text e-label-top" for="productLevelId">ProductLevel</label>
+                  <div *ngIf="(productLevelIdval.invalid && (productLevelIdval.dirty || productLevelIdval.touched))">
+                    <div class="e-error" *ngIf="productLevelIdval.errors?.['required']">
+                      * Enter ProductLevel
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group" style="padding-top: 11px;">
+                <div class="e-float-input">
+                  <input type="date" id="deadline" #deadlineval='ngModel' name="deadline" required ngModel>
+                  <span class="e-float-line"></span>
+                  <label class="e-float-text e-label-top" for="deadline">Deadline</label>
+                  <div *ngIf="(deadlineval.invalid && (deadlineval.dirty || deadlineval.touched))">
+                    <div class="e-error" *ngIf="deadlineval.errors?.['required']">
+                      * Enter Deadline
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group" style="padding-top: 11px;">
+                <div class="e-float-input">
+                  <input type="number" id="appId" #appIdval='ngModel' name="appId" required ngModel>
+                  <span class="e-float-line"></span>
+                  <label class="e-float-text e-label-top" for="appId">App</label>
+                  <div *ngIf="(appIdval.invalid && (appIdval.dirty || appIdval.touched))">
+                    <div class="e-error" *ngIf="appIdval.errors?.['required']">
+                      * Enter App
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="form-group" style="padding-top: 11px;">
+                <div class="submitBtn">
+                  <button class="submit-btn e-btn" id="submit-btn" [disabled]="userForm.invalid" type="reset"
+                    (click)="Submit()">Submit</button>
+                  <div class="desc"><span></span></div>
+                </div>
+              </div>
+
+            </form>
+          </ng-template>
+        </ejs-dialog>
+
+      </div>
+    </div>
+  </div>
+  <ejs-dialog id="confirmationDialog" #Dialog [buttons]='dlgButtons' [animationSettings]='animationSettings'
+    [header]='formHeader' [showCloseIcon]='showCloseIcon' [content]='contentData' [target]='target' [width]='width'
+    [visible]="visible" [isModal]="isModal">
+  </ejs-dialog>
+
+</div>

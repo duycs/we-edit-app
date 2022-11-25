@@ -1,0 +1,24 @@
+<div *ngIf="jobs">
+  <p class="label">Jobs</p>
+  <div *ngFor="let job of jobs">
+    <mat-card class="example-card">
+      <div class="container">
+        <div class="row">
+            <div class="container">
+              <div class="row">
+                <h2 class="title no-padding">{{job.id}}</h2>
+              </div>
+              <div class="row">
+                <p class="text-primary">{{job.cso.fullName}}</p>
+              </div>
+              <div class="row right">
+                <div class="col-lg-4 col-sm-12">Date: {{job.date}}</div>
+                <div class="col-lg-4 col-sm-12">Location: {{job.location}}</div>
+                <div class="col-lg-4 col-sm-12">Code: {{job.code}}</div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>
