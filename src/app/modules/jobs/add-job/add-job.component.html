@@ -3,14 +3,15 @@
   Add Job
 </button>
 
-<div #container class='root-container' style="z-index:9999; position: fixed; left:30% ">
+<div #container id="container-ejs-dialog" class='root-container'>
 
   <div class="control-section">
     <div class="col-lg-12">
       <div class="control_wrapper" id="control_wrapper" style="margin: 10px auto;">
-        <ejs-dialog id="addJobDialog" #addJobDialog width='450px' [showCloseIcon]='true' target='.control-section'>
+        <ejs-dialog id="FormDialog" class="color-primary" header='Add new Job' #FormDialog width='450px' [showCloseIcon]='true'
+          target='.control-section'>
           <ng-template #content>
-            <form id="template_driven" #userForm="ngForm" novalidate>
+            <form id="template_driven" #form="ngForm" novalidate>
 
               <div class="form-group" style="padding-top: 11px;">
                 <div class="e-float-input">
@@ -27,12 +28,12 @@
 
               <div class="form-group" style="padding-top: 11px;">
                 <div class="e-float-input">
-                  <input type="number" id="locationId" #locationIdval='ngModel' name="locationId" required ngModel>
                   <span class="e-float-line"></span>
-                  <label class="e-float-text e-label-top" for="locationId">Location</label>
+                  <ejs-dropdownlist id='locationId' #locationIdval='ngModel' [dataSource]='locationdata' required
+                    ngModel [fields]='locationfields' [placeholder]='locationtext'></ejs-dropdownlist>
                   <div *ngIf="(locationIdval.invalid && (locationIdval.dirty || locationIdval.touched))">
                     <div class="e-error" *ngIf="locationIdval.errors?.['required']">
-                      * Enter Location
+                      * Select a Location
                     </div>
                   </div>
                 </div>
@@ -40,15 +41,15 @@
 
               <div class="form-group" style="padding-top: 11px;">
                 <div class="e-float-input">
-                  <input type="number" id="cso" #csoval='ngModel' name="cso" required ngModel>
-                  <span class="e-float-line"></span>
-                  <label class="e-float-text e-label-top" for="cso">CSO</label>
-                  <div *ngIf="(csoval.invalid && (csoval.dirty || csoval.touched))">
-                    <div class="e-error" *ngIf="csoval.errors?.['required']">
-                      * Enter CSO Staff
+                    <span class="e-float-line"></span>
+                    <ejs-dropdownlist id='csoId' #csoIdval='ngModel' [dataSource]='csodata'
+                      required ngModel [fields]='csofields' [placeholder]='csotext'></ejs-dropdownlist>
+                    <div *ngIf="(csoIdval.invalid && (csoIdval.dirty || csoIdval.touched))">
+                      <div class="e-error" *ngIf="csoIdval.errors?.['required']">
+                        * Select a CSO
+                      </div>
                     </div>
                   </div>
-                </div>
               </div>
 
               <div class="form-group" style="padding-top: 11px;">
@@ -105,13 +106,12 @@
 
               <div class="form-group" style="padding-top: 11px;">
                 <div class="e-float-input">
-                  <input type="number" id="deliverTypeId" #deliverTypeIdval='ngModel' name="deliverTypeId" required
-                    ngModel>
                   <span class="e-float-line"></span>
-                  <label class="e-float-text e-label-top" for="deliverTypeId">Deliver Type</label>
+                  <ejs-dropdownlist id='deliverTypeId' #deliverTypeIdval='ngModel' [dataSource]='deliverTypedata'
+                    required ngModel [fields]='deliverTypefields' [placeholder]='deliverTypetext'></ejs-dropdownlist>
                   <div *ngIf="(deliverTypeIdval.invalid && (deliverTypeIdval.dirty || deliverTypeIdval.touched))">
                     <div class="e-error" *ngIf="deliverTypeIdval.errors?.['required']">
-                      * Enter Deliver Type
+                      * Select a Deliver Type
                     </div>
                   </div>
                 </div>
@@ -119,13 +119,12 @@
 
               <div class="form-group" style="padding-top: 11px;">
                 <div class="e-float-input">
-                  <input type="number" id="productLevelId" #productLevelIdval='ngModel' name="productLevelId" required
-                    ngModel>
                   <span class="e-float-line"></span>
-                  <label class="e-float-text e-label-top" for="productLevelId">ProductLevel</label>
+                  <ejs-dropdownlist id='productLevelId' #productLevelIdval='ngModel' [dataSource]='productLeveldata'
+                    required ngModel [fields]='productLevelfields' [placeholder]='productLeveltext'></ejs-dropdownlist>
                   <div *ngIf="(productLevelIdval.invalid && (productLevelIdval.dirty || productLevelIdval.touched))">
                     <div class="e-error" *ngIf="productLevelIdval.errors?.['required']">
-                      * Enter ProductLevel
+                      * Select a ProductLevel
                     </div>
                   </div>
                 </div>
@@ -146,12 +145,12 @@
 
               <div class="form-group" style="padding-top: 11px;">
                 <div class="e-float-input">
-                  <input type="number" id="appId" #appIdval='ngModel' name="appId" required ngModel>
                   <span class="e-float-line"></span>
-                  <label class="e-float-text e-label-top" for="appId">App</label>
+                  <ejs-dropdownlist id='appId' #appIdval='ngModel' [dataSource]='appdata' required ngModel
+                    [fields]='appfields' [placeholder]='apptext'></ejs-dropdownlist>
                   <div *ngIf="(appIdval.invalid && (appIdval.dirty || appIdval.touched))">
                     <div class="e-error" *ngIf="appIdval.errors?.['required']">
-                      * Enter App
+                      * Select an App
                     </div>
                   </div>
                 </div>
@@ -160,7 +159,7 @@
 
               <div class="form-group" style="padding-top: 11px;">
                 <div class="submitBtn">
-                  <button class="submit-btn e-btn" id="submit-btn" [disabled]="userForm.invalid" type="reset"
+                  <button class="submit-btn e-btn" id="submit-btn" [disabled]="form.invalid" type="reset"
                     (click)="Submit()">Submit</button>
                   <div class="desc"><span></span></div>
                 </div>

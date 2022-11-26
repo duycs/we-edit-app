@@ -13,6 +13,7 @@ import { ButtonModule } from '@syncfusion/ej2-angular-buttons';
 import { DialogModule } from '@syncfusion/ej2-angular-popups';
 import { UploaderModule } from '@syncfusion/ej2-angular-inputs';
 import { AddJobComponent } from './add-job/add-job.component';
+import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 
 
 const routes: Routes = [
@@ -40,6 +41,7 @@ const routes: Routes = [
     AddJobComponent,
   ],
   imports: [
+    DropDownListModule,
     ButtonModule,
     DialogModule,
     UploaderModule,

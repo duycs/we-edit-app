@@ -7,6 +7,10 @@ import { Job } from 'src/app/shared/models/job';
 import { CreateJobVM } from 'src/app/shared/models/createJobVM';
 import { JobStep } from 'src/app/shared/models/jobStep';
 import { PaggedDataJob } from 'src/app/shared/models/paggedDataJob';
+import { AddStepsToJobVM } from 'src/app/shared/models/AddStepsToJobVM';
+import { RemoveStepsFromJobVM } from 'src/app/shared/models/removeStepsFromJobVM';
+import { AssignStaffToStepVM } from 'src/app/shared/models/assignStaffToStepVM';
+import { UpdateJobStatusVM } from 'src/app/shared/models/updateJobStatusVM';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -42,7 +46,7 @@ export class JobService {
 
   addJob(createJobVM: any): Observable<CreateJobVM> {
     return this.http.post<CreateJobVM>(apiUrl, createJobVM, httpOptions).pipe(
-      tap((createJobVM: CreateJobVM) => console.log('added job w/ id=${createJobVM.id}')),
+      tap((createJobVM: CreateJobVM) => console.log('added')),
       catchError(this.handleError<CreateJobVM>('addJob'))
     );
   }
@@ -50,7 +54,7 @@ export class JobService {
   deleteJob(id: any): Observable<Job> {
     const url = `${apiUrl}/${id}`;
     return this.http.delete<Job>(url, httpOptions).pipe(
-      tap(_ => console.log('deleted job id=${id}')),
+      tap(_ => console.log('deleted')),
       catchError(this.handleError<Job>('deleteJob'))
     );
   }
@@ -59,7 +63,47 @@ export class JobService {
     const url = `${apiUrl}/${id}/jobsteps`;
     return this.http.get<JobStep>(url).pipe(
       tap(_ => console.log('fetched JobSteps job=${id}')),
-      catchError(this.handleError<JobStep>('getJobSteps job id=${id}'))
+      catchError(this.handleError<JobStep>('getJobSteps'))
+    );
+  }
+
+  addStepsToJob(addStepsToJobVM: any): Observable<AddStepsToJobVM> {
+    const url = `${apiUrl}/steps`
+    return this.http.post<AddStepsToJobVM>(url, addStepsToJobVM, httpOptions).pipe(
+      tap((addStepsToJobVM: AddStepsToJobVM) => console.log('added')),
+      catchError(this.handleError<AddStepsToJobVM>('addStepsToJob'))
+    );
+  }
+
+  removeStepsFromJob(id: any): Observable<RemoveStepsFromJobVM> {
+    const url = `${apiUrl}/steps`;
+    return this.http.delete<RemoveStepsFromJobVM>(url, httpOptions).pipe(
+      tap(_ => console.log('deleted')),
+      catchError(this.handleError<RemoveStepsFromJobVM>('RemoveStepsFromJob'))
+    );
+  }
+
+  assignStaffToStep(assignStaffToStepVM: any): Observable<AssignStaffToStepVM> {
+    const url = `${apiUrl}/assign`
+    return this.http.put<AssignStaffToStepVM>(url, assignStaffToStepVM, httpOptions).pipe(
+      tap((assignStaffToStepVM: AssignStaffToStepVM) => console.log('added')),
+      catchError(this.handleError<AssignStaffToStepVM>('assignStaffToStep'))
+    );
+  }
+
+  autoAssignStaffToStep(nothing: any): Observable<JobStep> {
+    const url = `${apiUrl}/auto-assign`
+    return this.http.post<JobStep>(url, nothing, httpOptions).pipe(
+      tap((jobStep: JobStep) => console.log('added')),
+      catchError(this.handleError<JobStep>('autoAssignStaffToStep'))
+    );
+  }
+
+  updateJobStatus(updateJobStatusVM: any): Observable<UpdateJobStatusVM> {
+    const url = `${apiUrl}/assign`
+    return this.http.put<UpdateJobStatusVM>(url, updateJobStatusVM, httpOptions).pipe(
+      tap((updateJobStatusVM: UpdateJobStatusVM) => console.log('updated')),
+      catchError(this.handleError<UpdateJobStatusVM>('UpdateJobStatus'))
     );
   }
 
