@@ -1,0 +1,14 @@
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-staffs',
+  templateUrl: './staffs.component.html',
+  // styleUrls: ['./books.component.css']
+})
+export class StaffsComponent implements OnInit {
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+}

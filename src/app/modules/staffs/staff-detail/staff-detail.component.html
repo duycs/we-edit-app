@@ -1,0 +1,27 @@
+<ejs-grid style="padding-top: 50px;" [dataSource]='staff'>
+  <e-columns>
+    <e-column field='id' headerText='Id' textAlign='Left' width=90></e-column>
+    <e-column field='fullName' headerText='Full Name' textAlign='Left' format='text' width=90></e-column>
+    <e-column field='account' headerText='Account' textAlign='Left' width=90></e-column>
+    <e-column field='email' headerText='Email' textAlign='Right' width=90></e-column>
+    <e-column field='roles[0].name' headerText='Roles' textAlign='Right' width=90></e-column>
+    <e-column field='productLevels[0].name' headerText='ProductLevels' textAlign='Right' width=90></e-column>
+    <e-column field='currentShiftId' headerText='Current Shift' textAlign='Right' width=90></e-column>
+    <e-column field='isAssigned' headerText='Is Assigned' textAlign='Right' width=90></e-column>
+  </e-columns>
+</ejs-grid>
+
+<ejs-grid style="padding-top: 50px;" [dataSource]='jobSteps' [allowPaging]="true" [allowSorting]="true"
+  [pageSettings]="pageSettings">
+  <e-columns>
+    <e-column field='job.name' headerText='Job' textAlign='Left' format='yMd' width=90></e-column>
+    <e-column field='step.name' headerText='Step' textAlign='Left' format='yMd' width=90></e-column>
+    <e-column field='inputNumber' headerText='Input Number' textAlign='Left' width=90></e-column>
+    <e-column field='worker.fullName' headerText='Worker' textAlign='Right' width=90></e-column>
+    <e-column field='shift.name' headerText='Shift' textAlign='Right' width=90></e-column>
+    <e-column field='estimationInSeconds' headerText='Estimation' textAlign='Right' width=90></e-column>
+    <e-column field='startTime' headerText='Start Time' textAlign='Right' width=90></e-column>
+    <e-column field='endTime' headerText='End Time' textAlign='Right' width=90></e-column>
+    <e-column field='status' headerText='Status' textAlign='Right' width=90></e-column>
+  </e-columns>
+</ejs-grid>

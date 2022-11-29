@@ -19,6 +19,8 @@ import { AppBarModule } from "@syncfusion/ej2-angular-navigations";
 import { ButtonModule } from '@syncfusion/ej2-angular-buttons';
 import { DialogModule } from '@syncfusion/ej2-angular-popups';
 import { UploaderModule } from '@syncfusion/ej2-angular-inputs';
+import { StaffsComponent } from './modules/staffs/staffs.component';
+import { StaffsModule } from './modules/staffs/staffs.module';
 
 
 const appRoutes: Routes = [
@@ -36,6 +38,7 @@ const appRoutes: Routes = [
     AppComponent,
     NavMenuComponent,
     JobsComponent,
+    StaffsComponent,
   ],
   imports: [
     AppBarModule, 
@@ -56,6 +59,7 @@ const appRoutes: Routes = [
 
     //app modules
     JobsModule,
+    StaffsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
