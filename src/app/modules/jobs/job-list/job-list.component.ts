@@ -43,7 +43,6 @@ export class JobListComponent implements OnInit {
   getJobs(): void {
     this.jobService.getJobs(this.page, this.size, true)
       .subscribe(res => {
-        this.alertService.showToastSuccess();
         this.data = res.data;
         this.pageSettings = { pageSize: this.size };
         console.log(res);

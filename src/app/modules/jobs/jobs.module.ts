@@ -14,6 +14,9 @@ import { DialogModule } from '@syncfusion/ej2-angular-popups';
 import { UploaderModule } from '@syncfusion/ej2-angular-inputs';
 import { AddJobComponent } from './add-job/add-job.component';
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
+import { JobDetailComponent } from './job-detail/job-detail.component';
+import { AddJobStepComponent } from './add-job-step/add-job-step.component';
+import { AssignStaffComponent } from './assign-staff/assign-staff.component';
 
 
 const routes: Routes = [
@@ -29,8 +32,8 @@ const routes: Routes = [
       },
       {
         path: ':id',
-        //component: JobDetailComponent
-      },
+        component: JobDetailComponent
+      }
     ]
   }
 ];
@@ -38,7 +41,10 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     JobListComponent,
+    JobDetailComponent,
     AddJobComponent,
+    AddJobStepComponent,
+    AssignStaffComponent,
   ],
   imports: [
     DropDownListModule,

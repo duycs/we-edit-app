@@ -7,10 +7,10 @@ import { Job } from 'src/app/shared/models/job';
 import { CreateJobVM } from 'src/app/shared/models/createJobVM';
 import { JobStep } from 'src/app/shared/models/jobStep';
 import { PaggedDataJob } from 'src/app/shared/models/paggedDataJob';
-import { AddStepsToJobVM } from 'src/app/shared/models/AddStepsToJobVM';
 import { RemoveStepsFromJobVM } from 'src/app/shared/models/removeStepsFromJobVM';
 import { AssignStaffToStepVM } from 'src/app/shared/models/assignStaffToStepVM';
 import { UpdateJobStatusVM } from 'src/app/shared/models/updateJobStatusVM';
+import { AddStepsToJobVM } from 'src/app/shared/models/addStepsToJobVM';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -59,11 +59,11 @@ export class JobService {
     );
   }
 
-  getJobSteps(id: number): Observable<JobStep> {
+  getJobSteps(id: number): Observable<JobStep[]> {
     const url = `${apiUrl}/${id}/jobsteps`;
-    return this.http.get<JobStep>(url).pipe(
+    return this.http.get<JobStep[]>(url).pipe(
       tap(_ => console.log('fetched JobSteps job=${id}')),
-      catchError(this.handleError<JobStep>('getJobSteps'))
+      catchError(this.handleError<JobStep[]>('getJobSteps'))
     );
   }
 
