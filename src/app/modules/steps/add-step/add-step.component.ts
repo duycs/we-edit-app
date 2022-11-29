@@ -1,25 +1,27 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UploaderComponent } from '@syncfusion/ej2-angular-inputs';
 import { DialogComponent } from '@syncfusion/ej2-angular-popups';
-import { EmitType } from '@syncfusion/ej2-base';
+import { isNullOrUndefined, EmitType } from '@syncfusion/ej2-base';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { JobService } from 'src/app/core/services/jobs.service';
 import { ProductLevelService } from 'src/app/core/services/productLevels.service';
 import { StaffService } from 'src/app/core/services/staffs.service';
+import { StepService } from 'src/app/core/services/steps.service';
+import { ProductLevel } from 'src/app/shared/models/productLevel';
 
 @Component({
-    selector: 'add-job',
-    templateUrl: './add-job.component.html',
-    styleUrls: ['./add-job.component.css']
+    selector: 'add-step',
+    templateUrl: './add-step.component.html',
+    styleUrls: ['./add-step.component.css']
 })
 
-export class AddJobComponent implements OnInit {
+export class AddStepComponent implements OnInit {
 
     constructor(private router: Router,
-        private jobService: JobService,
+        private stepService: StepService,
         private productLevelService: ProductLevelService,
-        private staffService: StaffService,
         private alertService: AlertService) {
     };
 
@@ -49,38 +51,14 @@ export class AddJobComponent implements OnInit {
     @ViewChild('container', { read: ElementRef }) container!: ElementRef;
     public targetElement!: HTMLElement;
 
-    // locations
-    public locationdata: { [key: string]: Object }[] = [{ Id: 0, Name: 'Select a Location' }, { Id: 1, Name: 'EU' }, { Id: 2, Name: 'US' }, { Id: 3, Name: 'AU' }];
-    // maps the appropriate column to fields property
-    public locationfields: Object = { text: 'Name', value: 'Id' };
-    //set the placeholder to DropDownList input
-    public locationtext: string = "Select a Location";
-
-    // deliverTypes
-    public deliverTypedata: { [key: string]: Object }[] = [{ Id: 0, Name: 'Select a Deliver Type' }, { Id: 1, Name: 'V1' }, { Id: 2, Name: 'V2' }, { Id: 3, Name: 'V3' }];
-    public deliverTypefields: Object = { text: 'Name', value: 'Id' };
-    public deliverTypetext: string = "Select a Deliver Type";
-
-    // apps
-    public appdata: { [key: string]: Object }[] = [{ Id: 0, Name: 'Select an App' }, { Id: 1, Name: 'App 1' }, { Id: 2, Name: 'App 2' }, { Id: 3, Name: 'App 3' }];
-    public appfields: Object = { text: 'Name', value: 'Id' };
-    public apptext: string = "Select an App";
-
     public productLeveldata: { [key: string]: Object }[] = [];
     public productLevelfields: Object = { text: 'Name', value: 'Id' };
     public productLeveltext: string = "Select an ProductLevel";
 
-    public csodata: { [key: string]: Object }[] = [];
-    public csofields: Object = { text: 'Name', value: 'Id' };
-    public csotext: string = "Select a CSO";
-
     ngOnInit() {
         //this.initilaizeTarget();
         this.dialogObj?.hide();
-
-        // fetch productLevels, staffs
         this.fetchProductLevelDropdown();
-        this.fetchCSOStaffDropdown();
     }
 
     fetchProductLevelDropdown() {
@@ -89,19 +67,6 @@ export class AddJobComponent implements OnInit {
                 console.log(res);
                 res.forEach(element => {
                     this.productLeveldata.push({ Id: element.id, Name: element.code });
-                });
-            }, (err) => {
-                this.alertService.showToastError();
-                console.log(err);
-            });
-    }
-
-    fetchCSOStaffDropdown() {
-        this.staffService.getStaffs(1, 1000, true)
-            .subscribe(res => {
-                console.log(res);
-                res.data.forEach(element => {
-                    this.csodata.push({ Id: element.id, Name: element.fullName });
                 });
             }, (err) => {
                 this.alertService.showToastError();
@@ -138,10 +103,10 @@ export class AddJobComponent implements OnInit {
         let formData = this.getDynamicContent();
         console.log(JSON.stringify(formData));
 
-        this.jobService.addJob(formData)
+        this.stepService.addStep(formData)
             .subscribe(res => {
                 this.alertService.showToastSuccess();
-                this.router.navigate(['/jobs']);
+                this.router.navigate(['/steps']);
             }, (err) => {
                 this.alertService.showToastError();
                 console.log(err);
@@ -149,32 +114,19 @@ export class AddJobComponent implements OnInit {
     }
 
     public getDynamicContent: EmitType<object> = () => {
-        const dialogId = 'FormDialog';
-        let date = document.getElementById(dialogId)?.querySelector('#date') as HTMLInputElement;
-        let locationId = document.getElementById(dialogId)?.querySelector('#locationId_hidden') as HTMLInputElement;
-        let cso = document.getElementById(dialogId)?.querySelector('#csoId_hidden') as HTMLInputElement;
-        let jobName = document.getElementById(dialogId)?.querySelector('#jobName') as HTMLInputElement;
-        let code = document.getElementById(dialogId)?.querySelector('#code') as HTMLInputElement;
-        let picNumber = document.getElementById(dialogId)?.querySelector('#picNumber') as HTMLInputElement;
-        let instruction = document.getElementById(dialogId)?.querySelector('#instruction') as HTMLInputElement;
-        let deliverTypeId = document.getElementById(dialogId)?.querySelector('#deliverTypeId_hidden') as HTMLInputElement;
+        const dialogId = 'FormDialogStep';
         let productLevelId = document.getElementById(dialogId)?.querySelector('#productLevelId_hidden') as HTMLInputElement;
-        let deadline = document.getElementById(dialogId)?.querySelector('#deadline') as HTMLInputElement;
-        let appId = document.getElementById(dialogId)?.querySelector('#appId_hidden') as HTMLInputElement;
+        let name = document.getElementById(dialogId)?.querySelector('#name') as HTMLInputElement;
+        let code = document.getElementById(dialogId)?.querySelector('#code') as HTMLInputElement;
+        let orderNumber = document.getElementById(dialogId)?.querySelector('#orderNumber') as HTMLInputElement;
+        let estimationInSeconds = document.getElementById(dialogId)?.querySelector('#estimationInSeconds') as HTMLInputElement;
 
         let data = {
-            date: date.value,
-            csoStaffId: ~~cso.value,
-            locationId: ~~locationId.value,
-            jobName: jobName.value,
+            name: name.value,
             code: code.value,
-            picNumber: picNumber.value,
-            instruction: instruction.value,
-            deliverTypeId: ~~deliverTypeId.value,
-            productLevelId: ~~productLevelId.value,
-            deadline: deadline.value,
-            appId: ~~appId.value,
-            InputInfo: ""
+            orderNumber: orderNumber.value,
+            estimationInSeconds: estimationInSeconds.value,
+            productLevelId: productLevelId.value,
         };
 
         return data;

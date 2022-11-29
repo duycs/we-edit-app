@@ -21,6 +21,10 @@ import { DialogModule } from '@syncfusion/ej2-angular-popups';
 import { UploaderModule } from '@syncfusion/ej2-angular-inputs';
 import { StaffsComponent } from './modules/staffs/staffs.component';
 import { StaffsModule } from './modules/staffs/staffs.module';
+import { StepsComponent } from './modules/steps/steps.component';
+import { StepsModule } from './modules/steps/steps.module';
+import { ProductLevelsComponent } from './modules/productlevels/productlevels.component';
+import { ProductLevelsModule } from './modules/productlevels/productlevels.module';
 
 
 const appRoutes: Routes = [
@@ -30,6 +34,9 @@ const appRoutes: Routes = [
   // { path: 'login', component: LoginComponent },
 
   { path: 'modules/jobs', component: JobsComponent },
+  { path: 'modules/steps', component: StepsComponent },
+  { path: 'modules/staffs', component: StaffsComponent },
+  { path: 'modules/productlevels', component: ProductLevelsComponent },
 ];
 
 
@@ -39,9 +46,11 @@ const appRoutes: Routes = [
     NavMenuComponent,
     JobsComponent,
     StaffsComponent,
+    StepsComponent,
+    ProductLevelsComponent,
   ],
   imports: [
-    AppBarModule, 
+    AppBarModule,
     ButtonModule,
     DialogModule,
     UploaderModule,
@@ -52,7 +61,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(appRoutes, {onSameUrlNavigation: 'reload'}),
+    RouterModule.forRoot(appRoutes, { onSameUrlNavigation: 'reload' }),
     RouterModule.forChild([]),
     BrowserAnimationsModule,
     NoopAnimationsModule,
@@ -60,6 +69,8 @@ const appRoutes: Routes = [
     //app modules
     JobsModule,
     StaffsModule,
+    StepsModule,
+    ProductLevelsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
