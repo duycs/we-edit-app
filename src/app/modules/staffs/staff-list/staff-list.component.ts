@@ -41,6 +41,39 @@ export class StaffListComponent implements OnInit {
     this.getStaffs();
   }
 
+  inShiftClick(data: any): void {
+    console.log(data);
+    let staffInShiftVM = {
+      staffId: data.id
+    };
+    console.log("staffInShiftVM", staffInShiftVM);
+
+    this.staffService.addInShiftForStaff(staffInShiftVM)
+      .subscribe(res => {
+        this.alertService.showToastSuccess();
+        console.log(res);
+      }, (err) => {
+        this.alertService.showToastError();
+        console.log(err);
+      });
+  }
+
+  outShiftClick(data: any): void {
+    let staffOutShiftVM = {
+      staffId: data.id
+    };
+    console.log("staffOutShiftVM", staffOutShiftVM);
+
+    this.staffService.addOutShiftForStaff(staffOutShiftVM)
+      .subscribe(res => {
+        this.alertService.showToastSuccess();
+        console.log(res);
+      }, (err) => {
+        this.alertService.showToastError();
+        console.log(err);
+      });
+  }
+
   getStaffs(): void {
     this.staffService.getStaffs(this.page, this.size, true)
       .subscribe(res => {
@@ -78,6 +111,43 @@ export class StaffListComponent implements OnInit {
           }
         });
         staff.productLevelnames = productLevelnames;
+      }
+
+      if (staff.currentShiftId != null) {
+        switch (staff.currentShiftId) {
+          case 0:
+            staff.currentShiftname = "none";
+            break;
+
+          case 6:
+            staff.currentShiftname = "none";
+            break;
+
+          case 1:
+            staff.currentShiftname = "Shift 1";
+            break;
+
+          case 2:
+            staff.currentShiftname = "Shift 2";
+            break;
+
+          case 3:
+            staff.currentShiftname = "Shift 3";
+            break;
+
+          case 4:
+            staff.currentShiftname = "Out";
+            break;
+
+          case 5:
+            staff.currentShiftname = "Free";
+            break;
+
+          default:
+            staff.currentShiftname = "none";
+            break;
+        }
+
       }
     });
 

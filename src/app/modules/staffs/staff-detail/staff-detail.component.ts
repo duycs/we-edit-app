@@ -24,7 +24,7 @@ export class StaffDetailComponent implements OnInit {
   page: number = 1;
   size: number = 100;
 
-  public jobId!: number;
+  public staffId!: number;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -42,9 +42,9 @@ export class StaffDetailComponent implements OnInit {
   public pageSettings!: PageSettingsModel;
 
   ngOnInit(): void {
-    this.jobId = this.route.snapshot.params['id'];
-    //this.fetchJobSteps(this.jobId);
-    this.fetchStaff(this.jobId);
+    this.staffId = this.route.snapshot.params['id'];
+    this.fetchJobSteps(this.staffId);
+    this.fetchStaff(this.staffId);
   }
 
   fetchStaff(id: number): void {
@@ -60,7 +60,7 @@ export class StaffDetailComponent implements OnInit {
   }
 
   fetchJobSteps(id: number): void {
-    this.jobService.getJobSteps(id)
+    this.staffService.getJobStepsOfStaff(id)
       .subscribe(res => {
         this.jobSteps = res;
         this.pageSettings = { pageSize: this.size };

@@ -1,14 +1,25 @@
 <add-staff></add-staff>
+<add-productlevel-for-staff style="margin-left: 125px;"></add-productlevel-for-staff>
 <ejs-grid style="padding-top: 50px;" [dataSource]='data' [allowPaging]="true" [allowSorting]="true"
   [pageSettings]="pageSettings">
   <e-columns>
-    <e-column field='id' headerText='Id' textAlign='Left' width=90></e-column>
+    <e-column field='Action' headerText='Action' width='200'>
+      <ng-template #template let-data>
+        <button ejs-button cssClass="e-primary in-shift" (click)="inShiftClick(data)" content="In Shift">In Shift</button>
+        <button ejs-button cssClass="e-info out-shift" (click)="outShiftClick(data)" content="Out Shift">Out Shift</button>
+      </ng-template>
+    </e-column>
+    <e-column field='id' headerText='Id' textAlign='Left' width=50>
+      <ng-template #template let-data> 
+        <a rel='nofollow' href="/staffs/{{data.id}}">{{data.id}}</a> 
+       </ng-template> 
+    </e-column>
     <e-column field='fullName' headerText='Full Name' textAlign='Left' format='text' width=90></e-column>
     <e-column field='account' headerText='Account' textAlign='Left' width=90></e-column>
-    <e-column field='email' headerText='Email' textAlign='Right' width=90></e-column>
+    <e-column field='email' headerText='Email' textAlign='Right' width=120></e-column>
     <e-column field='rolenames' headerText='Roles' textAlign='Right' width=90></e-column>
     <e-column field='productLevelnames' headerText='ProductLevels' textAlign='Right' width=90></e-column>
-    <e-column field='currentShiftId' headerText='Current Shift' textAlign='Right' width=90></e-column>
-    <e-column field='isAssigned' headerText='Is Assigned' textAlign='Right' width=90></e-column>
+    <e-column field='currentShiftname' headerText='Current Shift' textAlign='Right' width=50></e-column>
+    <e-column field='isAssigned' headerText='Is Assigned' textAlign='Right' width=50></e-column>
   </e-columns>
 </ejs-grid>

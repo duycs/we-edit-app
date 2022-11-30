@@ -43,13 +43,63 @@ export class JobListComponent implements OnInit {
   getJobs(): void {
     this.jobService.getJobs(this.page, this.size, true)
       .subscribe(res => {
-        this.data = res.data;
+        this.data = this.mappingDisplayNameOfLocationAndStatus(res.data);
         this.pageSettings = { pageSize: this.size };
         console.log(res);
       }, (err) => {
         this.alertService.showToastError();
         console.log(err);
       });
+  }
+
+  mappingDisplayNameOfLocationAndStatus(jobs: Job[]) {
+    jobs.forEach(job => {
+      if (job.location != null) {
+        switch (job.location) {
+          case 0:
+            job.locationname = "EU";
+            break;
+
+          case 1:
+            job.locationname = "US";
+            break;
+
+          case 2:
+            job.locationname = "AU";
+            break;
+
+          default:
+            job.locationname = "none";
+            break;
+        }
+      }
+
+      if (job.status != null) {
+        switch (job.status) {
+          case 0:
+            job.statusname = "Todo";
+            break;
+
+          case 1:
+            job.locationname = "Doing";
+            break;
+
+          case 2:
+            job.locationname = "Done";
+            break;
+
+          case 3:
+            job.locationname = "Pending";
+            break;
+
+          default:
+            job.locationname = "none";
+            break;
+        }
+      }
+    });
+
+    return jobs;
   }
 
 

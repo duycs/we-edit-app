@@ -62,7 +62,7 @@ export class JobService {
   getJobSteps(id: number): Observable<JobStep[]> {
     const url = `${apiUrl}/${id}/jobsteps`;
     return this.http.get<JobStep[]>(url).pipe(
-      tap(_ => console.log('fetched JobSteps job=${id}')),
+      tap(_ => console.log('fetched JobSteps of staff =${id}')),
       catchError(this.handleError<JobStep[]>('getJobSteps'))
     );
   }

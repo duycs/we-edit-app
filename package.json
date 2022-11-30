@@ -25,6 +25,7 @@
     "@syncfusion/ej2-angular-dropdowns": "^20.3.58",
     "@syncfusion/ej2-angular-grids": "^20.3.58",
     "@syncfusion/ej2-angular-inputs": "^20.3.57",
+    "@syncfusion/ej2-angular-layouts": "^20.3.58",
     "@syncfusion/ej2-angular-navigations": "^20.3.58-ngcc",
     "@syncfusion/ej2-angular-popups": "^20.3.58",
     "rxjs": "~7.5.0",

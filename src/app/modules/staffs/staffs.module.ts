@@ -14,6 +14,7 @@ import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { StaffDetailComponent } from './staff-detail/staff-detail.component';
 import { StaffsComponent } from './staffs.component';
 import { AddStaffComponent } from './add-staff/add-staff.component';
+import { AddProductLevelForStaffComponent } from './add-productlevel-for-staff/add-productlevel-for-staff.component';
 
 
 const routes: Routes = [
@@ -40,6 +41,7 @@ const routes: Routes = [
     StaffListComponent,
     StaffDetailComponent,
     AddStaffComponent,
+    AddProductLevelForStaffComponent,
   ],
   imports: [
     DropDownListModule,

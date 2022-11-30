@@ -24,4 +24,7 @@ export interface Job {
   jobSteps: [];
   steps: [];
   id: number;
+
+  locationname: string;
+  statusname: string;
 }

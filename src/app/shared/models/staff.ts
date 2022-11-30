@@ -1,5 +1,6 @@
 import { ProductLevel } from "./productLevel";
 import { Role } from "./role";
+import { Shift } from "./shift";
 
 export interface Staff {
     fullName: string;
@@ -7,7 +8,7 @@ export interface Staff {
     email: string;
     roles: Role[];
     productLevels: ProductLevel[];
-    shifts: [],
+    shifts: Shift[],
     jobSteps: [];
     isAssigned: false,
     currentShiftId: number;
@@ -16,4 +17,5 @@ export interface Staff {
 
     rolenames: string;
     productLevelnames: string;
+    currentShiftname: string;
 }
