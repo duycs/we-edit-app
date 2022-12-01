@@ -155,7 +155,7 @@ export class AddJobComponent implements OnInit {
         let cso = document.getElementById(dialogId)?.querySelector('#csoId_hidden') as HTMLInputElement;
         let jobName = document.getElementById(dialogId)?.querySelector('#jobName') as HTMLInputElement;
         let code = document.getElementById(dialogId)?.querySelector('#code') as HTMLInputElement;
-        let picNumber = document.getElementById(dialogId)?.querySelector('#picNumber') as HTMLInputElement;
+        let inputNumber = document.getElementById(dialogId)?.querySelector('#inputNumber') as HTMLInputElement;
         let instruction = document.getElementById(dialogId)?.querySelector('#instruction') as HTMLInputElement;
         let deliverTypeId = document.getElementById(dialogId)?.querySelector('#deliverTypeId_hidden') as HTMLInputElement;
         let productLevelId = document.getElementById(dialogId)?.querySelector('#productLevelId_hidden') as HTMLInputElement;
@@ -168,7 +168,7 @@ export class AddJobComponent implements OnInit {
             locationId: ~~locationId.value,
             jobName: jobName.value,
             code: code.value,
-            picNumber: picNumber.value,
+            picNumber: ~~inputNumber.value,
             instruction: instruction.value,
             deliverTypeId: ~~deliverTypeId.value,
             productLevelId: ~~productLevelId.value,

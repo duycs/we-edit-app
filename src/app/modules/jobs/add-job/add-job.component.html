@@ -80,12 +80,12 @@
 
               <div class="form-group" style="padding-top: 11px;">
                 <div class="e-float-input">
-                  <input type="number" id="picNumber" #picNumberval='ngModel' name="picNumber" required ngModel>
+                  <input type="number" id="inputNumber" #inputNumberval='ngModel' name="inputNumber" required ngModel>
                   <span class="e-float-line"></span>
-                  <label class="e-float-text e-label-top" for="picNumber">Number</label>
-                  <div *ngIf="(picNumberval.invalid && (picNumberval.dirty || picNumberval.touched))">
-                    <div class="e-error" *ngIf="picNumberval.errors?.['required']">
-                      * Enter Number
+                  <label class="e-float-text e-label-top" for="inputNumber">Input Number</label>
+                  <div *ngIf="(inputNumberval.invalid && (inputNumberval.dirty || inputNumberval.touched))">
+                    <div class="e-error" *ngIf="inputNumberval.errors?.['required']">
+                      * Enter Input Number
                     </div>
                   </div>
                 </div>

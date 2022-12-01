@@ -6,6 +6,7 @@ import { AuthenticationService } from '../authentication/authentication.service'
 import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AlertService } from '../services/alert.service';
+import { SignalrService } from '../services/signalr.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -22,6 +23,7 @@ export class NavMenuComponent implements OnInit, OnDestroy {
   isLibrarian = false;
 
   constructor(
+    public signalRService: SignalrService,
     private alertService: AlertService,
     private router: Router,
     private authenticationService: AuthenticationService,
@@ -30,6 +32,8 @@ export class NavMenuComponent implements OnInit, OnDestroy {
       this.currentUser = user;
     });
   }
+
+
 
   ngOnInit() {
     console.log(this.currentUser);
@@ -41,7 +45,19 @@ export class NavMenuComponent implements OnInit, OnDestroy {
       // this.isMember = accountTypes.includes('member');
       // this.isLibrarian = accountTypes.includes('librarian');
     }
+
+    this.signalRService.startConnection();
+    this.signalRService.addJobListener();   
+    // this.signalRService.broadcastJob();   
+    // this.startHttpRequest();
   }
+
+  // private startHttpRequest = () => {
+  //   this.http.get('https://localhost:5001/')
+  //     .subscribe(res => {
+  //       console.log(res);
+  //     })
+  // }
 
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks

@@ -2,6 +2,9 @@
   <ejs-appbar colorMode="Primary">
     <button #regularBtn ejs-button cssClass="e-inherit menu" iconCss="e-icons e-menu"></button>
     <span class="regular">We Edit</span>
+    <span style="margin-left: 50px;">
+      {{ signalRService.message}}
+    </span>
     <div class="e-appbar-spacer"></div>
 
     <a class="" [routerLink]='["/staffs"]'>
@@ -19,5 +22,6 @@
     <a class="" [routerLink]='["/productLevels"]'>
       <button ejs-button cssClass="e-inherit">Product-Level</button>
     </a>
+
   </ejs-appbar>
 </div>
