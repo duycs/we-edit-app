@@ -13,9 +13,9 @@
       <e-column field='code' headerText='Code' textAlign='Right' width=90></e-column>
       <e-column field='instruction' headerText='Instruction' textAlign='Right' width=90></e-column>
       <e-column field='inputNumber' headerText='Input' textAlign='Right' width=90></e-column>
-      <e-column field='productLevel.name' headerText='Product Level' textAlign='Right' width=90></e-column>
+      <e-column field='productLevel.code' headerText='Product Level' textAlign='Right' width=90></e-column>
       <e-column field='outputNumber' headerText='Output' textAlign='Right' width=90></e-column>
-      <e-column field='status' headerText='Status' textAlign='Right' width=90></e-column>
+      <e-column field='statusname' headerText='Status' textAlign='Right' width=90></e-column>
     </e-columns>
   </ejs-grid>
 </div>
@@ -39,13 +39,14 @@
     </e-column> -->
 
         <e-column field='step.name' headerText='Step' textAlign='Left' format='yMd' width=90></e-column>
+        <e-column field='step.productLevel.code' headerText='Product Level' textAlign='Left' format='yMd' width=90></e-column>
         <e-column field='inputNumber' headerText='Input Number' textAlign='Left' width=90></e-column>
         <e-column field='worker.fullName' headerText='Worker' textAlign='Right' width=90></e-column>
         <e-column field='shift.name' headerText='Shift' textAlign='Right' width=90></e-column>
         <e-column field='estimationInSeconds' headerText='Estimation' textAlign='Right' width=90></e-column>
         <e-column field='startTime' headerText='Start Time' textAlign='Right' width=90></e-column>
         <e-column field='endTime' headerText='End Time' textAlign='Right' width=90></e-column>
-        <e-column field='status' headerText='Status' textAlign='Right' width=90></e-column>
+        <e-column field='statusname' headerText='Status' textAlign='Right' width=90></e-column>
       </e-columns>
     </ejs-grid>
   </div>

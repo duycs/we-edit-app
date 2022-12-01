@@ -15,6 +15,7 @@ export interface Staff {
     id: number;
     token: string;
 
+    statusname: string;
     rolenames: string;
     productLevelnames: string;
     currentShiftname: string;

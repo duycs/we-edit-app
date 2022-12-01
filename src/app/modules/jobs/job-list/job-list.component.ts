@@ -81,19 +81,19 @@ export class JobListComponent implements OnInit {
             break;
 
           case 1:
-            job.locationname = "Doing";
+            job.statusname = "Doing";
             break;
 
           case 2:
-            job.locationname = "Done";
+            job.statusname = "Done";
             break;
 
           case 3:
-            job.locationname = "Pending";
+            job.statusname = "Pending";
             break;
 
           default:
-            job.locationname = "none";
+            job.statusname = "none";
             break;
         }
       }

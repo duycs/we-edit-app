@@ -20,4 +20,6 @@ export interface JobStep {
     startTime: Date;
     endTime: Date;
     status: number;
+    
+    statusname: string;
 }
