@@ -4,9 +4,11 @@ import { UploaderComponent } from '@syncfusion/ej2-angular-inputs';
 import { DialogComponent } from '@syncfusion/ej2-angular-popups';
 import { EmitType } from '@syncfusion/ej2-base';
 import { AlertService } from 'src/app/core/services/alert.service';
+import { APISignalRService } from 'src/app/core/services/api-signalr.service';
 import { JobService } from 'src/app/core/services/jobs.service';
 import { ProductLevelService } from 'src/app/core/services/productLevels.service';
 import { StaffService } from 'src/app/core/services/staffs.service';
+import { CreateJobVM } from 'src/app/shared/models/createJobVM';
 
 @Component({
     selector: 'add-job',
@@ -18,6 +20,7 @@ export class AddJobComponent implements OnInit {
 
     constructor(private router: Router,
         private jobService: JobService,
+        private apiSignalRService: APISignalRService,
         private productLevelService: ProductLevelService,
         private staffService: StaffService,
         private alertService: AlertService) {
@@ -74,6 +77,8 @@ export class AddJobComponent implements OnInit {
     public csofields: Object = { text: 'Name', value: 'Id' };
     public csotext: string = "Select a CSO";
 
+    public createJobVM!: CreateJobVM;
+
     ngOnInit() {
         //this.initilaizeTarget();
         this.dialogObj?.hide();
@@ -81,6 +86,9 @@ export class AddJobComponent implements OnInit {
         // fetch productLevels, staffs
         this.fetchProductLevelDropdown();
         this.fetchCSOStaffDropdown();
+
+        // this.apiSignalRService.startConnection();
+        // this.apiSignalRService.addGetJobsListener();
     }
 
     fetchProductLevelDropdown() {
@@ -135,20 +143,23 @@ export class AddJobComponent implements OnInit {
 
     public onFormSubmit(): void {
         this.dialogObj.show();
-        let formData = this.getDynamicContent();
-        console.log(JSON.stringify(formData));
+        this.setCreateJobVM();
 
-        this.jobService.addJob(formData)
+        console.log(JSON.stringify(this.createJobVM));
+
+        this.jobService.addJob(this.createJobVM)
             .subscribe(res => {
+                let id = res.id;
                 this.alertService.showToastSuccess();
-                this.router.navigate(['/jobs']);
+                console.log("id", id);
+                this.router.navigate([`/jobs/${id}`]);
             }, (err) => {
                 this.alertService.showToastError();
                 console.log(err);
             });
     }
 
-    public getDynamicContent: EmitType<object> = () => {
+    public setCreateJobVM: EmitType<object> = () => {
         const dialogId = 'FormDialog';
         let date = document.getElementById(dialogId)?.querySelector('#date') as HTMLInputElement;
         let locationId = document.getElementById(dialogId)?.querySelector('#locationId_hidden') as HTMLInputElement;
@@ -162,21 +173,19 @@ export class AddJobComponent implements OnInit {
         let deadline = document.getElementById(dialogId)?.querySelector('#deadline') as HTMLInputElement;
         let appId = document.getElementById(dialogId)?.querySelector('#appId_hidden') as HTMLInputElement;
 
-        let data = {
-            date: date.value,
+        this.createJobVM = {
+            date: new Date(date.value),
             csoStaffId: ~~cso.value,
             locationId: ~~locationId.value,
             jobName: jobName.value,
             code: code.value,
-            picNumber: ~~inputNumber.value,
+            inputNumber: ~~inputNumber.value,
             instruction: instruction.value,
             deliverTypeId: ~~deliverTypeId.value,
             productLevelId: ~~productLevelId.value,
-            deadline: deadline.value,
+            deadline: new Date(deadline.value),
             appId: ~~appId.value,
-            InputInfo: ""
+            inputInfo: ""
         };
-
-        return data;
     }
 }

@@ -10,6 +10,7 @@ import { StepService } from 'src/app/core/services/steps.service';
 import { DataManager } from '@syncfusion/ej2-data';
 import { JobStep } from 'src/app/shared/models/jobStep';
 import { Job } from 'src/app/shared/models/job';
+import { MappingModels } from 'src/app/shared/models/mapping-models';
 
 @Component({
   selector: 'app-job-detail',
@@ -31,6 +32,7 @@ export class JobDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private authenticationService: AuthenticationService,
     private jobService: JobService,
+    private mappingModels: MappingModels,
     private alertService: AlertService) {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
       this.currentUser = user;
@@ -54,7 +56,7 @@ export class JobDetailComponent implements OnInit {
   fetchJob(id: number): void {
     this.jobService.getJob(id)
       .subscribe(res => {
-        let jobMapped = this.mappingDisplayNameOfLocationAndStatus(res);
+        let jobMapped = this.mappingModels.MappingDisplayNameFieldsOfJob(res);
         let data = [jobMapped];
         this.job = new DataManager(data);
         console.log("job", this.job);
@@ -67,7 +69,7 @@ export class JobDetailComponent implements OnInit {
   fetchJobSteps(id: number): void {
     this.jobService.getJobSteps(id)
       .subscribe(res => {
-        this.jobSteps = this.mappingDisplayNameStatus(res);
+        this.jobSteps = this.mappingModels.MappingDisplayNameFieldsOfJobSteps(res);
         this.pageSettings = { pageSize: this.size };
         console.log('jobSteps', this.jobSteps);
       }, (err) => {
@@ -76,92 +78,6 @@ export class JobDetailComponent implements OnInit {
       });
   }
 
-  mappingDisplayNameStatus(jobSteps: JobStep[]) {
-    jobSteps.forEach(jobStep => {
-      switch (jobStep.status) {
-        case 0:
-          jobStep.statusname = "Todo";
-          break;
 
-        case 1:
-          jobStep.statusname = "Doding";
-          break;
-
-        case 2:
-          jobStep.statusname = "Done";
-          break;
-
-        case 3:
-          jobStep.statusname = "Approved";
-          break;
-
-        case 4:
-          jobStep.statusname = "Rejected";
-          break;
-
-        case 5:
-          jobStep.statusname = "Pending";
-          break;
-
-        case 6:
-          jobStep.statusname = "Assigned";
-          break;
-
-        default:
-          jobStep.statusname = "none";
-          break;
-      }
-    })
-
-    return jobSteps;
-  }
-
-  mappingDisplayNameOfLocationAndStatus(job: Job) {
-    if (job.location != null) {
-      switch (job.location) {
-        case 0:
-          job.locationname = "EU";
-          break;
-
-        case 1:
-          job.locationname = "US";
-          break;
-
-        case 2:
-          job.locationname = "AU";
-          break;
-
-        default:
-          job.locationname = "none";
-          break;
-      }
-    }
-
-    if (job.status != null) {
-      switch (job.status) {
-        case 0:
-          job.statusname = "Todo";
-          break;
-
-        case 1:
-          job.statusname = "Doing";
-          break;
-
-        case 2:
-          job.statusname = "Done";
-          break;
-
-        case 3:
-          job.statusname = "Pending";
-          break;
-
-        default:
-          job.statusname = "none";
-          break;
-      }
-    }
-
-    return job;
-  }
 
 }

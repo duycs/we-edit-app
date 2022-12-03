@@ -8,6 +8,7 @@ import { AlertService } from 'src/app/core/services/alert.service';
 import { JobService } from 'src/app/core/services/jobs.service';
 import { ProductLevelService } from 'src/app/core/services/productLevels.service';
 import { StaffService } from 'src/app/core/services/staffs.service';
+import { CreateStaffVM } from 'src/app/shared/models/createStaffVM';
 import { ProductLevel } from 'src/app/shared/models/productLevel';
 
 @Component({
@@ -24,9 +25,6 @@ export class AddStaffComponent implements OnInit {
         private staffService: StaffService,
         private alertService: AlertService) {
     };
-
-    @ViewChild('formUpload')
-    public uploadObj!: UploaderComponent;
 
     @ViewChild('FormDialog')
     public dialogObj!: DialogComponent;
@@ -68,64 +66,50 @@ export class AddStaffComponent implements OnInit {
     public rolefields: Object = { text: 'Name', value: 'Id' };
     public roletext: string = "Select a Role";
 
+    public createStaffVM!: CreateStaffVM;
+
     ngOnInit() {
-        //this.initilaizeTarget();
         this.dialogObj?.hide();
     }
 
-    initilaizeTarget: EmitType<object> = () => {
-        // ISSUE: Cannot read properties of undefined (reading 'nativeElement')
-        this.targetElement = this.container.nativeElement.parentElement;
-    }
-
-    public onOpenDialog(event: any): void {
+    public onOpenAddStaffDialog(event: any): void {
         // ISSUE:  Cannot read properties of undefined (reading 'show')
         this.dialogObj.show();
 
         document.getElementById('container-ejs-dialog')?.style.setProperty('display', 'block');
     }
 
-    public browseClick() {
-        document.getElementsByClassName('e-file-select-wrap')[0].querySelector('button')?.click(); return false;
-    }
-
     public Submit(): void {
         this.onFormSubmit();
         document.getElementById('container-ejs-dialog')?.style.setProperty('display', 'none');
     }
-    public onFileSelect: EmitType<Object> = (args: any) => {
-        this.uploadInput = args.filesData[0].name;
-    }
 
     public onFormSubmit(): void {
         this.dialogObj.show();
-        let formData = this.getDynamicContent();
-        console.log(JSON.stringify(formData));
+        this.setCreateStaffVM();
 
-        this.staffService.addStaff(formData)
+        this.staffService.addStaff(this.createStaffVM)
             .subscribe(res => {
                 this.alertService.showToastSuccess();
-                this.router.navigate(['/staffs']);
+                this.router.navigate([`/staffs/${res.id}`]);
             }, (err) => {
                 this.alertService.showToastError();
                 console.log(err);
             });
     }
 
-    public getDynamicContent: EmitType<object> = () => {
+    public setCreateStaffVM: EmitType<object> = () => {
         const dialogId = 'FormDialogStaff';
         let fullname = document.getElementById(dialogId)?.querySelector('#fullname') as HTMLInputElement;
         let account = document.getElementById(dialogId)?.querySelector('#account') as HTMLInputElement;
         let email = document.getElementById(dialogId)?.querySelector('#email') as HTMLInputElement;
         let roleId = document.getElementById(dialogId)?.querySelector('#roleId_hidden') as HTMLInputElement;
 
-        let data = {
+        this.createStaffVM = {
             fullname: fullname.value,
             account: account.value,
             email: email.value,
             roleIds: [~~roleId.value],
         };
-
-        return data;
     }
 }

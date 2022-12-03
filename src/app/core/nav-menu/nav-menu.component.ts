@@ -6,7 +6,7 @@ import { AuthenticationService } from '../authentication/authentication.service'
 import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AlertService } from '../services/alert.service';
-import { SignalrService } from '../services/signalr.service';
+import { CronJobSignalrService } from '../services/cronjob-signalr.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -23,7 +23,7 @@ export class NavMenuComponent implements OnInit, OnDestroy {
   isLibrarian = false;
 
   constructor(
-    public signalRService: SignalrService,
+    public cronJobSignalRService: CronJobSignalrService,
     private alertService: AlertService,
     private router: Router,
     private authenticationService: AuthenticationService,
@@ -46,8 +46,8 @@ export class NavMenuComponent implements OnInit, OnDestroy {
       // this.isLibrarian = accountTypes.includes('librarian');
     }
 
-    this.signalRService.startConnection();
-    this.signalRService.addJobListener();   
+    this.cronJobSignalRService.startConnection();
+    this.cronJobSignalRService.addJobListener();   
     // this.signalRService.broadcastJob();   
     // this.startHttpRequest();
   }

@@ -9,6 +9,7 @@ import { JobService } from 'src/app/core/services/jobs.service';
 import { ProductLevelService } from 'src/app/core/services/productLevels.service';
 import { StaffService } from 'src/app/core/services/staffs.service';
 import { StepService } from 'src/app/core/services/steps.service';
+import { AddStepsToJobVM } from 'src/app/shared/models/addStepsToJobVM';
 import { ProductLevel } from 'src/app/shared/models/productLevel';
 
 @Component({
@@ -60,6 +61,8 @@ export class AddJobStepComponent implements OnInit {
     public stepfields: Object = { text: 'Name', value: 'Id' };
     public steptext: string = "Select a Step";
 
+    public addStepsToJobVM!: AddStepsToJobVM;
+
     ngOnInit() {
         //this.initilaizeTarget();
         this.dialogObj?.hide();
@@ -106,28 +109,28 @@ export class AddJobStepComponent implements OnInit {
 
     public onFormSubmit(): void {
         this.dialogObj.show();
-        let formData = this.getAddStepsToJobVM();
-        console.log(JSON.stringify(formData));
+        this.setAddStepsToJobVM();
 
-        this.jobService.addStepsToJob(formData)
+        console.log(JSON.stringify(this.addStepsToJobVM));
+
+        this.jobService.addStepsToJob(this.addStepsToJobVM)
             .subscribe(res => {
                 this.alertService.showToastSuccess();
-                this.router.navigate([`/jobs/${this.jobId}`]);
+                //this.router.navigate([`/jobs/${this.jobId}`]);
+                window.location.reload();
             }, (err) => {
                 this.alertService.showToastError();
                 console.log(err);
             });
     }
 
-    public getAddStepsToJobVM: EmitType<object> = () => {
+    public setAddStepsToJobVM: EmitType<object> = () => {
         const dialogId = 'FormDialog';
 
         let stepId = document.getElementById(dialogId)?.querySelector('#stepId_hidden') as HTMLInputElement;
-        let data = {
+        this.addStepsToJobVM = {
             jobId: this.jobId,
             stepIds: [~~stepId.value]
         };
-
-        return data;
     }
 }

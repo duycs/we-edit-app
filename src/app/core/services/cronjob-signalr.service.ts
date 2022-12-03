@@ -5,7 +5,7 @@ import * as signalR from "@microsoft/signalr"
     providedIn: 'root'
 })
 
-export class SignalrService {
+export class CronJobSignalrService {
     private hubConnection!: signalR.HubConnection
     public message: string = "Auto assign Job is disabled";
     public autoAssignResponse!: any;

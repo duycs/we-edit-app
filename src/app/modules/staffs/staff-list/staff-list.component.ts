@@ -34,7 +34,7 @@ export class StaffListComponent implements OnInit {
     });
   }
 
-  public data!: Staff[];
+  public staffs!: Staff[];
   public pageSettings!: PageSettingsModel;
 
   ngOnInit(): void {
@@ -42,16 +42,14 @@ export class StaffListComponent implements OnInit {
   }
 
   inShiftClick(data: any): void {
-    console.log(data);
     let staffInShiftVM = {
       staffId: data.id
     };
-    console.log("staffInShiftVM", staffInShiftVM);
 
     this.staffService.addInShiftForStaff(staffInShiftVM)
       .subscribe(res => {
         this.alertService.showToastSuccess();
-        console.log(res);
+        this.getStaffs();
       }, (err) => {
         this.alertService.showToastError();
         console.log(err);
@@ -62,12 +60,11 @@ export class StaffListComponent implements OnInit {
     let staffOutShiftVM = {
       staffId: data.id
     };
-    console.log("staffOutShiftVM", staffOutShiftVM);
 
     this.staffService.addOutShiftForStaff(staffOutShiftVM)
       .subscribe(res => {
         this.alertService.showToastSuccess();
-        console.log(res);
+        this.getStaffs();
       }, (err) => {
         this.alertService.showToastError();
         console.log(err);
@@ -77,10 +74,8 @@ export class StaffListComponent implements OnInit {
   getStaffs(): void {
     this.staffService.getStaffs(this.page, this.size, true)
       .subscribe(res => {
-        this.data = this.mappingDisplayNameOfRoleAndProductLevel(res.data);
-
+        this.staffs = this.mappingDisplayNameOfRoleAndProductLevel(res.data);
         this.pageSettings = { pageSize: this.size };
-        console.log(res);
       }, (err) => {
         this.alertService.showToastError();
         console.log(err);

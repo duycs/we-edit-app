@@ -1,5 +1,5 @@
 <button class="e-control e-btn" style="position: absolute; z-index: 9999; margin: 12px;" id="targetButton"
-  (click)="onOpenDialog($event)">
+  (click)="onOpenAddProductLevelDialog($event)">
   Add Product-Level
 </button>
 
@@ -9,7 +9,7 @@
     <div class="col-lg-12">
       <div class="control_wrapper" id="control_wrapper" style="margin: 10px auto;">
         <ejs-dialog id="FormDialogAddProductLevelForStaff" class="color-primary" header='Add Product-Level for Staff'
-          #FormDialog width='450px' [showCloseIcon]='true' target='.control-section'>
+          #FormDialogAddProductLevelForStaff width='450px' [showCloseIcon]='true' target='.control-section'>
           <ng-template #content>
             <form id="template_driven" #form="ngForm" novalidate>
 

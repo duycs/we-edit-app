@@ -42,9 +42,9 @@ export class StepListComponent implements OnInit {
   }
 
   getSteps(): void {
-    this.stepService.getSteps()
+    this.stepService.getPaggedSteps(this.page, this.size, true)
       .subscribe(res => {
-        this.data = res;
+        this.data = res.data;
         this.pageSettings = { pageSize: this.size };
         console.log(res);
       }, (err) => {

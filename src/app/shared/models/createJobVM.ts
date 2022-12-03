@@ -4,7 +4,6 @@ export interface CreateJobVM {
     csoStaffId: number;
     jobName: string;
     code: string;
-    picNumber: number;
     instruction: string;
     inputInfo: string;
     inputNumber: number;

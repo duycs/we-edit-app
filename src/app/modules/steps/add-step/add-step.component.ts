@@ -106,7 +106,8 @@ export class AddStepComponent implements OnInit {
         this.stepService.addStep(formData)
             .subscribe(res => {
                 this.alertService.showToastSuccess();
-                this.router.navigate(['/steps']);
+                //this.router.navigate([`/steps/${res.id}`]);
+                window.location.reload();
             }, (err) => {
                 this.alertService.showToastError();
                 console.log(err);

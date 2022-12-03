@@ -22,7 +22,7 @@ export class AddProductLevelComponent implements OnInit {
     @ViewChild('formUpload')
     public uploadObj!: UploaderComponent;
 
-    @ViewChild('FormDialog')
+    @ViewChild('FormDialogProductLevel')
     public dialogObj!: DialogComponent;
 
     public width: string = '335px';
@@ -86,7 +86,8 @@ export class AddProductLevelComponent implements OnInit {
         this.productLevelService.addProductLevel(formData)
             .subscribe(res => {
                 this.alertService.showToastSuccess();
-                this.router.navigate(['/productLevels']);
+                //this.router.navigate(['/productLevels']);
+                window.location.reload();
             }, (err) => {
                 this.alertService.showToastError();
                 console.log(err);

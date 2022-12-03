@@ -8,6 +8,7 @@ import { Staff } from 'src/app/shared/models/staff';
 import { JobService } from 'src/app/core/services/jobs.service';
 import { Job } from 'src/app/shared/models/job';
 import { PageSettingsModel } from '@syncfusion/ej2-angular-grids';
+import { MappingModels } from 'src/app/shared/models/mapping-models';
 
 @Component({
   selector: 'app-job-list',
@@ -27,6 +28,7 @@ export class JobListComponent implements OnInit {
   constructor(private router: Router,
     private authenticationService: AuthenticationService,
     private jobService: JobService,
+    private mappingModels : MappingModels,
     private alertService: AlertService) {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
       this.currentUser = user;
@@ -43,7 +45,7 @@ export class JobListComponent implements OnInit {
   getJobs(): void {
     this.jobService.getJobs(this.page, this.size, true)
       .subscribe(res => {
-        this.data = this.mappingDisplayNameOfLocationAndStatus(res.data);
+        this.data = this.mappingModels.MappingDisplayNameFieldsOfJobs(res.data);
         this.pageSettings = { pageSize: this.size };
         console.log(res);
       }, (err) => {
@@ -51,56 +53,5 @@ export class JobListComponent implements OnInit {
         console.log(err);
       });
   }
-
-  mappingDisplayNameOfLocationAndStatus(jobs: Job[]) {
-    jobs.forEach(job => {
-      if (job.location != null) {
-        switch (job.location) {
-          case 0:
-            job.locationname = "EU";
-            break;
-
-          case 1:
-            job.locationname = "US";
-            break;
-
-          case 2:
-            job.locationname = "AU";
-            break;
-
-          default:
-            job.locationname = "none";
-            break;
-        }
-      }
-
-      if (job.status != null) {
-        switch (job.status) {
-          case 0:
-            job.statusname = "Todo";
-            break;
-
-          case 1:
-            job.statusname = "Doing";
-            break;
-
-          case 2:
-            job.statusname = "Done";
-            break;
-
-          case 3:
-            job.statusname = "Pending";
-            break;
-
-          default:
-            job.statusname = "none";
-            break;
-        }
-      }
-    });
-
-    return jobs;
-  }
-
 
 }

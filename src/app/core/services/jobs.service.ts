@@ -44,10 +44,10 @@ export class JobService {
     );
   }
 
-  addJob(createJobVM: any): Observable<CreateJobVM> {
-    return this.http.post<CreateJobVM>(apiUrl, createJobVM, httpOptions).pipe(
-      tap((createJobVM: CreateJobVM) => console.log('added')),
-      catchError(this.handleError<CreateJobVM>('addJob'))
+  addJob(createJobVM: CreateJobVM): Observable<Job> {
+    return this.http.post<Job>(apiUrl, createJobVM, httpOptions).pipe(
+      tap((job: Job) => console.log('added')),
+      catchError(this.handleError<Job>('addJob'))
     );
   }
 
@@ -67,11 +67,11 @@ export class JobService {
     );
   }
 
-  addStepsToJob(addStepsToJobVM: any): Observable<AddStepsToJobVM> {
+  addStepsToJob(addStepsToJobVM: AddStepsToJobVM): Observable<JobStep> {
     const url = `${apiUrl}/steps`
-    return this.http.post<AddStepsToJobVM>(url, addStepsToJobVM, httpOptions).pipe(
-      tap((addStepsToJobVM: AddStepsToJobVM) => console.log('added')),
-      catchError(this.handleError<AddStepsToJobVM>('addStepsToJob'))
+    return this.http.post<JobStep>(url, addStepsToJobVM, httpOptions).pipe(
+      tap((jobStep: JobStep) => console.log('added')),
+      catchError(this.handleError<JobStep>('addStepsToJob'))
     );
   }
 

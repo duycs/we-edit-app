@@ -1,0 +1,36 @@
+import { Injectable } from '@angular/core';
+import * as signalR from "@microsoft/signalr"
+
+@Injectable({
+    providedIn: 'root'
+})
+
+export class APISignalRService {
+    private hubConnection!: signalR.HubConnection
+    public message: string = "API signal is disabled";
+    public jobs!: any[];
+    public bradcastedJobs!: any[];
+
+    public startConnection = () => {
+        this.hubConnection = new signalR.HubConnectionBuilder()
+            .withUrl('https://localhost:7227/apishub')
+            .build();
+        this.hubConnection
+            .start()
+            .then(() => {
+                this.message = "API signal connecting...";
+                console.log('Connection started');
+            })
+            .catch(err => {
+                this.message = "API signal error while starting";
+                console.log('Error while starting connection: ' + err);
+            })
+    }
+
+    public addGetJobsListener = () => {
+        this.hubConnection.on('GetJobs', (data) => {
+            this.jobs = data;
+            console.log(data);
+        });
+    }
+}

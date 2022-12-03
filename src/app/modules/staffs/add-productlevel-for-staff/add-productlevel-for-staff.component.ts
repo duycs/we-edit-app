@@ -26,7 +26,7 @@ export class AddProductLevelForStaffComponent implements OnInit {
     @ViewChild('formUpload')
     public uploadObj!: UploaderComponent;
 
-    @ViewChild('FormDialog')
+    @ViewChild('FormDialogAddProductLevelForStaff')
     public dialogObj!: DialogComponent;
 
     public width: string = '335px';
@@ -35,7 +35,7 @@ export class AddProductLevelForStaffComponent implements OnInit {
     public showCloseIcon: Boolean = true;
     public formHeader: string = 'Success';
     public contentData: string = 'Your details have been updated successfully, Thank you.';
-    public target: string = '#FormDialog';
+    public target: string = '#FormDialogAddProductLevelForStaff';
     public isModal: boolean = true;
     public animationSettings: object = {
         effect: 'Zoom'
@@ -58,7 +58,6 @@ export class AddProductLevelForStaffComponent implements OnInit {
     public stafftext: string = "Select a Staff";
 
     ngOnInit() {
-        //this.initilaizeTarget();
         this.dialogObj?.hide();
         this.fetchProductLevelDropdown();
         this.fetchStaffDropdown();
@@ -90,27 +89,15 @@ export class AddProductLevelForStaffComponent implements OnInit {
             });
     }
 
-    initilaizeTarget: EmitType<object> = () => {
-        // ISSUE: Cannot read properties of undefined (reading 'nativeElement')
-        this.targetElement = this.container.nativeElement.parentElement;
-    }
-
-    public onOpenDialog(event: any): void {
+    public onOpenAddProductLevelDialog(event: any): void {
         // ISSUE:  Cannot read properties of undefined (reading 'show')
         this.dialogObj.show();
         document.getElementById('container-ejs-dialog')?.style.setProperty('display', 'block');
     }
 
-    public browseClick() {
-        document.getElementsByClassName('e-file-select-wrap')[0].querySelector('button')?.click(); return false;
-    }
-
     public Submit(): void {
         this.onFormSubmit();
         document.getElementById('container-ejs-dialog')?.style.setProperty('display', 'none');
-    }
-    public onFileSelect: EmitType<Object> = (args: any) => {
-        this.uploadInput = args.filesData[0].name;
     }
 
     public onFormSubmit(): void {

@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 import { AppSettings } from 'src/app/configs/app-settings.config';
 import { Step } from 'src/app/shared/models/step';
+import { PaggedDataStep } from 'src/app/shared/models/paggedDataStep';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -20,11 +21,19 @@ export class StepService {
   constructor(private http: HttpClient) { }
 
   getSteps(): Observable<Step[]> {
-    const url = `${apiUrl}`;
-    return this.http.get<Step[]>(url)
+    return this.http.get<Step[]>(apiUrl)
       .pipe(
-        tap(productLevels => console.log('Fetch Steps')),
+        tap(steps => console.log('Fetch Steps')),
         catchError(this.handleError<Step[]>('getSteps'))
+      );
+  }
+
+  getPaggedSteps(page: number = 1, size: number = sizeDefault, isInclude: boolean = true): Observable<PaggedDataStep> {
+    const url = `${apiUrl}?pageNumber=${page}&pageSize=${size}&isInclude=${isInclude}`;
+    return this.http.get<PaggedDataStep>(url)
+      .pipe(
+        tap(paggedDataStep => console.log('Fetch Steps')),
+        catchError(this.handleError<PaggedDataStep>('getSteps'))
       );
   }
 

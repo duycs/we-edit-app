@@ -55,10 +55,10 @@ export class StaffService {
   }
 
 
-  addStaff(createStaffVM: any): Observable<CreateStaffVM> {
-    return this.http.post<CreateStaffVM>(apiUrl, createStaffVM, httpOptions).pipe(
-      tap((createStaffVM: CreateStaffVM) => console.log('added')),
-      catchError(this.handleError<CreateStaffVM>('addStaff'))
+  addStaff(createStaffVM: CreateStaffVM): Observable<Staff> {
+    return this.http.post<Staff>(apiUrl, createStaffVM, httpOptions).pipe(
+      tap((staff: Staff) => console.log('added')),
+      catchError(this.handleError<Staff>('addStaff'))
     );
   }
 
