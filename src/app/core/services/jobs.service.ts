@@ -26,9 +26,9 @@ export class JobService {
 
   constructor(private http: HttpClient) { }
 
-  getJobs(page: number = 1, size: number = sizeDefault, isInclude: boolean = true)
+  getJobs(page: number = 1, size: number = sizeDefault, searchValue: string = '', isInclude: boolean = true)
     : Observable<PaggedDataJob> {
-    const url = `${apiUrl}?pageNumber=${page}&pageSize=${size}&isInclude=${isInclude}`;
+    const url = `${apiUrl}?pageNumber=${page}&pageSize=${size}&isInclude=${isInclude}&searchValue=${searchValue}`;
     return this.http.get<PaggedDataJob>(url)
       .pipe(
         tap(paggedJobData => console.log('Fetch paggedJobData')),
@@ -45,6 +45,7 @@ export class JobService {
   }
 
   addJob(createJobVM: CreateJobVM): Observable<Job> {
+    console.log(createJobVM);
     return this.http.post<Job>(apiUrl, createJobVM, httpOptions).pipe(
       tap((job: Job) => console.log('added')),
       catchError(this.handleError<Job>('addJob'))

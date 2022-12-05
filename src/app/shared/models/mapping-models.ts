@@ -127,6 +127,27 @@ export class MappingModels {
             }
         }
 
+        if (job.deliverType != null) {
+            switch (job.deliverType) {
+                case 0:
+                    job.deliverTypename = "V1";
+                    break;
+
+                case 1:
+                    job.deliverTypename = "V2";
+                    break;
+
+                case 2:
+                    job.deliverTypename = "V3";
+                    break;
+
+                default:
+                    job.deliverTypename = "none";
+                    break;
+            }
+        }
+        
         return job;
+
     }
 }

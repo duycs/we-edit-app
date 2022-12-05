@@ -1,25 +1,13 @@
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+a{
+  text-decoration: none;
+  color: white;
 }
 
-html {
-  font-size: 14px;
+a:hover, a:active{
+  color: lightgray;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+.nav-caption{
+  display: inline-block;
+  padding-left: 6px;
 }
-
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
-
-button {
-  color: white !important;
-}
-
-#js-licensing {display: none!important;}

@@ -28,4 +28,5 @@ export interface Job {
   locationname: string;
   statusname: string;
   appname: string;
+  deliverTypename: string;
 }

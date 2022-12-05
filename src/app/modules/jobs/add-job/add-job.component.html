@@ -1,180 +1,96 @@
-<button class="e-control e-btn" style="z-index: 9999; margin: 12px;" id="targetButton"
-  (click)="onOpenDialog($event)">
-  Add Job
-</button>
+<h2 mat-dialog-title>{{title}}</h2>
 
-<div #container id="container-ejs-dialog" class='root-container'>
+<mat-dialog-content [formGroup]="form">
 
-  <div class="control-section">
-    <div class="col-lg-12">
-      <div class="control_wrapper" id="control_wrapper" style="margin: 10px auto;">
-        <ejs-dialog id="FormDialog" class="color-primary" header='Add new Job' #FormDialog width='450px' [showCloseIcon]='true'
-          target='.control-section'>
-          <ng-template #content>
-            <form id="template_driven" #form="ngForm" novalidate>
+  <mat-form-field appearance="fill">
+    <mat-label>Choose a date</mat-label>
+    <input matInput [matDatepicker]="date" formControlName="date">
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="date"></mat-datepicker-toggle>
+    <mat-datepicker #date></mat-datepicker>
+  </mat-form-field>
 
-              <div class="form-group" style="padding-top: 11px;">
-                <div class="e-float-input">
-                  <input type="date" id="date" #dateval='ngModel' name="date" required ngModel>
-                  <span class="e-float-line"></span>
-                  <label class="e-float-text e-label-top" for="date">Date</label>
-                  <div *ngIf="(dateval.invalid && (dateval.dirty || dateval.touched))">
-                    <div class="e-error" *ngIf="dateval.errors?.['required']">
-                      * Enter Date
-                    </div>
-                  </div>
-                </div>
-              </div>
+  <mat-form-field appearance="fill">
+    <mat-label>Location</mat-label>
+    <mat-select formControlName="locationId">
+      <mat-option>None</mat-option>
+      <mat-option *ngFor="let location of locations" [value]="location.id">{{location.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
 
-              <div class="form-group" style="padding-top: 11px;">
-                <div class="e-float-input">
-                  <span class="e-float-line"></span>
-                  <ejs-dropdownlist id='locationId' #locationIdval='ngModel' [dataSource]='locationdata' required
-                    ngModel [fields]='locationfields' [placeholder]='locationtext'></ejs-dropdownlist>
-                  <div *ngIf="(locationIdval.invalid && (locationIdval.dirty || locationIdval.touched))">
-                    <div class="e-error" *ngIf="locationIdval.errors?.['required']">
-                      * Select a Location
-                    </div>
-                  </div>
-                </div>
-              </div>
+  <mat-form-field appearance="fill">
+    <mat-label>CSO</mat-label>
+    <mat-select formControlName="csoStaffId">
+      <mat-option>None</mat-option>
+      <mat-option *ngFor="let staff of csoStaffs" [value]="staff.id">{{staff.fullName}}</mat-option>
+    </mat-select>
+  </mat-form-field>
 
-              <div class="form-group" style="padding-top: 11px;">
-                <div class="e-float-input">
-                    <span class="e-float-line"></span>
-                    <ejs-dropdownlist id='csoId' #csoIdval='ngModel' [dataSource]='csodata'
-                      required ngModel [fields]='csofields' [placeholder]='csotext'></ejs-dropdownlist>
-                    <div *ngIf="(csoIdval.invalid && (csoIdval.dirty || csoIdval.touched))">
-                      <div class="e-error" *ngIf="csoIdval.errors?.['required']">
-                        * Select a CSO
-                      </div>
-                    </div>
-                  </div>
-              </div>
+  <mat-form-field>
+    <mat-label>Job ID</mat-label>
+    <input matInput placeholder="Job ID" formControlName="jobId">
+  </mat-form-field>
 
-              <div class="form-group" style="padding-top: 11px;">
-                <div class="e-float-input">
-                  <input type="text" id="jobName" #jobNameval='ngModel' name="jobName" required ngModel>
-                  <span class="e-float-line"></span>
-                  <label class="e-float-text e-label-top" for="jobName">Job Name</label>
-                  <div *ngIf="(jobNameval.invalid && (jobNameval.dirty || jobNameval.touched))">
-                    <div class="e-error" *ngIf="jobNameval.errors?.['required']">
-                      * Enter Job Name
-                    </div>
-                  </div>
-                </div>
-              </div>
+  <mat-form-field>
+    <mat-label>Job Name</mat-label>
+    <input matInput placeholder="Job Name" formControlName="jobName">
+  </mat-form-field>
 
-              <div class="form-group" style="padding-top: 11px;">
-                <div class="e-float-input">
-                  <input type="text" id="code" #codeval='ngModel' name="code" required ngModel>
-                  <span class="e-float-line"></span>
-                  <label class="e-float-text e-label-top" for="code">Code</label>
-                  <div *ngIf="(codeval.invalid && (codeval.dirty || codeval.touched))">
-                    <div class="e-error" *ngIf="codeval.errors?.['required']">
-                      * Enter Code
-                    </div>
-                  </div>
-                </div>
-              </div>
+  <mat-form-field>
+    <mat-label>Code</mat-label>
+    <input matInput placeholder="Code" formControlName="code">
+  </mat-form-field>
 
-              <div class="form-group" style="padding-top: 11px;">
-                <div class="e-float-input">
-                  <input type="number" id="inputNumber" #inputNumberval='ngModel' name="inputNumber" required ngModel>
-                  <span class="e-float-line"></span>
-                  <label class="e-float-text e-label-top" for="inputNumber">Input Number</label>
-                  <div *ngIf="(inputNumberval.invalid && (inputNumberval.dirty || inputNumberval.touched))">
-                    <div class="e-error" *ngIf="inputNumberval.errors?.['required']">
-                      * Enter Input Number
-                    </div>
-                  </div>
-                </div>
-              </div>
+  <mat-form-field>
+    <mat-label>Instruction</mat-label>
+    <input matInput placeholder="Instruction" formControlName="instruction">
+  </mat-form-field>
 
-              <div class="form-group" style="padding-top: 11px;">
-                <div class="e-float-input">
-                  <input type="text" id="instruction" #instructionval='ngModel' name="instruction" required ngModel>
-                  <span class="e-float-line"></span>
-                  <label class="e-float-text e-label-top" for="instruction">Instruction</label>
-                  <div *ngIf="(instructionval.invalid && (instructionval.dirty || instructionval.touched))">
-                    <div class="e-error" *ngIf="instructionval.errors?.['required']">
-                      * Enter Instruction
-                    </div>
-                  </div>
-                </div>
-              </div>
+  <mat-form-field>
+    <mat-label>Input Number</mat-label>
+    <input matInput placeholder="inputNumber" formControlName="inputNumber">
+  </mat-form-field>
 
-              <div class="form-group" style="padding-top: 11px;">
-                <div class="e-float-input">
-                  <span class="e-float-line"></span>
-                  <ejs-dropdownlist id='deliverTypeId' #deliverTypeIdval='ngModel' [dataSource]='deliverTypedata'
-                    required ngModel [fields]='deliverTypefields' [placeholder]='deliverTypetext'></ejs-dropdownlist>
-                  <div *ngIf="(deliverTypeIdval.invalid && (deliverTypeIdval.dirty || deliverTypeIdval.touched))">
-                    <div class="e-error" *ngIf="deliverTypeIdval.errors?.['required']">
-                      * Select a Deliver Type
-                    </div>
-                  </div>
-                </div>
-              </div>
+  <mat-form-field appearance="fill">
+    <mat-label>Product Level</mat-label>
+    <mat-select formControlName="productLevelId">
+      <mat-option>None</mat-option>
+      <mat-option *ngFor="let productLevel of productLevels" [value]="productLevel.id">{{productLevel.code}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
-              <div class="form-group" style="padding-top: 11px;">
-                <div class="e-float-input">
-                  <span class="e-float-line"></span>
-                  <ejs-dropdownlist id='productLevelId' #productLevelIdval='ngModel' [dataSource]='productLeveldata'
-                    required ngModel [fields]='productLevelfields' [placeholder]='productLeveltext'></ejs-dropdownlist>
-                  <div *ngIf="(productLevelIdval.invalid && (productLevelIdval.dirty || productLevelIdval.touched))">
-                    <div class="e-error" *ngIf="productLevelIdval.errors?.['required']">
-                      * Select a ProductLevel
-                    </div>
-                  </div>
-                </div>
-              </div>
+  <mat-form-field appearance="fill">
+    <mat-label>Deliver Type</mat-label>
+    <mat-select formControlName="deliverTypeId">
+      <mat-option>None</mat-option>
+      <mat-option *ngFor="let deliverType of deliverTypes" [value]="deliverType.id">{{deliverType.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
-              <div class="form-group" style="padding-top: 11px;">
-                <div class="e-float-input">
-                  <input type="date" id="deadline" #deadlineval='ngModel' name="deadline" required ngModel>
-                  <span class="e-float-line"></span>
-                  <label class="e-float-text e-label-top" for="deadline">Deadline</label>
-                  <div *ngIf="(deadlineval.invalid && (deadlineval.dirty || deadlineval.touched))">
-                    <div class="e-error" *ngIf="deadlineval.errors?.['required']">
-                      * Enter Deadline
-                    </div>
-                  </div>
-                </div>
-              </div>
+  <mat-form-field appearance="fill">
+    <mat-label>Choose a deadline</mat-label>
+    <input matInput [matDatepicker]="date" formControlName="deadline">
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="deadline"></mat-datepicker-toggle>
+    <mat-datepicker #deadline></mat-datepicker>
+  </mat-form-field>
 
-              <div class="form-group" style="padding-top: 11px;">
-                <div class="e-float-input">
-                  <span class="e-float-line"></span>
-                  <ejs-dropdownlist id='appId' #appIdval='ngModel' [dataSource]='appdata' required ngModel
-                    [fields]='appfields' [placeholder]='apptext'></ejs-dropdownlist>
-                  <div *ngIf="(appIdval.invalid && (appIdval.dirty || appIdval.touched))">
-                    <div class="e-error" *ngIf="appIdval.errors?.['required']">
-                      * Select an App
-                    </div>
-                  </div>
-                </div>
-              </div>
+  <mat-form-field appearance="fill">
+    <mat-label>App</mat-label>
+    <mat-select formControlName="appId">
+      <mat-option>None</mat-option>
+      <mat-option *ngFor="let app of apps" [value]="app.id">{{app.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
 
 
-              <div class="form-group" style="padding-top: 11px;">
-                <div class="submitBtn">
-                  <button class="submit-btn e-btn" id="submit-btn" [disabled]="form.invalid" type="reset"
-                    (click)="Submit()">Submit</button>
-                  <div class="desc"><span></span></div>
-                </div>
-              </div>
+</mat-dialog-content>
 
-            </form>
-          </ng-template>
-        </ejs-dialog>
-
-      </div>
-    </div>
+<mat-dialog-actions class="container">
+  <div class="group-btn">
+    <button mat-raised-button color="primary" (click)="close()">Close</button>
+    <button mat-raised-button color="primary" (click)="save()">Save</button>
   </div>
-  <ejs-dialog id="confirmationDialog" #Dialog [buttons]='dlgButtons' [animationSettings]='animationSettings'
-    [header]='formHeader' [showCloseIcon]='showCloseIcon' [content]='contentData' [target]='target' [width]='width'
-    [visible]="visible" [isModal]="isModal">
-  </ejs-dialog>
-
-</div>
+</mat-dialog-actions>

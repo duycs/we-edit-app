@@ -81,7 +81,6 @@ export class AddProductLevelComponent implements OnInit {
     public onFormSubmit(): void {
         this.dialogObj.show();
         let formData = this.getDynamicContent();
-        console.log(JSON.stringify(formData));
 
         this.productLevelService.addProductLevel(formData)
             .subscribe(res => {

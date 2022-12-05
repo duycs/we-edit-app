@@ -1,14 +1,19 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup, Validators, FormBuilder, NgForm } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged, fromEvent, merge, Subscription, tap } from 'rxjs';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { AuthenticationService } from 'src/app/core/authentication/authentication.service';
 import { Staff } from 'src/app/shared/models/staff';
 import { JobService } from 'src/app/core/services/jobs.service';
 import { Job } from 'src/app/shared/models/job';
-import { PageSettingsModel } from '@syncfusion/ej2-angular-grids';
 import { MappingModels } from 'src/app/shared/models/mapping-models';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { JobsDataSource } from './jobs-data-source';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AddJobComponent } from '../add-job/add-job.component';
+
+// Ref: https://blog.angular-university.io/angular-material-data-table/
 
 @Component({
   selector: 'app-job-list',
@@ -16,42 +21,116 @@ import { MappingModels } from 'src/app/shared/models/mapping-models';
   styleUrls: ['./job-list.component.css']
 })
 
-export class JobListComponent implements OnInit {
+export class JobListComponent implements OnInit, AfterViewInit {
   currentUser!: Staff;
   currentUserSubscription: Subscription;
   users: Staff[] = [];
 
-  public jobs!: Job[];
-  page: number = 1;
-  size: number = 100;
+  length = 50;
+  pageSize = 10;
+  pageIndex = 0;
+  pageSizeOptions = [5, 10, 25];
+  pageEvent!: PageEvent;
+
+  hidePageSize = false;
+  showPageSizeOptions = true;
+  showFirstLastButtons = true;
+  disabled = false;
+
+  displayedColumns: string[] = ['id', 'date', 'location', 'cso', 'jobId', 'code', 'instruction', 'inputNumber',
+    'productLevel', 'startTime', 'endTime', 'deadline', 'deliverType', 'app',];
+  job!: Job;
+  jobCount!: number;
+  dataSource!: JobsDataSource;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild('input') input!: ElementRef;
 
   constructor(private router: Router,
+    private route: ActivatedRoute,
     private authenticationService: AuthenticationService,
     private jobService: JobService,
-    private mappingModels : MappingModels,
+    private mappingModel: MappingModels,
+    private dialog: MatDialog,
     private alertService: AlertService) {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
       this.currentUser = user;
+      this.dataSource = new JobsDataSource(this.jobService, this.mappingModel);
     });
   }
 
-  public data!: object[];
-  public pageSettings!: PageSettingsModel;
+  ngAfterViewInit() {
+    // server-side search
+    fromEvent(this.input.nativeElement, 'keyup')
+      .pipe(
+        debounceTime(150),
+        distinctUntilChanged(),
+        tap(() => {
+          this.paginator.pageIndex = 0;
+          this.loadJobsPage();
+        })
+      )
+      .subscribe();
 
-  ngOnInit(): void {
-    this.getJobs();
+    if (this.sort && this.sort.sortChange) {
+      // reset the paginator after sorting
+      this.sort?.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+
+      // on sort or paginate events, load a new page
+      merge(this.sort?.sortChange, this.paginator.page)
+        .pipe(
+          tap(() => this.loadJobsPage())
+        )
+        .subscribe();
+    }
   }
 
-  getJobs(): void {
-    this.jobService.getJobs(this.page, this.size, true)
-      .subscribe(res => {
-        this.data = this.mappingModels.MappingDisplayNameFieldsOfJobs(res.data);
-        this.pageSettings = { pageSize: this.size };
-        console.log(res);
-      }, (err) => {
-        this.alertService.showToastError();
-        console.log(err);
-      });
+  ngOnInit(): void {
+    this.job = this.route.snapshot.data["id"];
+    this.dataSource.loadJobs();
+  }
+
+  onRowClicked(row: any) {
+    console.log('Row clicked: ', row);
+    this.router.navigate([`/jobs/${row.id}`]);
+  }
+
+  loadJobsPage() {
+    this.dataSource.loadJobs(
+      this.job?.id,
+      this.input.nativeElement.value,
+      this.sort.direction,
+      this.paginator.pageIndex,
+      this.paginator.pageSize);
+  }
+
+  handlePageEvent(e: PageEvent) {
+    this.pageEvent = e;
+    this.length = e.length;
+    this.pageSize = e.pageSize;
+    this.pageIndex = e.pageIndex;
+
+    this.loadJobsPage();
+  }
+
+  openAddJobDialog() {
+    console.log("openAddJobDialog");
+    const dialogConfig = new MatDialogConfig();
+
+    // dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = {
+    };
+
+    //this.dialog.open(AddJobComponent, dialogConfig);
+
+    const dialogRef = this.dialog.open(AddJobComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(
+      data => console.log("Dialog output:", data)
+    );
   }
 
 }

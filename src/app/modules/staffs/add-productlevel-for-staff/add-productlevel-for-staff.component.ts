@@ -103,12 +103,13 @@ export class AddProductLevelForStaffComponent implements OnInit {
     public onFormSubmit(): void {
         this.dialogObj.show();
         let formData = this.getDynamicContent();
-        console.log(JSON.stringify(formData));
 
         this.staffService.addProductLevelsForStaff(formData)
             .subscribe(res => {
                 this.alertService.showToastSuccess();
-                this.router.navigate(['/staffs']);
+                //this.router.navigate(['/staffs']);
+                window.location.reload();
+
             }, (err) => {
                 this.alertService.showToastError();
                 console.log(err);

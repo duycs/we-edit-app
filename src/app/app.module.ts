@@ -25,6 +25,7 @@ import { StepsComponent } from './modules/steps/steps.component';
 import { StepsModule } from './modules/steps/steps.module';
 import { ProductLevelsComponent } from './modules/productlevels/productlevels.component';
 import { ProductLevelsModule } from './modules/productlevels/productlevels.module';
+import { HeaderComponent } from './core/header/header.component';
 
 
 const appRoutes: Routes = [
@@ -44,6 +45,7 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     NavMenuComponent,
+    HeaderComponent,
     JobsComponent,
     StaffsComponent,
     StepsComponent,
@@ -56,7 +58,6 @@ const appRoutes: Routes = [
     UploaderModule,
     SharedModule,
     BrowserAnimationsModule,
-    MaterialModule,
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
@@ -65,6 +66,8 @@ const appRoutes: Routes = [
     RouterModule.forChild([]),
     BrowserAnimationsModule,
     NoopAnimationsModule,
+
+    MaterialModule,
 
     //app modules
     JobsModule,

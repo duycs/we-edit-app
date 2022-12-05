@@ -1,57 +1,66 @@
-/* You can add global styles to this file, and also import other style files */
-
-@import '../node_modules/@syncfusion/ej2-base/styles/material.css';
-@import '../node_modules/@syncfusion/ej2-buttons/styles/material.css';
-@import '../node_modules/@syncfusion/ej2-calendars/styles/material.css';
-@import '../node_modules/@syncfusion/ej2-dropdowns/styles/material.css';
-@import '../node_modules/@syncfusion/ej2-inputs/styles/material.css';
-@import '../node_modules/@syncfusion/ej2-navigations/styles/material.css';
-@import '../node_modules/@syncfusion/ej2-popups/styles/material.css';
-@import '../node_modules/@syncfusion/ej2-splitbuttons/styles/material.css';
-@import '../node_modules/@syncfusion/ej2-notifications/styles/material.css';
-@import '../node_modules/@syncfusion/ej2-angular-grids/styles/material.css';
-
+/* for sidenav to take a whole page */
 html,
 body {
+  margin: 0;
   height: 100%;
 }
 
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+mat-sidenav-container,
+mat-sidenav-content,
+mat-sidenav {
+  height: 100%;
 }
 
-#js-licensing {
-  display: none !important;
+mat-sidenav {
+  width: 250px;
 }
 
-.container-head {
-  /* margin: 10px; */
+main {
+  padding: 10px;
+}
+
+mat-toolbar li a {
+  float: left;
+  margin-left: 20px;
+}
+
+mat-toolbar li {
+  float: right;
+}
+
+mat-toolbar .menu {
+  width: 100%;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-dialog-container {
+  max-width: 50vw;
+}
+
+mat-dialog-actions {
+  margin: 14px;
+}
+
+.cdk-overlay-pane {
+  width: 30vw;
+}
+
+.search-field {
+  width: 500px;
+  float: right;
+}
+
+.mat-elevation-z8 {
   padding: 12px;
 }
 
-.card {
-  /* Add shadows to create the "card" effect */
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  transition: 0.3s;
-  margin: 0 12px;
-  padding: 12px;
+.group-btn {
+  margin: 15px;
 }
 
-.card.margin-top {
-  margin-top: 35px;
-}
-
-.header p {
-  margin: 0 0 10px 0;
-}
-
-/* On mouse-over, add a deeper shadow */
-.card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-}
-
-/* Add some padding inside the card container */
-.card .container {
-  /* padding: 2px 16px; */
+tbody tr {
+  cursor: pointer;
 }

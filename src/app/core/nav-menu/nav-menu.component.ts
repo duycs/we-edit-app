@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { Staff } from 'src/app/shared/models/staff';
 import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -21,6 +21,8 @@ export class NavMenuComponent implements OnInit, OnDestroy {
   isAnonymous = false;
   isMember = false;
   isLibrarian = false;
+
+  @Output() sidenavClose = new EventEmitter();
 
   constructor(
     public cronJobSignalRService: CronJobSignalrService,
@@ -48,28 +50,15 @@ export class NavMenuComponent implements OnInit, OnDestroy {
 
     this.cronJobSignalRService.startConnection();
     this.cronJobSignalRService.addJobListener();   
-    // this.signalRService.broadcastJob();   
-    // this.startHttpRequest();
   }
-
-  // private startHttpRequest = () => {
-  //   this.http.get('https://localhost:5001/')
-  //     .subscribe(res => {
-  //       console.log(res);
-  //     })
-  // }
 
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
     this.currentUserSubscription.unsubscribe();
   }
 
-  collapse() {
-    this.isExpanded = false;
-  }
-
-  toggle() {
-    this.isExpanded = !this.isExpanded;
+  public onSidenavClose = () => {
+    this.sidenavClose.emit();
   }
 
   logout() {
