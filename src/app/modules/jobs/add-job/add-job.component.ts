@@ -68,9 +68,9 @@ export class AddJobComponent implements OnInit {
     };
 
     getStaffs(): void {
-        this.staffService.getStaffs(1, 1000, true)
+        this.staffService.getAllStaffs()
             .subscribe(res => {
-                this.csoStaffs = res.data;
+                this.csoStaffs = res;
             }, (err) => {
                 this.alertService.showToastError();
                 console.log(err);

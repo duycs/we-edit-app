@@ -1,115 +1,69 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { UploaderComponent } from '@syncfusion/ej2-angular-inputs';
-import { DialogComponent } from '@syncfusion/ej2-angular-popups';
-import { isNullOrUndefined, EmitType } from '@syncfusion/ej2-base';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AlertService } from 'src/app/core/services/alert.service';
-import { JobService } from 'src/app/core/services/jobs.service';
-import { ProductLevelService } from 'src/app/core/services/productLevels.service';
 import { StaffService } from 'src/app/core/services/staffs.service';
 import { CreateStaffVM } from 'src/app/shared/models/createStaffVM';
-import { ProductLevel } from 'src/app/shared/models/productLevel';
 
 @Component({
     selector: 'add-staff',
     templateUrl: './add-staff.component.html',
-    styleUrls: ['./add-staff.component.css']
 })
 
 export class AddStaffComponent implements OnInit {
+    form!: FormGroup;
+    title: string = "Add new Staff";
+    roles: any[] = [
+        { id: 1, name: 'Admin' },
+        { id: 2, name: 'CSO' },
+        { id: 3, name: 'Editor' },
+        { id: 4, name: 'High Quanlity' },
+        { id: 5, name: 'Merge Retouch' },
+        { id: 6, name: 'Video' },
+        { id: 7, name: '2D&3D' },
+        { id: 8, name: 'QC' },
+        { id: 9, name: 'DCQC' }
+    ];
 
-    constructor(private router: Router,
-        private jobService: JobService,
-        private productLevelService: ProductLevelService,
+    constructor(private fb: FormBuilder,
         private staffService: StaffService,
+        private dialogRef: MatDialogRef<AddStaffComponent>,
+        @Inject(MAT_DIALOG_DATA) public data: any,
         private alertService: AlertService) {
     };
 
-    @ViewChild('FormDialog')
-    public dialogObj!: DialogComponent;
-
-    public width: string = '335px';
-    public visible: boolean = false;
-    public multiple: boolean = false;
-    public showCloseIcon: Boolean = true;
-    public formHeader: string = 'Success';
-    public contentData: string = 'Your details have been updated successfully, Thank you.';
-    public target: string = '#FormDialog';
-    public isModal: boolean = true;
-    public animationSettings: object = {
-        effect: 'Zoom'
+    ngAfterViewInit(): void {
     };
-    public uploadInput: string = '';
-    public dlgBtnClick: EmitType<object> = () => {
-        this.dialogObj.hide();
-    }
-    public dlgButtons: Object[] = [{ click: this.dlgBtnClick.bind(this), buttonModel: { content: 'Ok', isPrimary: true } }];
-    @ViewChild('formElement') element: any;
-    @ViewChild('container', { read: ElementRef }) container!: ElementRef;
-    public targetElement!: HTMLElement;
 
-    public roledata: { [key: string]: Object }[] =
-        [
-            { Id: 0, Name: 'Select a Role' },
-            { Id: 1, Name: 'Admin' },
-            { Id: 2, Name: 'CSO' },
-            { Id: 3, Name: 'Editor' },
-            { Id: 4, Name: 'High Quanlity' },
-            { Id: 5, Name: 'Merge Retouch' },
-            { Id: 6, Name: 'Video' },
-            { Id: 7, Name: '2D&3D' },
-            { Id: 8, Name: 'QC' },
-            { Id: 9, Name: 'DCQC' }
-        ];
+    ngOnInit(): void {
+        this.form = this.fb.group({
+            fullname: [null, Validators.required],
+            account: [null, Validators.required],
+            email: [null, Validators.required],
+            roleId: [null, Validators.required],
+        });
+    };
 
-    public rolefields: Object = { text: 'Name', value: 'Id' };
-    public roletext: string = "Select a Role";
+    public save(): void {
+        let createStaffVM: CreateStaffVM = {
+            fullname: this.form.get('fullname')?.value,
+            account: this.form.get('account')?.value,
+            email: this.form.get('email')?.value,
+            roleIds: [~~this.form.get('roleId')?.value]
+        };
 
-    public createStaffVM!: CreateStaffVM;
-
-    ngOnInit() {
-        this.dialogObj?.hide();
-    }
-
-    public onOpenAddStaffDialog(event: any): void {
-        // ISSUE:  Cannot read properties of undefined (reading 'show')
-        this.dialogObj.show();
-
-        document.getElementById('container-ejs-dialog')?.style.setProperty('display', 'block');
-    }
-
-    public Submit(): void {
-        this.onFormSubmit();
-        document.getElementById('container-ejs-dialog')?.style.setProperty('display', 'none');
-    }
-
-    public onFormSubmit(): void {
-        this.dialogObj.show();
-        this.setCreateStaffVM();
-
-        this.staffService.addStaff(this.createStaffVM)
-            .subscribe(res => {
+        this.staffService.addStaff(createStaffVM)
+            .subscribe(() => {
                 this.alertService.showToastSuccess();
-                this.router.navigate([`/staffs/${res.id}`]);
             }, (err) => {
                 this.alertService.showToastError();
                 console.log(err);
             });
+
+        this.dialogRef.close({ event: "save", data: this.form.value });
     }
 
-    public setCreateStaffVM: EmitType<object> = () => {
-        const dialogId = 'FormDialogStaff';
-        let fullname = document.getElementById(dialogId)?.querySelector('#fullname') as HTMLInputElement;
-        let account = document.getElementById(dialogId)?.querySelector('#account') as HTMLInputElement;
-        let email = document.getElementById(dialogId)?.querySelector('#email') as HTMLInputElement;
-        let roleId = document.getElementById(dialogId)?.querySelector('#roleId_hidden') as HTMLInputElement;
-
-        this.createStaffVM = {
-            fullname: fullname.value,
-            account: account.value,
-            email: email.value,
-            roleIds: [~~roleId.value],
-        };
+    close() {
+        this.dialogRef.close({ event: "close", data: this.form.value });
     }
 }

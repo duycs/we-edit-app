@@ -15,10 +15,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared.module';
 import { JobsComponent } from './modules/jobs/jobs.component';
 import { JobsModule } from './modules/jobs/jobs.module';
-import { AppBarModule } from "@syncfusion/ej2-angular-navigations";
-import { ButtonModule } from '@syncfusion/ej2-angular-buttons';
-import { DialogModule } from '@syncfusion/ej2-angular-popups';
-import { UploaderModule } from '@syncfusion/ej2-angular-inputs';
 import { StaffsComponent } from './modules/staffs/staffs.component';
 import { StaffsModule } from './modules/staffs/staffs.module';
 import { StepsComponent } from './modules/steps/steps.component';
@@ -52,10 +48,6 @@ const appRoutes: Routes = [
     ProductLevelsComponent,
   ],
   imports: [
-    AppBarModule,
-    ButtonModule,
-    DialogModule,
-    UploaderModule,
     SharedModule,
     BrowserAnimationsModule,
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

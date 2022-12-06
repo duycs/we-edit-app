@@ -4,7 +4,6 @@ import { MaterialModule } from './material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CardJobListComponent } from './shared/components/list/card-job-list.component';
-import { AddJobComponent } from './modules/jobs/add-job/add-job.component';
 
 
 @NgModule({

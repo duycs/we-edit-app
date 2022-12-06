@@ -5,14 +5,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { SharedModule } from 'src/app/shared.module';
-import { FilterService, GridModule, GroupService, PageService, SortService } from '@syncfusion/ej2-angular-grids';
-import { ButtonModule } from '@syncfusion/ej2-angular-buttons';
-import { DialogModule } from '@syncfusion/ej2-angular-popups';
-import { UploaderModule } from '@syncfusion/ej2-angular-inputs';
-import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { StepsComponent } from './steps.component';
 import { AddStepComponent } from './add-step/add-step.component';
 import { StepListComponent } from './step-list/step-list.component';
+import { RemoveStepComponent } from './remove-step/remove-step.component';
 
 const routes: Routes = [
   {
@@ -33,13 +29,9 @@ const routes: Routes = [
   declarations: [
     StepListComponent,
     AddStepComponent,
+    RemoveStepComponent,
   ],
   imports: [
-    DropDownListModule,
-    ButtonModule,
-    DialogModule,
-    UploaderModule,
-    GridModule,
     BrowserModule,
     SharedModule,
     MaterialModule,
@@ -49,11 +41,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
-  providers: [
-    PageService,
-    SortService,
-    FilterService,
-    GroupService],
+  providers: [],
   bootstrap: [StepsComponent]
 })
 export class StepsModule { }

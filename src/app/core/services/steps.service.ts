@@ -28,8 +28,8 @@ export class StepService {
       );
   }
 
-  getPaggedSteps(page: number = 1, size: number = sizeDefault, isInclude: boolean = true): Observable<PaggedDataStep> {
-    const url = `${apiUrl}?pageNumber=${page}&pageSize=${size}&isInclude=${isInclude}`;
+  getPaggedSteps(page: number = 1, size: number = sizeDefault, searchValue: string = '', isInclude: boolean = true): Observable<PaggedDataStep> {
+    const url = `${apiUrl}?pageNumber=${page}&pageSize=${size}&isInclude=${isInclude}&searchValue=${searchValue}`;
     return this.http.get<PaggedDataStep>(url)
       .pipe(
         tap(paggedDataStep => console.log('Fetch Steps')),

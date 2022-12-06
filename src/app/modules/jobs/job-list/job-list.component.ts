@@ -18,7 +18,6 @@ import { RemoveJobComponent } from '../remove-job/remove-job.component';
 @Component({
   selector: 'app-job-list',
   templateUrl: './job-list.component.html',
-  styleUrls: ['./job-list.component.css']
 })
 
 export class JobListComponent implements OnInit, AfterViewInit {

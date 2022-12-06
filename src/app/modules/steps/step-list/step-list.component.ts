@@ -1,20 +1,21 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup, Validators, FormBuilder, NgForm } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { debounceTime, distinctUntilChanged, fromEvent, merge, Subscription, tap } from 'rxjs';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { AuthenticationService } from 'src/app/core/authentication/authentication.service';
 import { Staff } from 'src/app/shared/models/staff';
-import { JobService } from 'src/app/core/services/jobs.service';
-import { Job } from 'src/app/shared/models/job';
-import { PageSettingsModel } from '@syncfusion/ej2-angular-grids';
-import { StaffService } from 'src/app/core/services/staffs.service';
 import { StepService } from 'src/app/core/services/steps.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { PageEvent, MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MappingModels } from 'src/app/shared/models/mapping-models';
+import { StepDataSource } from '../steps-data-source';
+import { AddStepComponent } from '../add-step/add-step.component';
+import { RemoveStepComponent } from '../remove-step/remove-step.component';
 
 @Component({
   selector: 'app-step-list',
   templateUrl: './step-list.component.html',
-  styleUrls: ['./step-list.component.css']
 })
 
 export class StepListComponent implements OnInit {
@@ -22,35 +23,119 @@ export class StepListComponent implements OnInit {
   currentUserSubscription: Subscription;
   users: Staff[] = [];
 
-  page: number = 1;
-  size: number = 100;
+  length = 50;
+  pageSize = 10;
+  pageIndex = 1;
+  pageSizeOptions = [5, 10, 15, 20];
+  pageEvent!: PageEvent;
 
-  constructor(private router: Router,
-    private authenticationService: AuthenticationService,
+  hidePageSize = false;
+  showPageSizeOptions = true;
+  showFirstLastButtons = true;
+  disabled = false;
+
+  title: string = "Steps";
+  displayedColumns: string[] = ['action', 'id', 'name', 'code', "orderNumber", 'productLevel', "estimationInSeconds"];
+
+  staff!: Staff;
+  dataSource!: StepDataSource;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild('input') input!: ElementRef;
+
+  constructor(private authenticationService: AuthenticationService,
     private stepService: StepService,
+    private mappingModels: MappingModels,
+    private dialog: MatDialog,
+    private route: ActivatedRoute,
     private alertService: AlertService) {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
       this.currentUser = user;
+      this.dataSource = new StepDataSource(this.stepService, this.mappingModels);
     });
   }
 
-  public data!: object[];
-  public pageSettings!: PageSettingsModel;
+  ngAfterViewInit() {
+    // server-side search
+    fromEvent(this.input.nativeElement, 'keyup')
+      .pipe(
+        debounceTime(150),
+        distinctUntilChanged(),
+        tap(() => {
+          this.paginator.pageIndex = 1;
+          this.loadPage();
+        })
+      )
+      .subscribe();
 
-  ngOnInit(): void {
-    this.getSteps();
+    if (this.sort && this.sort.sortChange) {
+      // reset the paginator after sorting
+      this.sort?.sortChange.subscribe(() => this.paginator.pageIndex = 1);
+
+      // on sort or paginate events, load a new page
+      merge(this.sort?.sortChange, this.paginator.page)
+        .pipe(
+          tap(() => this.loadPage())
+        )
+        .subscribe();
+    }
   }
 
-  getSteps(): void {
-    this.stepService.getPaggedSteps(this.page, this.size, true)
-      .subscribe(res => {
-        this.data = res.data;
-        this.pageSettings = { pageSize: this.size };
-        console.log(res);
-      }, (err) => {
-        this.alertService.showToastError();
-        console.log(err);
-      });
+  ngOnInit(): void {
+    this.staff = this.route.snapshot.data["id"];
+    this.dataSource.loadData();
+  }
+
+  loadPage() {
+    this.dataSource.loadData(
+      [],
+      this.input.nativeElement.value,
+      this.sort.direction,
+      this.paginator.pageIndex,
+      this.paginator.pageSize,
+      false);
+  }
+
+  handlePageEvent(e: PageEvent) {
+    this.pageEvent = e;
+    this.length = e.length;
+    this.pageSize = e.pageSize;
+    this.pageIndex = e.pageIndex;
+
+    this.loadPage();
+  }
+
+  openAddDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {};
+
+    const dialogRef = this.dialog.open(AddStepComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(
+      result => {
+        setTimeout(() => {
+          console.log("reload after added", result);
+          this.loadPage();
+        }, 2000);
+      }
+    );
+  }
+
+  openRemoveDialog(element: any): void {
+    const dialogRef = this.dialog.open(RemoveStepComponent, {
+      data: { id: element.id, name: element.name },
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      setTimeout(() => {
+        this.loadPage();
+      }, 2000);
+    });
+  }
+
+  openUpdateDialog(element: any) {
   }
 
 }

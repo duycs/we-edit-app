@@ -28,9 +28,19 @@ export class StaffService {
 
   constructor(private http: HttpClient) { }
 
-  getStaffs(page: number = 1, size: number = sizeDefault, isInclude: boolean = true)
+  getAllStaffs(page: number = 0, size: number = 0, searchValue: string = "", isInclude: boolean = true)
+    : Observable<Staff[]> {
+    const url = `${apiUrl}?pageNumber=${page}&pageSize=${size}&isInclude=${isInclude}&searchValue=${searchValue}`;
+    return this.http.get<Staff[]>(url)
+      .pipe(
+        tap(paggedDataStaff => console.log('Fetch paggedDataStaff')),
+        catchError(this.handleError<Staff[]>('getStaffs'))
+      );
+  }
+
+  getStaffs(page: number = 1, size: number = sizeDefault, searchValue: string = "", isInclude: boolean = true)
     : Observable<PaggedDataStaff> {
-    const url = `${apiUrl}?pageNumber=${page}&pageSize=${size}&isInclude=${isInclude}`;
+    const url = `${apiUrl}?pageNumber=${page}&pageSize=${size}&isInclude=${isInclude}&searchValue=${searchValue}`;
     return this.http.get<PaggedDataStaff>(url)
       .pipe(
         tap(paggedDataStaff => console.log('Fetch paggedDataStaff')),
@@ -86,11 +96,11 @@ export class StaffService {
     );
   }
 
-  addProductLevelsForStaff(addProductLevelForStaffVM: any): Observable<AddProductLevelForStaffVM> {
+  addProductLevelsForStaff(addProductLevelForStaffVM: AddProductLevelForStaffVM): Observable<any> {
     let url = `${apiUrl}/productLevels`;
-    return this.http.post<AddProductLevelForStaffVM>(url, addProductLevelForStaffVM, httpOptions).pipe(
-      tap((addProductLevelForStaffVM: AddProductLevelForStaffVM) => console.log('added')),
-      catchError(this.handleError<AddProductLevelForStaffVM>('addProductLevelForStaffVM'))
+    return this.http.post<any>(url, addProductLevelForStaffVM, httpOptions).pipe(
+      tap(_ => console.log('added')),
+      catchError(this.handleError<any>('addProductLevelForStaffVM'))
     );
   }
 

@@ -1,131 +1,79 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { UploaderComponent } from '@syncfusion/ej2-angular-inputs';
-import { DialogComponent } from '@syncfusion/ej2-angular-popups';
-import { EmitType } from '@syncfusion/ej2-base';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { JobService } from 'src/app/core/services/jobs.service';
 import { ProductLevelService } from 'src/app/core/services/productLevels.service';
 import { StaffService } from 'src/app/core/services/staffs.service';
+import { AddProductLevelForStaffVM } from 'src/app/shared/models/addProductLevelForStaffVM';
+import { AddStepsToJobVM } from 'src/app/shared/models/addStepsToJobVM';
+import { ProductLevel } from 'src/app/shared/models/productLevel';
+import { Step } from 'src/app/shared/models/step';
+import { AddJobStepComponent } from '../../jobs/add-job-step/add-job-step.component';
 
 @Component({
     selector: 'add-productlevel-for-staff',
     templateUrl: './add-productlevel-for-staff.component.html',
-    styleUrls: ['./add-productlevel-for-staff.component.css']
 })
 
 export class AddProductLevelForStaffComponent implements OnInit {
 
-    constructor(private router: Router,
-        private jobService: JobService,
-        private productLevelService: ProductLevelService,
+    form!: FormGroup;
+    productLevels!: ProductLevel[];
+    staffId!: number;
+
+    constructor(private fb: FormBuilder,
         private staffService: StaffService,
+        private productLevelService: ProductLevelService,
+        private router: Router,
+        private route: ActivatedRoute,
+        private dialogRef: MatDialogRef<AddProductLevelForStaffComponent>,
+        @Inject(MAT_DIALOG_DATA) public data: any,
         private alertService: AlertService) {
     };
 
-    @ViewChild('formUpload')
-    public uploadObj!: UploaderComponent;
+    ngAfterViewInit(): void {
+        this.staffId = this.data.id;
+        console.log("saffId", this.staffId);
 
-    @ViewChild('FormDialogAddProductLevelForStaff')
-    public dialogObj!: DialogComponent;
-
-    public width: string = '335px';
-    public visible: boolean = false;
-    public multiple: boolean = false;
-    public showCloseIcon: Boolean = true;
-    public formHeader: string = 'Success';
-    public contentData: string = 'Your details have been updated successfully, Thank you.';
-    public target: string = '#FormDialogAddProductLevelForStaff';
-    public isModal: boolean = true;
-    public animationSettings: object = {
-        effect: 'Zoom'
+        this.getProductLevels();
     };
-    public uploadInput: string = '';
-    public dlgBtnClick: EmitType<object> = () => {
-        this.dialogObj.hide();
-    }
-    public dlgButtons: Object[] = [{ click: this.dlgBtnClick.bind(this), buttonModel: { content: 'Ok', isPrimary: true } }];
-    @ViewChild('formElement') element: any;
-    @ViewChild('container', { read: ElementRef }) container!: ElementRef;
-    public targetElement!: HTMLElement;
 
-    public productLeveldata: { [key: string]: Object }[] = [];
-    public productLevelfields: Object = { text: 'Name', value: 'Id' };
-    public productLeveltext: string = "Select an ProductLevel";
+    ngOnInit(): void {
+        this.form = this.fb.group({
+            productLevelId: [null, Validators.required]
+        });
+    };
 
-    public staffdata: { [key: string]: Object }[] = [];
-    public stafffields: Object = { text: 'Name', value: 'Id' };
-    public stafftext: string = "Select a Staff";
-
-    ngOnInit() {
-        this.dialogObj?.hide();
-        this.fetchProductLevelDropdown();
-        this.fetchStaffDropdown();
+    getProductLevels(): void {
+        this.productLevelService.getAllProductLevels().subscribe(res => {
+            this.productLevels = res;
+        }, (err) => {
+            this.alertService.showToastError();
+            console.log(err);
+        });
     }
 
-    fetchProductLevelDropdown() {
-        this.productLevelService.getProductLevels()
-            .subscribe(res => {
-                console.log(res);
-                res.data.forEach(element => {
-                    this.productLeveldata.push({ Id: element.id, Name: element.code });
-                });
-            }, (err) => {
-                this.alertService.showToastError();
-                console.log(err);
-            });
-    }
-
-    fetchStaffDropdown() {
-        this.staffService.getStaffs(1, 1000, true)
-            .subscribe(res => {
-                console.log(res);
-                res.data.forEach(element => {
-                    this.staffdata.push({ Id: element.id, Name: element.fullName });
-                });
-            }, (err) => {
-                this.alertService.showToastError();
-                console.log(err);
-            });
-    }
-
-    public onOpenAddProductLevelDialog(event: any): void {
-        // ISSUE:  Cannot read properties of undefined (reading 'show')
-        this.dialogObj.show();
-        document.getElementById('container-ejs-dialog')?.style.setProperty('display', 'block');
-    }
-
-    public Submit(): void {
-        this.onFormSubmit();
-        document.getElementById('container-ejs-dialog')?.style.setProperty('display', 'none');
-    }
-
-    public onFormSubmit(): void {
-        this.dialogObj.show();
-        let formData = this.getDynamicContent();
-
-        this.staffService.addProductLevelsForStaff(formData)
-            .subscribe(res => {
-                this.alertService.showToastSuccess();
-                //this.router.navigate(['/staffs']);
-                window.location.reload();
-
-            }, (err) => {
-                this.alertService.showToastError();
-                console.log(err);
-            });
-    }
-
-    public getDynamicContent: EmitType<object> = () => {
-        const dialogId = 'FormDialogAddProductLevelForStaff';
-        let staffId = document.getElementById(dialogId)?.querySelector('#staffId_hidden') as HTMLInputElement;
-        let productlevelId = document.getElementById(dialogId)?.querySelector('#productLevelId_hidden') as HTMLInputElement;
-
-        let data = {
-            staffId: ~~staffId.value,
-            productLevelId: ~~productlevelId.value,
+    public save(): void {
+        let addProductLevelForStaffVM: AddProductLevelForStaffVM = {
+            staffId: this.staffId,
+            productLevelId: ~~this.form.get('productLevelId')?.value,
         };
 
-        return data;
+        this.staffService.addProductLevelsForStaff(addProductLevelForStaffVM)
+            .subscribe(() => {
+                this.alertService.showToastSuccess();
+            }, (err) => {
+                this.alertService.showToastError();
+                console.log(err);
+            });
+
+        this.dialogRef.close({ event: "save", data: this.form.value });
     }
+
+    close() {
+        this.dialogRef.close({ event: "close", data: this.form.value });
+    }
+
 }

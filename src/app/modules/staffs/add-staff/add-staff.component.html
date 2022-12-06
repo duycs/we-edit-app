@@ -1,88 +1,35 @@
-<button class="e-control e-btn" style="position: absolute; z-index: 9999; margin: 12px;" id="targetButton"
-  (click)="onOpenAddStaffDialog($event)">
-  Add Staff
-</button>
+<h2 mat-dialog-title>{{title}}</h2>
 
-<div #container id="container-ejs-dialog" class='root-container'>
+<mat-dialog-content [formGroup]="form">
 
-  <div class="control-section">
-    <div class="col-lg-12">
-      <div class="control_wrapper" id="control_wrapper" style="margin: 10px auto;">
-        <ejs-dialog id="FormDialogStaff" class="color-primary" header='Add new Staff' #FormDialog width='450px'
-          [showCloseIcon]='true' target='.control-section'>
-          <ng-template #content>
-            <form id="template_driven" #form="ngForm" novalidate>
+  <mat-form-field>
+    <mat-label>Fullname</mat-label>
+    <input matInput placeholder="" formControlName="fullname">
+  </mat-form-field>
 
-              <div class="form-group" style="padding-top: 11px;">
-                <div class="e-float-input">
-                  <input type="text" id="fullname" #fullnameval='ngModel' name="fullname" required ngModel>
-                  <span class="e-float-line"></span>
-                  <label class="e-float-text e-label-top" for="fullname">Fullname</label>
-                  <div *ngIf="(fullnameval.invalid && (fullnameval.dirty || fullnameval.touched))">
-                    <div class="e-error" *ngIf="fullnameval.errors?.['required']">
-                      * Fullname
-                    </div>
-                  </div>
-                </div>
-              </div>
+  <mat-form-field>
+    <mat-label>Account</mat-label>
+    <input matInput placeholder="" formControlName="account">
+  </mat-form-field>
 
-              <div class="form-group" style="padding-top: 11px;">
-                <div class="e-float-input">
-                  <input type="text" id="account" #accountval='ngModel' name="account" required ngModel>
-                  <span class="e-float-line"></span>
-                  <label class="e-float-text e-label-top" for="account">Account</label>
-                  <div *ngIf="(accountval.invalid && (accountval.dirty || accountval.touched))">
-                    <div class="e-error" *ngIf="accountval.errors?.['required']">
-                      * Account
-                    </div>
-                  </div>
-                </div>
-              </div>
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input matInput placeholder="" formControlName="email">
+  </mat-form-field>
 
-              <div class="form-group" style="padding-top: 11px;">
-                <div class="e-float-input">
-                  <input type="email" id="email" #emailval='ngModel' name="email" required ngModel>
-                  <span class="e-float-line"></span>
-                  <label class="e-float-text e-label-top" for="email">Email</label>
-                  <div *ngIf="(emailval.invalid && (emailval.dirty || emailval.touched))">
-                    <div class="e-error" *ngIf="emailval.errors?.['required']">
-                      * Email
-                    </div>
-                  </div>
-                </div>
-              </div>
+  <mat-form-field appearance="fill">
+    <mat-label>Roles</mat-label>
+    <mat-select formControlName="roleId">
+      <mat-option>None</mat-option>
+      <mat-option *ngFor="let role of roles" [value]="role.id">{{role.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
 
-              <div class="form-group" style="padding-top: 11px;">
-                <div class="e-float-input">
-                  <span class="e-float-line"></span>
-                  <ejs-dropdownlist id='roleId' #roleIdval='ngModel' [dataSource]='roledata' required ngModel
-                    [fields]='rolefields' [placeholder]='roletext'></ejs-dropdownlist>
-                  <div *ngIf="(roleIdval.invalid && (roleIdval.dirty || roleIdval.touched))">
-                    <div class="e-error" *ngIf="roleIdval.errors?.['required']">
-                      * Select a Role
-                    </div>
-                  </div>
-                </div>
-              </div>
+</mat-dialog-content>
 
-              <div class="form-group" style="padding-top: 11px;">
-                <div class="submitBtn">
-                  <button class="submit-btn e-btn" id="submit-btn" [disabled]="form.invalid" type="reset"
-                    (click)="Submit()">Submit</button>
-                  <div class="desc"><span></span></div>
-                </div>
-              </div>
-
-            </form>
-          </ng-template>
-        </ejs-dialog>
-
-      </div>
-    </div>
+<mat-dialog-actions class="container">
+  <div class="group-btn">
+    <button mat-raised-button color="primary" (click)="close()">Close</button>
+    <button mat-raised-button color="primary" (click)="save()">Save</button>
   </div>
-  <ejs-dialog id="confirmationDialog" #Dialog [buttons]='dlgButtons' [animationSettings]='animationSettings'
-    [header]='formHeader' [showCloseIcon]='showCloseIcon' [content]='contentData' [target]='target' [width]='width'
-    [visible]="visible" [isModal]="isModal">
-  </ejs-dialog>
-
-</div>
+</mat-dialog-actions>

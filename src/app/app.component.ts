@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { PageSettingsModel } from '@syncfusion/ej2-angular-grids';
 
 @Component({
   selector: 'app-root',

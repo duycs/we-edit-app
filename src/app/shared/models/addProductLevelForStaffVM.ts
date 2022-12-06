@@ -1,4 +1,4 @@
 export interface AddProductLevelForStaffVM {
-    productlevelId: number;
+    productLevelId: number;
     staffId: number;
 }

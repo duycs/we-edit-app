@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Job } from "./job";
 import { JobStep } from "./jobStep";
+import { Staff } from "./staff";
 
 @Injectable({
     providedIn: 'root'
@@ -146,8 +147,96 @@ export class MappingModels {
                     break;
             }
         }
-        
+
         return job;
 
+    }
+
+    MappingDisplayNameFieldsOfStaffs(staffs: Staff[]) {
+        staffs.forEach(staff => {
+            staff = this.MappingDisplayNameFieldsOfStaff(staff);
+        })
+
+        return staffs;
+    }
+
+    MappingDisplayNameFieldsOfStaff(staff: Staff) {
+        if (staff.roles != null && staff.roles.length > 0) {
+            let rolenames = "";
+            staff.roles.map((role, i) => {
+                if (i == 0) {
+                    return rolenames += role.name;
+                } else {
+                    return rolenames += ", " + role.name;
+                }
+            });
+            staff.rolenames = rolenames;
+        }
+
+        if (staff.productLevels != null && staff.productLevels.length > 0) {
+            let productLevelnames = "";
+            staff.productLevels.map((productLevel, i) => {
+                if (i == 0) {
+                    return productLevelnames += productLevel.code;
+                } else {
+                    return productLevelnames += ", " + productLevel.code;
+                }
+            });
+            staff.productLevelnames = productLevelnames;
+        }
+
+        let statusNameVal = "";
+
+        if (staff.currentShiftId != null) {
+            switch (staff.currentShiftId) {
+                case 0:
+                    staff.currentShiftname = "none";
+                    statusNameVal = "none";
+                    break;
+
+                case 6:
+                    staff.currentShiftname = "none";
+                    statusNameVal = "none";
+                    break;
+
+                case 1:
+                    staff.currentShiftname = "Shift 1";
+                    statusNameVal = "In Shift";
+                    break;
+
+                case 2:
+                    staff.currentShiftname = "Shift 2";
+                    statusNameVal = "In Shift";
+                    break;
+
+                case 3:
+                    staff.currentShiftname = "Shift 3";
+                    statusNameVal = "In Shift";
+                    break;
+
+                case 4:
+                    staff.currentShiftname = "Out";
+                    statusNameVal = "Out Shift";
+                    break;
+
+                case 5:
+                    staff.currentShiftname = "Free";
+                    statusNameVal = "Free";
+                    break;
+
+                default:
+                    staff.currentShiftname = "none";
+                    statusNameVal = "none";
+                    break;
+            }
+
+            if (staff.isAssigned == null) {
+                statusNameVal = "Is Assigned";
+            }
+
+            staff.statusname = statusNameVal;
+        }
+
+        return staff;
     }
 }

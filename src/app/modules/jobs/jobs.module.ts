@@ -7,12 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { SharedModule } from 'src/app/shared.module';
 import { JobsComponent } from './jobs.component';
 import { JobListComponent } from './job-list/job-list.component';
-import { FilterService, GridModule, GroupService, PageService, SortService } from '@syncfusion/ej2-angular-grids';
-import { ButtonModule } from '@syncfusion/ej2-angular-buttons';
-import { DialogModule } from '@syncfusion/ej2-angular-popups';
-import { UploaderModule } from '@syncfusion/ej2-angular-inputs';
 import { AddJobComponent } from './add-job/add-job.component';
-import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { JobDetailComponent } from './job-detail/job-detail.component';
 import { AddJobStepComponent } from './add-job-step/add-job-step.component';
 import { AssignStaffComponent } from './assign-staff/assign-staff.component';
@@ -51,11 +46,6 @@ const routes: Routes = [
     AssignStaffComponent,
   ],
   imports: [
-    DropDownListModule,
-    ButtonModule,
-    DialogModule,
-    UploaderModule,
-    GridModule,
     BrowserModule,
     SharedModule,
     MaterialModule,
@@ -65,11 +55,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
-  providers: [
-    PageService,
-    SortService,
-    FilterService,
-    GroupService],
+  providers: [],
   bootstrap: [JobsComponent]
 })
 export class JobsModule { }

@@ -1,17 +1,13 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { debounceTime, distinctUntilChanged, fromEvent, merge, Subscription, tap } from 'rxjs';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { AuthenticationService } from 'src/app/core/authentication/authentication.service';
 import { Staff } from 'src/app/shared/models/staff';
-import { PageSettingsModel } from '@syncfusion/ej2-angular-grids';
 import { ProductLevelService } from 'src/app/core/services/productLevels.service';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { AddJobComponent } from '../../jobs/add-job/add-job.component';
-import { MappingModels } from 'src/app/shared/models/mapping-models';
 import { ProductLevel } from 'src/app/shared/models/productLevel';
-import { MatTableDataSource } from '@angular/material/table';
 import { AddProductLevelComponent } from '../add-productlevel/add-productlevel.component';
 import { RemoveProductLevelComponent } from '../remove-productlevel/remove-productlevel.component';
 import { ProductLevelDataSource } from '../productlevel-data-source';
@@ -29,7 +25,7 @@ export class ProductLevelListComponent implements OnInit {
 
   length = 50;
   pageSize = 10;
-  pageIndex = 0;
+  pageIndex = 1;
   pageSizeOptions = [5, 10, 15, 20];
   pageEvent!: PageEvent;
 
@@ -66,7 +62,7 @@ export class ProductLevelListComponent implements OnInit {
         debounceTime(150),
         distinctUntilChanged(),
         tap(() => {
-          this.paginator.pageIndex = 0;
+          this.paginator.pageIndex = 1;
           this.loadJobsPage();
         })
       )
@@ -74,7 +70,7 @@ export class ProductLevelListComponent implements OnInit {
 
     if (this.sort && this.sort.sortChange) {
       // reset the paginator after sorting
-      this.sort?.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+      this.sort?.sortChange.subscribe(() => this.paginator.pageIndex = 1);
 
       // on sort or paginate events, load a new page
       merge(this.sort?.sortChange, this.paginator.page)

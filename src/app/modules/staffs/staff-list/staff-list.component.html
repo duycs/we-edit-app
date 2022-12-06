@@ -1,35 +1,80 @@
-<add-staff></add-staff>
-<add-productlevel-for-staff style="margin-left: 125px;"></add-productlevel-for-staff>
+<div class="mat-elevation-z8">
+  <div class="header-button-row margin-bottom">
+    <button mat-raised-button color="primary" (click)="openAddDialog()">Add Staff</button>
 
-<div class="card margin-top">
-  <div class="header">
-    <p>Staffs</p>
+    <mat-form-field class="search-field">
+      <mat-label>Search</mat-label>
+      <input matInput placeholder="Search fullName, account, email" #input>
+    </mat-form-field>
   </div>
-  <div class="container">
-    <ejs-grid [dataSource]='staffs' [allowPaging]="true" [allowSorting]="true"
-      [pageSettings]="pageSettings">
-      <e-columns>
-        <e-column field='Action' headerText='Action' width='200'>
-          <ng-template #template let-data>
-            <button ejs-button cssClass="e-primary in-shift" (click)="inShiftClick(data)" content="In Shift">In
-              Shift</button>
-            <button ejs-button cssClass="e-info out-shift" (click)="outShiftClick(data)" content="Out Shift">Out
-              Shift</button>
-          </ng-template>
-        </e-column>
-        <e-column field='id' headerText='Id' textAlign='Left' width=50>
-          <ng-template #template let-data>
-            <a rel='nofollow' href="/staffs/{{data.id}}">{{data.id}}</a>
-          </ng-template>
-        </e-column>
-        <e-column field='fullName' headerText='Full Name' textAlign='Left' format='text' width=90></e-column>
-        <e-column field='account' headerText='Account' textAlign='Left' width=90></e-column>
-        <e-column field='email' headerText='Email' textAlign='Right' width=120></e-column>
-        <e-column field='rolenames' headerText='Roles' textAlign='Right' width=90></e-column>
-        <e-column field='productLevelnames' headerText='ProductLevels' textAlign='Right' width=90></e-column>
-        <e-column field='currentShiftname' headerText='Current Shift' textAlign='Right' width=50></e-column>
-        <e-column field='statusname' headerText='Status' textAlign='Right' width=50></e-column>
-      </e-columns>
-    </ejs-grid>
-  </div>
+
+  <table mat-table class="jobs-table mat-elevation-z8" [dataSource]="dataSource" matSort matSortActive="id"
+    matSortDirection="asc" matSortDisableClear>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-raised-button color="warn" (click)="openRemoveDialog(element)">Remove</button>
+        <button mat-raised-button color="primary" class="margin-left" (click)="openAddProductLevelDialog(element)">Add Product-Level</button>
+        <button mat-raised-button color="primary" class="margin-left"
+          (click)="openUpdateDialog(element)">Update</button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+      <td mat-cell *matCellDef="let element" class="id">
+        <a href="/staffs/{{element.id}}">
+          {{element.id}}
+        </a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fullname">
+      <th mat-header-cell *matHeaderCellDef> FullName </th>
+      <td mat-cell *matCellDef="let element"> {{element.fullName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="account">
+      <th mat-header-cell *matHeaderCellDef> Account </th>
+      <td mat-cell *matCellDef="let element"> {{element.account}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> Email </th>
+      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="roles">
+      <th mat-header-cell *matHeaderCellDef> Role </th>
+      <td mat-cell *matCellDef="let element"> {{element.rolenames}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="productLevels">
+      <th mat-header-cell *matHeaderCellDef> Product Level </th>
+      <td mat-cell *matCellDef="let element"> {{element.productLevelnames}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="currentShift">
+      <th mat-header-cell *matHeaderCellDef> Current Shift </th>
+      <td mat-cell *matCellDef="let element"> {{element.currentShiftname}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="isAssigned">
+      <th mat-header-cell *matHeaderCellDef> Is Assigned </th>
+      <td mat-cell *matCellDef="let element"> {{element.isAssigned}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let element"> {{element.statusname}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [length]="this.dataSource.count" [pageSize]="5" [pageSizeOptions]="[5, 10, 15, 20]"
+    showFirstLastButtons aria-label="Select page of periodic elements" (page)="handlePageEvent($event)">
+  </mat-paginator>
 </div>
