@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ElementRef, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, fromEvent, merge, Subscription, tap } from 'rxjs';
 import { AlertService } from 'src/app/core/services/alert.service';
@@ -9,12 +9,12 @@ import { Job } from 'src/app/shared/models/job';
 import { MappingModels } from 'src/app/shared/models/mapping-models';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { JobsDataSource } from './jobs-data-source';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { JobsDataSource } from '../jobs-data-source';
+import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AddJobComponent } from '../add-job/add-job.component';
+import { RemoveJobComponent } from '../remove-job/remove-job.component';
 
 // Ref: https://blog.angular-university.io/angular-material-data-table/
-
 @Component({
   selector: 'app-job-list',
   templateUrl: './job-list.component.html',
@@ -37,7 +37,7 @@ export class JobListComponent implements OnInit, AfterViewInit {
   showFirstLastButtons = true;
   disabled = false;
 
-  displayedColumns: string[] = ['id', 'date', 'location', 'cso', 'jobId', 'code', 'instruction', 'inputNumber',
+  displayedColumns: string[] = ['action', 'id', 'date', 'location', 'cso', 'jobId', 'code', 'instruction', 'inputNumber',
     'productLevel', 'startTime', 'endTime', 'deadline', 'deliverType', 'app',];
   job!: Job;
   jobCount!: number;
@@ -115,22 +115,28 @@ export class JobListComponent implements OnInit, AfterViewInit {
   }
 
   openAddJobDialog() {
-    console.log("openAddJobDialog");
     const dialogConfig = new MatDialogConfig();
-
-    // dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-
-    dialogConfig.data = {
-    };
-
-    //this.dialog.open(AddJobComponent, dialogConfig);
+    dialogConfig.data = {};
 
     const dialogRef = this.dialog.open(AddJobComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(
       data => console.log("Dialog output:", data)
     );
+  }
+
+  openRemoveJobDialog(element: any): void {
+    const dialogRef = this.dialog.open(RemoveJobComponent, {
+      data: { id: element.id, name: element.jobId },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+
+  openUpdateJobDialog(element: any) {
+    console.log("updateJobDialog");
   }
 
 }

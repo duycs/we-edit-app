@@ -61,6 +61,27 @@ mat-dialog-actions {
   margin: 15px;
 }
 
-tbody tr {
+tbody tr .id {
   cursor: pointer;
+}
+
+.notify-message {
+  font-size: 12px;
+  margin: 0 12px;
+}
+
+.margin-left {
+  margin-left: 12px;
+}
+
+.margin-top {
+  margin-top: 12px;
+}
+
+.margin-top-double {
+  margin-top: 24px;
+}
+
+.margin-bottom {
+  margin-bottom: 12px;
 }

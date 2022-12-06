@@ -1,16 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { debounceTime, distinctUntilChanged, fromEvent, merge, Subscription, tap } from 'rxjs';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { AuthenticationService } from 'src/app/core/authentication/authentication.service';
 import { Staff } from 'src/app/shared/models/staff';
 import { PageSettingsModel } from '@syncfusion/ej2-angular-grids';
 import { ProductLevelService } from 'src/app/core/services/productLevels.service';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AddJobComponent } from '../../jobs/add-job/add-job.component';
+import { MappingModels } from 'src/app/shared/models/mapping-models';
+import { ProductLevel } from 'src/app/shared/models/productLevel';
+import { MatTableDataSource } from '@angular/material/table';
+import { AddProductLevelComponent } from '../add-productlevel/add-productlevel.component';
+import { RemoveProductLevelComponent } from '../remove-productlevel/remove-productlevel.component';
+import { ProductLevelDataSource } from '../productlevel-data-source';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-productlevel-list',
   templateUrl: './productlevel-list.component.html',
-  styleUrls: ['./productlevel-list.component.css']
 })
 
 export class ProductLevelListComponent implements OnInit {
@@ -18,35 +27,119 @@ export class ProductLevelListComponent implements OnInit {
   currentUserSubscription: Subscription;
   users: Staff[] = [];
 
-  page: number = 1;
-  size: number = 20;
+  length = 50;
+  pageSize = 10;
+  pageIndex = 0;
+  pageSizeOptions = [5, 10, 15, 20];
+  pageEvent!: PageEvent;
 
-  constructor(private router: Router,
-    private authenticationService: AuthenticationService,
+  hidePageSize = false;
+  showPageSizeOptions = true;
+  showFirstLastButtons = true;
+  disabled = false;
+
+  title: string = "Product-Levels";
+  displayedColumns: string[] = ['action', 'id', 'name', 'description'];
+
+  productLevel!: ProductLevel;
+  dataSource!: ProductLevelDataSource;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild('input') input!: ElementRef;
+
+  constructor(private authenticationService: AuthenticationService,
     private productLevelService: ProductLevelService,
+    private dialog: MatDialog,
+    private route: ActivatedRoute,
     private alertService: AlertService) {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
       this.currentUser = user;
+      this.dataSource = new ProductLevelDataSource(this.productLevelService);
     });
   }
 
-  public data!: object[];
-  public pageSettings!: PageSettingsModel;
+  ngAfterViewInit() {
+    // server-side search
+    fromEvent(this.input.nativeElement, 'keyup')
+      .pipe(
+        debounceTime(150),
+        distinctUntilChanged(),
+        tap(() => {
+          this.paginator.pageIndex = 0;
+          this.loadJobsPage();
+        })
+      )
+      .subscribe();
 
-  ngOnInit(): void {
-    this.getProductLevels();
+    if (this.sort && this.sort.sortChange) {
+      // reset the paginator after sorting
+      this.sort?.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+
+      // on sort or paginate events, load a new page
+      merge(this.sort?.sortChange, this.paginator.page)
+        .pipe(
+          tap(() => this.loadJobsPage())
+        )
+        .subscribe();
+    }
   }
 
-  getProductLevels(): void {
-    this.productLevelService.getProductLevels()
-      .subscribe(res => {
-        this.data = res;
-        this.pageSettings = { pageSize: this.size };
-        console.log(res);
-      }, (err) => {
-        this.alertService.showToastError();
-        console.log(err);
-      });
+  ngOnInit(): void {
+    this.productLevel = this.route.snapshot.data["id"];
+    this.dataSource.loadData();
+  }
+
+  loadJobsPage() {
+    this.dataSource.loadData(
+      [],
+      this.input.nativeElement.value,
+      this.sort.direction,
+      this.paginator.pageIndex,
+      this.paginator.pageSize,
+      false);
+  }
+
+  handlePageEvent(e: PageEvent) {
+    this.pageEvent = e;
+    this.length = e.length;
+    this.pageSize = e.pageSize;
+    this.pageIndex = e.pageIndex;
+
+    this.loadJobsPage();
+  }
+
+  openAddDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {};
+
+    const dialogRef = this.dialog.open(AddProductLevelComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(
+      result => {
+        setTimeout(() => {
+          console.log("reload after added", result);
+          this.loadJobsPage();
+        }, 2000);
+      }
+    );
+  }
+
+  openRemoveDialog(element: any): void {
+    const dialogRef = this.dialog.open(RemoveProductLevelComponent, {
+      data: { id: element.id, name: element.name },
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      setTimeout(() => {
+        this.loadJobsPage();
+      }, 2000);
+    });
+  }
+
+  openUpdateDialog(element: any) {
+    console.log("updateJobDialog");
   }
 
 }

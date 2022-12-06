@@ -13,10 +13,11 @@ import { ProductLevelsComponent } from './productlevels.component';
 import { ProductLevelListComponent } from './productlevel-list/productlevel-list.component';
 import { MaterialModule } from 'src/app/material.module';
 import { AddProductLevelComponent } from './add-productlevel/add-productlevel.component';
+import { RemoveProductLevelComponent } from './remove-productlevel/remove-productlevel.component';
 
 const routes: Routes = [
   {
-    path: 'productLevels',
+    path: 'productlevels',
     component: ProductLevelsComponent,
     children: [
       {
@@ -33,6 +34,7 @@ const routes: Routes = [
   declarations: [
     ProductLevelListComponent,
     AddProductLevelComponent,
+    RemoveProductLevelComponent,
   ],
   imports: [
     DropDownListModule,

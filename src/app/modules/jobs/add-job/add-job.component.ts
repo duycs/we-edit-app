@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { MatDialog, MatDialogConfig, MatDialogRef } from "@angular/material/dialog";
+import { MatDialogRef } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { AlertService } from "src/app/core/services/alert.service";
 import { APISignalRService } from "src/app/core/services/api-signalr.service";
@@ -14,7 +14,6 @@ import { Staff } from "src/app/shared/models/staff";
 @Component({
     selector: 'add-job',
     templateUrl: './add-job.component.html',
-    styleUrls: ['./add-job.component.css']
 })
 
 export class AddJobComponent implements OnInit {
@@ -79,9 +78,9 @@ export class AddJobComponent implements OnInit {
     }
 
     getProductLevels(): void {
-        this.productLevelService.getProductLevels()
+        this.productLevelService.getProductLevels(1, 10000, '', false)
             .subscribe(res => {
-                this.productLevels = res;
+                this.productLevels = res.data;
             }, (err) => {
                 this.alertService.showToastError();
                 console.log(err);

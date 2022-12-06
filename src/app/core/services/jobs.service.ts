@@ -76,11 +76,11 @@ export class JobService {
     );
   }
 
-  removeStepsFromJob(id: any): Observable<RemoveStepsFromJobVM> {
+  removeStepsFromJob(removeStepsFromJobVM: RemoveStepsFromJobVM): Observable<any> {
     const url = `${apiUrl}/steps`;
-    return this.http.delete<RemoveStepsFromJobVM>(url, httpOptions).pipe(
+    return this.http.put<any>(url, removeStepsFromJobVM, httpOptions).pipe(
       tap(_ => console.log('deleted')),
-      catchError(this.handleError<RemoveStepsFromJobVM>('RemoveStepsFromJob'))
+      catchError(this.handleError<any>('RemoveStepsFromJob'))
     );
   }
 

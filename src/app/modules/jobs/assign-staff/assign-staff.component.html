@@ -1,62 +1,18 @@
-<button class="e-control e-btn" style="z-index: 9999; margin: 12px; left: 105px;" id="targetButton"
-  (click)="onOpenDialog($event)">
-  Assign Staff
-</button>
+<h1 mat-dialog-title>Assign Staff to Job {{data.jobId}}</h1>
 
-<div #container id="container-ejs-dialog" class='root-container'>
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field appearance="fill">
+    <mat-label>Staff</mat-label>
+    <mat-select formControlName="staffId">
+      <mat-option>None</mat-option>
+      <mat-option *ngFor="let staff of staffs" [value]="staff.id">{{staff.fullName}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
 
-  <div class="control-section">
-    <div class="col-lg-12">
-      <div class="control_wrapper" id="control_wrapper" style="margin: 10px auto;">
-        <ejs-dialog id="FormDialogAssignStaff" class="form-dialog color-primary" header='Assign Staff for Step of Job {{jobId}}' #FormDialog
-          width='450px' [showCloseIcon]='true' target='.control-section'>
-          <ng-template #content>
-            <form id="template_driven" #form="ngForm" novalidate>
-
-              <div class="form-group" style="padding-top: 11px;">
-                <div class="e-float-input">
-                  <span class="e-float-line"></span>
-                  <ejs-dropdownlist id='stepId' #stepIdval='ngModel' [dataSource]='stepdata' required ngModel
-                    [fields]='stepfields' [placeholder]='steptext'></ejs-dropdownlist>
-                  <div *ngIf="(stepIdval.invalid && (stepIdval.dirty || stepIdval.touched))">
-                    <div class="e-error" *ngIf="stepIdval.errors?.['required']">
-                      * Select a Step
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-group" style="padding-top: 11px;">
-                <div class="e-float-input">
-                  <span class="e-float-line"></span>
-                  <ejs-dropdownlist id='staffId' #staffIdval='ngModel' [dataSource]='staffdata' required ngModel
-                    [fields]='stafffields' [placeholder]='stafftext'></ejs-dropdownlist>
-                  <div *ngIf="(staffIdval.invalid && (staffIdval.dirty || staffIdval.touched))">
-                    <div class="e-error" *ngIf="staffIdval.errors?.['required']">
-                      * Select a Staff
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-group" style="padding-top: 11px;">
-                <div class="submitBtn">
-                  <button class="submit-btn e-btn" id="submit-btn" [disabled]="form.invalid" type="reset"
-                    (click)="Submit()">Submit</button>
-                  <div class="desc"><span></span></div>
-                </div>
-              </div>
-
-            </form>
-          </ng-template>
-        </ejs-dialog>
-
-      </div>
-    </div>
+<mat-dialog-actions class="container">
+  <div class="group-btn">
+    <button mat-button color="primary" (click)="close()">Close</button>
+    <button mat-button mat-dialog-close color="primary" (click)="save()" cdkFocusInitial>Save</button>
   </div>
-  <ejs-dialog id="confirmationDialog" #Dialog [buttons]='dlgButtons' [animationSettings]='animationSettings'
-    [header]='formHeader' [showCloseIcon]='showCloseIcon' [content]='contentData' [target]='target' [width]='width'
-    [visible]="visible" [isModal]="isModal">
-  </ejs-dialog>
-
-</div>
+</mat-dialog-actions>

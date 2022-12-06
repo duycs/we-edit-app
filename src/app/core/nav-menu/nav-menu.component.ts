@@ -48,8 +48,8 @@ export class NavMenuComponent implements OnInit, OnDestroy {
       // this.isLibrarian = accountTypes.includes('librarian');
     }
 
-    this.cronJobSignalRService.startConnection();
-    this.cronJobSignalRService.addJobListener();   
+    // this.cronJobSignalRService.startConnection();
+    // this.cronJobSignalRService.addJobListener();   
   }
 
   ngOnDestroy() {

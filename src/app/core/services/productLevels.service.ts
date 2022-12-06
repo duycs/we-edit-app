@@ -8,6 +8,7 @@ import { CreateJobVM } from 'src/app/shared/models/createJobVM';
 import { JobStep } from 'src/app/shared/models/jobStep';
 import { PaggedDataJob } from 'src/app/shared/models/paggedDataJob';
 import { ProductLevel } from 'src/app/shared/models/productLevel';
+import { PaggedDataProductLevel } from 'src/app/shared/models/paggedDataProductLevel';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -23,12 +24,21 @@ export class ProductLevelService {
 
   constructor(private http: HttpClient) { }
 
-  getProductLevels(): Observable<ProductLevel[]> {
-    const url = `${apiUrl}`;
+  getAllProductLevels(page: number = 0, size: number = 0, searchValue: string = '', isInclude: boolean = true): Observable<ProductLevel[]> {
+    const url = `${apiUrl}?pageNumber=${page}&pageSize=${size}&isInclude=${isInclude}&searchValue=${searchValue}`;
     return this.http.get<ProductLevel[]>(url)
       .pipe(
-        tap(productLevels => console.log('Fetch ProductLevel')),
+        tap(productLevels => console.log('Fetch ProductLevels')),
         catchError(this.handleError<ProductLevel[]>('getProductLevels'))
+      );
+  }
+
+  getProductLevels(page: number = 1, size: number = sizeDefault, searchValue: string = '', isInclude: boolean = true): Observable<PaggedDataProductLevel> {
+    const url = `${apiUrl}?pageNumber=${page}&pageSize=${size}&isInclude=${isInclude}&searchValue=${searchValue}`;
+    return this.http.get<PaggedDataProductLevel>(url)
+      .pipe(
+        tap(paggedProductLevels => console.log('Fetch ProductLevels')),
+        catchError(this.handleError<PaggedDataProductLevel>('getProductLevels'))
       );
   }
 

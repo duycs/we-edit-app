@@ -67,7 +67,7 @@ export class AddProductLevelForStaffComponent implements OnInit {
         this.productLevelService.getProductLevels()
             .subscribe(res => {
                 console.log(res);
-                res.forEach(element => {
+                res.data.forEach(element => {
                     this.productLeveldata.push({ Id: element.id, Name: element.code });
                 });
             }, (err) => {

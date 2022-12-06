@@ -1,4 +1,3 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { MaterialModule } from '../../material.module';
@@ -17,6 +16,9 @@ import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { JobDetailComponent } from './job-detail/job-detail.component';
 import { AddJobStepComponent } from './add-job-step/add-job-step.component';
 import { AssignStaffComponent } from './assign-staff/assign-staff.component';
+import { RemoveJobComponent } from './remove-job/remove-job.component';
+import { RemoveStepOfJobComponent } from './remove-step-of-job/remove-step-of-job.component';
+import { NgModule } from '@angular/core';
 
 
 const routes: Routes = [
@@ -43,6 +45,8 @@ const routes: Routes = [
     JobListComponent,
     JobDetailComponent,
     AddJobComponent,
+    RemoveJobComponent,
+    RemoveStepOfJobComponent,
     AddJobStepComponent,
     AssignStaffComponent,
   ],

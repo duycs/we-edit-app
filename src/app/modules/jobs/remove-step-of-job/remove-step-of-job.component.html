@@ -1,0 +1,13 @@
+<mat-dialog-content>
+  <h1 mat-dialog-title>Remove Step of Job</h1>
+  <div mat-dialog-content>
+    Would you like to remove Step {{data.stepName}} of Job {{data.jobName}}?
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions class="container">
+  <div class="group-btn">
+    <button mat-button color="primary" (click)="onNoClick()">No</button>
+    <button mat-button mat-dialog-close color="primary" (click)="onRemoveStepOfJob(data.jobId, data.stepId)"
+      cdkFocusInitial>Yes</button>
+  </div>
+</mat-dialog-actions>
