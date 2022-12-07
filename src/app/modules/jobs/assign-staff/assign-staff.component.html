@@ -8,6 +8,12 @@
       <mat-option *ngFor="let staff of staffs" [value]="staff.id">{{staff.fullName}}</mat-option>
     </mat-select>
   </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Estimation in seconds</mat-label>
+    <input matInput placeholder="3600" formControlName="estimationInSeconds">
+  </mat-form-field>
+
 </mat-dialog-content>
 
 <mat-dialog-actions class="container">

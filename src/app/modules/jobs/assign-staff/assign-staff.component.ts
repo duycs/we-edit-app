@@ -35,7 +35,8 @@ export class AssignStaffComponent implements OnInit, AfterViewInit {
 
     ngOnInit(): void {
         this.form = this.fb.group({
-            staffId: [null, Validators.required]
+            staffId: [null, Validators.required],
+            estimationInSeconds: [null, Validators.required]
         });
     };
 
@@ -52,7 +53,8 @@ export class AssignStaffComponent implements OnInit, AfterViewInit {
         let assignStaffToStepVM: AssignStaffToStepVM = {
             jobId: ~~this.jobId,
             staffId: ~~this.form.get('staffId')?.value,
-            stepId: ~~this.data.stepId
+            stepId: ~~this.data.stepId,
+            estimationInSeconds: ~~this.form.get('estimationInSeconds')?.value
         };
 
         this.jobService.assignStaffToStep(assignStaffToStepVM)

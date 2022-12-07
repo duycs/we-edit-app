@@ -3,4 +3,5 @@ export interface CreateStaffVM {
     account: string;
     email: string;
     roleIds: number[];
+    productLevelIds: number[];
 }

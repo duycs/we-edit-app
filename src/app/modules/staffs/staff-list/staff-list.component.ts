@@ -13,6 +13,8 @@ import { StaffDataSource } from '../staffs-data-source';
 import { MappingModels } from 'src/app/shared/models/mapping-models';
 import { RemoveStaffComponent } from '../remove-staff/remove-staff.component';
 import { AddProductLevelForStaffComponent } from '../add-productlevel-for-staff/add-productlevel-for-staff.component';
+import { StaffInShiftVM } from 'src/app/shared/models/staffInShiftVM';
+import { StaffOutShiftVM } from 'src/app/shared/models/staffOutShiftVM';
 
 @Component({
   selector: 'app-staff-list',
@@ -151,4 +153,38 @@ export class StaffListComponent implements OnInit {
   openUpdateDialog(element: any) {
   }
 
+  addInShift(element: any) {
+    var staffInShiftVM: StaffInShiftVM = {
+      staffId: element.id,
+    };
+
+    this.staffService.addInShiftForStaff(staffInShiftVM)
+      .subscribe(() => {
+        this.alertService.showToastSuccess();
+        setTimeout(() => {
+          this.loadPage();
+        }, 2000);
+      }, (err) => {
+        this.alertService.showToastError();
+        console.log(err);
+      });
+  }
+
+
+  addOutShift(element: any) {
+    var staffOutShiftVM: StaffOutShiftVM = {
+      staffId: element.id,
+    };
+
+    this.staffService.addOutShiftForStaff(staffOutShiftVM)
+      .subscribe(() => {
+        this.alertService.showToastSuccess();
+        setTimeout(() => {
+          this.loadPage();
+        }, 2000);
+      }, (err) => {
+        this.alertService.showToastError();
+        console.log(err);
+      });
+  }
 }

@@ -1,9 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AlertService } from 'src/app/core/services/alert.service';
+import { ProductLevelService } from 'src/app/core/services/productLevels.service';
 import { StaffService } from 'src/app/core/services/staffs.service';
 import { CreateStaffVM } from 'src/app/shared/models/createStaffVM';
+import { ProductLevel } from 'src/app/shared/models/productLevel';
 
 @Component({
     selector: 'add-staff',
@@ -24,15 +26,20 @@ export class AddStaffComponent implements OnInit {
         { id: 8, name: 'QC' },
         { id: 9, name: 'DCQC' }
     ];
+    roleIds = new FormControl();
+    productLevelIds = new FormControl();
+    productLevels!: ProductLevel[];
 
     constructor(private fb: FormBuilder,
         private staffService: StaffService,
+        private productLevelService: ProductLevelService,
         private dialogRef: MatDialogRef<AddStaffComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
         private alertService: AlertService) {
     };
 
     ngAfterViewInit(): void {
+        this.getProductLevels();
     };
 
     ngOnInit(): void {
@@ -40,17 +47,29 @@ export class AddStaffComponent implements OnInit {
             fullname: [null, Validators.required],
             account: [null, Validators.required],
             email: [null, Validators.required],
-            roleId: [null, Validators.required],
         });
     };
+
+    getProductLevels(): void {
+        this.productLevelService.getAllProductLevels()
+            .subscribe(res => {
+                this.productLevels = res;
+            }, (err) => {
+                this.alertService.showToastError();
+                console.log(err);
+            });
+    }
 
     public save(): void {
         let createStaffVM: CreateStaffVM = {
             fullname: this.form.get('fullname')?.value,
             account: this.form.get('account')?.value,
             email: this.form.get('email')?.value,
-            roleIds: [~~this.form.get('roleId')?.value]
+            roleIds: this.roleIds?.value,
+            productLevelIds: this.productLevelIds?.value
         };
+
+        console.log("createStaffVM", createStaffVM);
 
         this.staffService.addStaff(createStaffVM)
             .subscribe(() => {

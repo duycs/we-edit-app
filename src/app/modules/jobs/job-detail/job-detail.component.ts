@@ -22,7 +22,6 @@ import { AssignStaffComponent } from '../assign-staff/assign-staff.component';
 @Component({
   selector: 'job-detail',
   templateUrl: './job-detail.component.html',
-  styleUrls: ['./job-detail.component.css']
 })
 
 export class JobDetailComponent implements OnInit, AfterViewInit {
@@ -137,7 +136,7 @@ export class JobDetailComponent implements OnInit, AfterViewInit {
     console.log("updateJobDialog");
   }
 
-  openAssignStaffForStepOfJobDialog(element: any) {
+  openAssignStaffToStepOfJobDialog(element: any) {
     const dialogRef = this.dialog.open(AssignStaffComponent, {
       data: { jobId: this.jobId, jobName: this.jobs[0].code, stepId: element.step.id, stepName: element.step.name },
     });

@@ -35,7 +35,7 @@ export class ProductLevelListComponent implements OnInit {
   disabled = false;
 
   title: string = "Product-Levels";
-  displayedColumns: string[] = ['action', 'id', 'name', 'description'];
+  displayedColumns: string[] = ['action', 'id', 'name', 'code', 'description'];
 
   productLevel!: ProductLevel;
   dataSource!: ProductLevelDataSource;

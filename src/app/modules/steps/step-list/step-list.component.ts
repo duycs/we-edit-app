@@ -25,7 +25,7 @@ export class StepListComponent implements OnInit {
 
   length = 50;
   pageSize = 10;
-  pageIndex = 1;
+  pageIndex = 0;
   pageSizeOptions = [5, 10, 15, 20];
   pageEvent!: PageEvent;
 
@@ -63,7 +63,7 @@ export class StepListComponent implements OnInit {
         debounceTime(150),
         distinctUntilChanged(),
         tap(() => {
-          this.paginator.pageIndex = 1;
+          this.paginator.pageIndex = 0;
           this.loadPage();
         })
       )
@@ -71,7 +71,7 @@ export class StepListComponent implements OnInit {
 
     if (this.sort && this.sort.sortChange) {
       // reset the paginator after sorting
-      this.sort?.sortChange.subscribe(() => this.paginator.pageIndex = 1);
+      this.sort?.sortChange.subscribe(() => this.paginator.pageIndex = 0);
 
       // on sort or paginate events, load a new page
       merge(this.sort?.sortChange, this.paginator.page)
@@ -94,7 +94,7 @@ export class StepListComponent implements OnInit {
       this.sort.direction,
       this.paginator.pageIndex,
       this.paginator.pageSize,
-      false);
+      true);
   }
 
   handlePageEvent(e: PageEvent) {
