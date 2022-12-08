@@ -14,7 +14,7 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-const apiUrl = `${AppSettings.defaultBackendDevelopUrl}/notes`;
+const apiUrl = `${AppSettings.API_URL}/notes`;
 const sizeDefault = 10;
 
 @Injectable({

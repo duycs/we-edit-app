@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { Staff } from '../../shared/models/staff';
 import { AppSettings } from 'src/app/configs/app-settings.config';
 
-const apiUrl = `${AppSettings.defaultBackendUrl}`;
+const apiUrl = `${AppSettings.API_URL}`;
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {

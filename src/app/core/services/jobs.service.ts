@@ -16,7 +16,7 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-const apiUrl = `${AppSettings.defaultBackendDevelopUrl}/jobs`;
+const apiUrl = `${AppSettings.API_URL}/jobs`;
 const sizeDefault = 10;
 
 @Injectable({

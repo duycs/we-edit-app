@@ -14,7 +14,7 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-const apiUrl = `${AppSettings.defaultBackendDevelopUrl}/productlevels`;
+const apiUrl = `${AppSettings.API_URL}/productlevels`;
 const sizeDefault = 10;
 
 @Injectable({

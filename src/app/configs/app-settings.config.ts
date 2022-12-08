@@ -1,4 +1,3 @@
 export const AppSettings = {
-    defaultBackendUrl: "https://we-edit/api/v1",
-    defaultBackendDevelopUrl: "https://localhost:7152",
+    API_URL: "http://EC2Co-EcsEl-1DNHVCC9RJCSZ-2037850091.ap-northeast-1.elb.amazonaws.com",
 }

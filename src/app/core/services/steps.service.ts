@@ -10,7 +10,7 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-const apiUrl = `${AppSettings.defaultBackendDevelopUrl}/steps`;
+const apiUrl = `${AppSettings.API_URL}/steps`;
 const sizeDefault = 10;
 
 @Injectable({
