@@ -62,7 +62,7 @@ export class NavMenuComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    let account = this.currentUser.email;
+    let account = this.currentUser?.email;
     this.authenticationService.logout(account).pipe(first()).subscribe(() => {
       console.log(account);
       this.alertService.showToastSuccess();

@@ -18,7 +18,7 @@ export class AuthenticationService {
         } catch (err) {
             console.log("err JSON.parse currentUser");
         }
-        this.currentUser = this.currentUserSubject.asObservable();
+        this.currentUser = this.currentUserSubject?.asObservable();
     }
 
     public get currentUserValue(): Staff {
