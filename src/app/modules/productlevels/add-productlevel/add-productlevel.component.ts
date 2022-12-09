@@ -40,11 +40,9 @@ export class AddProductLevelComponent implements OnInit {
         };
 
         this.productLevelService.addProductLevel(createProductLevelVM)
-            .subscribe(() => {
-                this.alertService.showToastSuccess();
-            }, (err) => {
-                this.alertService.showToastError();
-                console.log(err);
+            .subscribe({
+                next: () => { this.alertService.showToastSuccess() },
+                error: () => { this.alertService.showToastError(); }
             });
 
         this.dialogRef.close({ event: "save", data: this.form.value });
