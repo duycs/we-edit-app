@@ -74,7 +74,7 @@ jobs:
             - run:
                 name: Install aws cli
                 command:    |
-                    pip install awscli --upgrade --user
+                    pip3 install boto3==1.16.62 aws-sam-cli==1.15.0
             # Set the signature version for the S3 auth
             - run:
                 name: Setting Signature Version 4 for S3 Request Authentication
