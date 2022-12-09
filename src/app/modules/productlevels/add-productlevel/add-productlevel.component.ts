@@ -7,7 +7,7 @@ import { CreateProductLevelVM } from 'src/app/shared/models/createProductLevelVM
 
 @Component({
     selector: 'add-productlevel',
-    templateUrl: './add-productLevel.component.html',
+    templateUrl: './add-productlevel.component.html',
 })
 
 export class AddProductLevelComponent implements OnInit {
