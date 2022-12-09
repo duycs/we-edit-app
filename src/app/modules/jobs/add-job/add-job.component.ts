@@ -71,6 +71,7 @@ export class AddJobComponent implements OnInit {
         this.staffService.getAllStaffs()
             .subscribe(res => {
                 this.csoStaffs = res;
+                console.log("getStaffs", this.csoStaffs);
             }, (err) => {
                 this.alertService.showToastError();
                 console.log(err);
@@ -78,9 +79,9 @@ export class AddJobComponent implements OnInit {
     }
 
     getProductLevels(): void {
-        this.productLevelService.getProductLevels(1, 10000, '', false)
+        this.productLevelService.getAllProductLevels()
             .subscribe(res => {
-                this.productLevels = res.data;
+                this.productLevels = res;
             }, (err) => {
                 this.alertService.showToastError();
                 console.log(err);
