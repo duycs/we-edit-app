@@ -73,9 +73,9 @@ jobs:
             # Install AWS cli
             - run:
                 name: Install aws cli
-                command:
-                    - snap info aws-cli
-                    - sudo apt  install awscli
+                command:    |
+                    snap info aws-cli
+                    sudo apt  install awscli
             # Set the signature version for the S3 auth
             - run:
                 name: Setting Signature Version 4 for S3 Request Authentication
