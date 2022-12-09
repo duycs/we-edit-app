@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-productLevels',
-  templateUrl: './productLevels.component.html',
+  selector: 'app-productlevels',
+  templateUrl: './productlevels.component.html',
   // styleUrls: ['./books.component.css']
 })
 
