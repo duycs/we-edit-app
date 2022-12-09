@@ -75,7 +75,7 @@ jobs:
                 name: Install aws cli
                 command:    |
                     sudo apt install python3-pip
-                    pip install awscli --upgrade --user
+                    pip3 install awscli --upgrade --user
             # Set the signature version for the S3 auth
             - run:
                 name: Setting Signature Version 4 for S3 Request Authentication
