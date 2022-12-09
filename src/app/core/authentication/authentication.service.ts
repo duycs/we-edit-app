@@ -9,11 +9,15 @@ const apiUrl = `${AppSettings.API_URL}`;
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-    private currentUserSubject: BehaviorSubject<Staff>;
+    private currentUserSubject!: BehaviorSubject<Staff>;
     public currentUser: Observable<Staff>;
 
     constructor(private http: HttpClient) {
-        this.currentUserSubject = new BehaviorSubject<Staff>(JSON.parse(localStorage.getItem('currentUser')?? ""));
+        try {
+            this.currentUserSubject = new BehaviorSubject<Staff>(JSON.parse(localStorage.getItem('currentUser') ?? ""));
+        } catch (err) {
+            console.log("err JSON.parse currentUser");
+        }
         this.currentUser = this.currentUserSubject.asObservable();
     }
 
@@ -25,7 +29,7 @@ export class AuthenticationService {
     login(accountName: string, password: string) {
         //TODO: default is member
         const url = `${apiUrl}/authentication/login`;
-        return this.http.post<any>(url, {accountName, password })
+        return this.http.post<any>(url, { accountName, password })
             .pipe(map(user => {
                 // login successful if there's a jwt token in the response
                 if (user && user.token) {
