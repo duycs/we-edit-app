@@ -20,7 +20,7 @@ import { RemoveStepComponent } from '../remove-step/remove-step.component';
 
 export class StepListComponent implements OnInit {
   currentUser!: Staff;
-  currentUserSubscription: Subscription;
+  currentUserSubscription!: Subscription;
   users: Staff[] = [];
 
   length = 50;
@@ -50,10 +50,10 @@ export class StepListComponent implements OnInit {
     private dialog: MatDialog,
     private route: ActivatedRoute,
     private alertService: AlertService) {
-    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
-      this.currentUser = user;
-      this.dataSource = new StepDataSource(this.stepService, this.mappingModels);
-    });
+    // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
+    //   this.currentUser = user;
+    // });
+    this.dataSource = new StepDataSource(this.stepService, this.mappingModels);
   }
 
   ngAfterViewInit() {

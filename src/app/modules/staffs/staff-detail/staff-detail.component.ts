@@ -22,7 +22,7 @@ import { RemoveStepOfJobComponent } from '../../jobs/remove-step-of-job/remove-s
 
 export class StaffDetailComponent implements OnInit {
   currentUser!: Staff;
-  currentUserSubscription: Subscription;
+  currentUserSubscription!: Subscription;
   users: Staff[] = [];
 
   length = 50;
@@ -56,9 +56,9 @@ export class StaffDetailComponent implements OnInit {
     private mappingModel: MappingModels,
     private dialog: MatDialog,
     private alertService: AlertService) {
-    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
-      this.currentUser = user;
-    });
+    // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
+    //   this.currentUser = user;
+    // });
   }
 
   ngAfterViewInit() {

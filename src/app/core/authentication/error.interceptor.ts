@@ -9,12 +9,12 @@ import { Staff } from 'src/app/shared/models/staff';
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
     currentUser!: Staff;
-    currentUserSubscription: Subscription;
+    currentUserSubscription!: Subscription;
     users: Staff[] = [];
     constructor(private authenticationService: AuthenticationService) {
-        this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
-            this.currentUser = user;
-        });
+        // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
+        //     this.currentUser = user;
+        // });
     }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

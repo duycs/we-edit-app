@@ -26,7 +26,7 @@ import { AssignStaffComponent } from '../assign-staff/assign-staff.component';
 
 export class JobDetailComponent implements OnInit, AfterViewInit {
   currentUser!: Staff;
-  currentUserSubscription: Subscription;
+  currentUserSubscription!: Subscription;
   users: Staff[] = [];
 
   length = 50;
@@ -61,9 +61,9 @@ export class JobDetailComponent implements OnInit, AfterViewInit {
     private mappingModel: MappingModels,
     private dialog: MatDialog,
     private alertService: AlertService) {
-    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
-      this.currentUser = user;
-    });
+    // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
+    //   this.currentUser = user;
+    // });
   }
 
   ngAfterViewInit() {

@@ -20,7 +20,7 @@ import { MatSort } from '@angular/material/sort';
 
 export class ProductLevelListComponent implements OnInit {
   currentUser!: Staff;
-  currentUserSubscription: Subscription;
+  currentUserSubscription!: Subscription;
   users: Staff[] = [];
 
   length = 50;
@@ -49,10 +49,10 @@ export class ProductLevelListComponent implements OnInit {
     private dialog: MatDialog,
     private route: ActivatedRoute,
     private alertService: AlertService) {
-    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
-      this.currentUser = user;
-      this.dataSource = new ProductLevelDataSource(this.productLevelService);
-    });
+    // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
+    //   this.currentUser = user;
+    // });
+    this.dataSource = new ProductLevelDataSource(this.productLevelService);
   }
 
   ngAfterViewInit() {

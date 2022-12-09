@@ -14,7 +14,7 @@ import { Staff } from '../../models/staff';
 
 export class CardJobListComponent implements OnInit {
   currentUser!: Staff;
-  currentUserSubscription: Subscription;
+  currentUserSubscription!: Subscription;
   users: Staff[] = [];
 
   //@Input() page: number = 1;
@@ -23,9 +23,9 @@ export class CardJobListComponent implements OnInit {
   constructor(private router: Router,
     private authenticationService: AuthenticationService,
     private alertService: AlertService) {
-    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
-      this.currentUser = user;
-    });
+    // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
+    //   this.currentUser = user;
+    // });
   }
 
   ngOnInit(): void {

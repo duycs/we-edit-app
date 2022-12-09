@@ -22,7 +22,7 @@ import { RemoveJobComponent } from '../remove-job/remove-job.component';
 
 export class JobListComponent implements OnInit, AfterViewInit {
   currentUser!: Staff;
-  currentUserSubscription: Subscription;
+  currentUserSubscription!: Subscription;
   users: Staff[] = [];
 
   length = 50;
@@ -53,10 +53,10 @@ export class JobListComponent implements OnInit, AfterViewInit {
     private mappingModel: MappingModels,
     private dialog: MatDialog,
     private alertService: AlertService) {
-    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
-      this.currentUser = user;
-      this.dataSource = new JobsDataSource(this.jobService, this.mappingModel);
-    });
+      // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
+      //   this.currentUser = user;
+      // });
+    this.dataSource = new JobsDataSource(this.jobService, this.mappingModel);
   }
 
   ngAfterViewInit() {

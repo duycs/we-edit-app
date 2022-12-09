@@ -15,7 +15,7 @@ import { CronJobSignalrService } from '../services/cronjob-signalr.service';
 })
 export class NavMenuComponent implements OnInit, OnDestroy {
   currentUser!: Staff;
-  currentUserSubscription: Subscription;
+  currentUserSubscription!: Subscription;
   users: Staff[] = [];
   isExpanded = false;
   isAnonymous = false;
@@ -30,9 +30,9 @@ export class NavMenuComponent implements OnInit, OnDestroy {
     private router: Router,
     private authenticationService: AuthenticationService,
   ) {
-    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
-      this.currentUser = user;
-    });
+    // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
+    //   this.currentUser = user;
+    // });
   }
 
 
