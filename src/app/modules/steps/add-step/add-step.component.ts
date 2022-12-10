@@ -19,6 +19,16 @@ export class AddStepComponent implements OnInit {
     title: string = "Add new Step";
     productLevels!: ProductLevel[];
 
+    groups: any[] = [
+        { id: 1, name: 'Admin' },
+        { id: 2, name: 'QC' },
+        { id: 3, name: 'High Quanlity' },
+        { id: 4, name: 'Photo Editing' },
+        { id: 5, name: 'Merge Retouch' },
+        { id: 6, name: 'Video' },
+        { id: 7, name: '2D&3D' },
+    ];
+
     constructor(private fb: FormBuilder,
         private stepService: StepService,
         private productLevelService: ProductLevelService,
@@ -38,6 +48,7 @@ export class AddStepComponent implements OnInit {
             orderNumber: [null, Validators.required],
             estimationInSeconds: [3600],
             productLevelId: [null, Validators.required],
+            groupId: [null],
         });
     };
 
@@ -57,7 +68,8 @@ export class AddStepComponent implements OnInit {
             code: this.form.get('code')?.value,
             orderNumber: this.form.get('orderNumber')?.value,
             estimationInSeconds: ~~this.form.get('estimationInSeconds')?.value,
-            productLevelId: ~~this.form.get('productLevelId')?.value
+            productLevelId: ~~this.form.get('productLevelId')?.value,
+            groupId: ~~this.form.get('groupId')?.value
         };
 
         this.stepService.addStep(createStepVM)

@@ -2,12 +2,65 @@ import { Injectable } from "@angular/core";
 import { Job } from "./job";
 import { JobStep } from "./jobStep";
 import { Staff } from "./staff";
+import { Step } from "./step";
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class MappingModels {
+
+    public MappingDisplayNameFieldsOfSteps(steps: Step[]) {
+        steps.forEach(step => {
+            step = this.MappingDisplayNameFieldsOfStep(step);
+        });
+
+        return steps;
+    }
+
+    public MappingDisplayNameFieldsOfStep(step: Step) {
+        step.groupname = this.MappingDisplayGroupName(step.groupId);
+        return step;
+    }
+
+    public MappingDisplayGroupName(groupId: number) {
+        let groupname = 'none';
+        switch (groupId) {
+            case 2:
+                groupname = "Admin";
+                break;
+
+            case 2:
+                groupname = "QC";
+                break;
+
+            case 3:
+                groupname = "High Quality";
+                break;
+
+            case 4:
+                groupname = "Photo Editing";
+                break;
+
+            case 5:
+                groupname = "Merge Retouch";
+                break;
+
+            case 6:
+                groupname = "Video";
+                break;
+
+            case 7:
+                groupname = "2D&3D";
+                break;
+
+            default:
+                groupname = "none";
+                break;
+        }
+
+        return groupname;
+    }
 
     public MappingDisplayNameFieldsOfJobSteps(jobSteps: JobStep[]) {
         jobSteps.forEach(jobStep => {
@@ -18,6 +71,7 @@ export class MappingModels {
     }
 
     public MappingDisplayNameFieldsOfJobStep(jobStep: JobStep) {
+        jobStep.groupname = this.MappingDisplayGroupName(jobStep.step.groupId);
         switch (jobStep.status) {
             case 0:
                 jobStep.statusname = "Todo";
@@ -171,6 +225,18 @@ export class MappingModels {
                 }
             });
             staff.rolenames = rolenames;
+        }
+
+        if (staff.groups != null && staff.groups.length > 0) {
+            let groupnames = "";
+            staff.groups.map((group, i) => {
+                if (i == 0) {
+                    return groupnames += group.name;
+                } else {
+                    return groupnames += ", " + group.name;
+                }
+            });
+            staff.groupnames = groupnames;
         }
 
         if (staff.productLevels != null && staff.productLevels.length > 0) {

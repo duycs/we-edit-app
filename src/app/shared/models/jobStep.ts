@@ -22,4 +22,5 @@ export interface JobStep {
     status: number;
     
     statusname: string;
+    groupname: string;
 }

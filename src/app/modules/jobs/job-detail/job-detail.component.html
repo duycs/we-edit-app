@@ -116,6 +116,11 @@
       <td mat-cell *matCellDef="let element"> {{element.step?.name}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="group">
+      <th mat-header-cell *matHeaderCellDef> Group </th>
+      <td mat-cell *matCellDef="let element"> {{element?.groupname}} </td>
+    </ng-container>
+
     <ng-container matColumnDef="productLevel">
       <th mat-header-cell *matHeaderCellDef> Product Level </th>
       <td mat-cell *matCellDef="let element"> {{element.step?.productLevel?.code}} </td>

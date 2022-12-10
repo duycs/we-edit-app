@@ -38,7 +38,7 @@ export class StaffListComponent implements OnInit {
   disabled = false;
 
   title: string = "Staffs";
-  displayedColumns: string[] = ['action', 'id', 'fullname', 'account', "email", 'roles', "productLevels", "currentShift", "isAssigned", "status"];
+  displayedColumns: string[] = ['action', 'id', 'fullname', 'account', "email", 'roles', 'groups', "productLevels", "currentShift", "isAssigned", "status"];
 
   staff!: Staff;
   dataSource!: StaffDataSource;

@@ -3,5 +3,6 @@ export interface CreateStaffVM {
     account: string;
     email: string;
     roleIds: number[];
+    groupIds: number[];
     productLevelIds: number[];
 }

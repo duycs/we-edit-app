@@ -3,5 +3,6 @@ export interface CreateStepVM {
     code: string;
     orderNumber: string;
     productLevelId: number;
+    groupId: number;
     estimationInSeconds: number;
 }

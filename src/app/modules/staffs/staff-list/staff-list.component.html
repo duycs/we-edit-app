@@ -49,12 +49,17 @@
     </ng-container>
 
     <ng-container matColumnDef="roles">
-      <th mat-header-cell *matHeaderCellDef> Role </th>
+      <th mat-header-cell *matHeaderCellDef> Roles </th>
       <td mat-cell *matCellDef="let element"> {{element.rolenames}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="groups">
+      <th mat-header-cell *matHeaderCellDef> Groups </th>
+      <td mat-cell *matCellDef="let element"> {{element.groupnames}} </td>
+    </ng-container>
+
     <ng-container matColumnDef="productLevels">
-      <th mat-header-cell *matHeaderCellDef> Product Level </th>
+      <th mat-header-cell *matHeaderCellDef> Product-Levels </th>
       <td mat-cell *matCellDef="let element"> {{element.productLevelnames}} </td>
     </ng-container>
 

@@ -43,7 +43,7 @@ export class JobDetailComponent implements OnInit, AfterViewInit {
   displayedJobColumns: string[] = ['id', 'date', 'location', 'cso', 'jobId', 'code', 'instruction', 'inputNumber',
     'productLevel', 'startTime', 'endTime', 'deadline', 'deliverType', 'app',];
 
-  displayedJobStepColumns: string[] = ['action', 'id', 'name', 'productLevel', 'inputNumber', 'worker', 'shift', 'estimationInSeconds',
+  displayedJobStepColumns: string[] = ['action', 'id', 'name', 'productLevel', 'group', 'inputNumber', 'worker', 'shift', 'estimationInSeconds',
     'startTime', 'endTime', 'statusname'];
 
   jobs!: Job[];

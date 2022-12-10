@@ -27,7 +27,7 @@ export class StepDataSource implements DataSource<Step>{
     }
 
     loadData(ids: number[] = [], searchValue = '',
-        sortDirection = 'asc', pageIndex = 1, pageSize = 5, isInclude: boolean = false) {
+        sortDirection = 'asc', pageIndex = 1, pageSize = 5, isInclude: boolean = true) {
         this.loadingSubject.next(true);
 
         if (pageIndex == 0 && pageSize == 0) {
@@ -36,7 +36,7 @@ export class StepDataSource implements DataSource<Step>{
                 finalize(() => this.loadingSubject.next(false))
             )
                 .subscribe(data => {
-                    this.stepsSubject.next(data)
+                    this.stepsSubject.next(this.mappingModels.MappingDisplayNameFieldsOfSteps(data))
                 });
         } else if (ids != null && ids.length > 0) {
             // TODO
@@ -47,7 +47,7 @@ export class StepDataSource implements DataSource<Step>{
                 finalize(() => this.loadingSubject.next(false))
             )
                 .subscribe(paggedData => {
-                    this.stepsSubject.next(paggedData.data)
+                    this.stepsSubject.next(this.mappingModels.MappingDisplayNameFieldsOfSteps(paggedData.data))
                     this.count = paggedData.totalRecords;
                     console.log(paggedData.data);
                 });

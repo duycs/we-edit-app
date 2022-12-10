@@ -35,7 +35,7 @@ export class StepListComponent implements OnInit {
   disabled = false;
 
   title: string = "Steps";
-  displayedColumns: string[] = ['action', 'id', 'name', 'code', "orderNumber", 'productLevel', "estimationInSeconds"];
+  displayedColumns: string[] = ['action', 'id', 'name', 'code', "orderNumber", 'group', 'productLevel', "estimationInSeconds"];
 
   staff!: Staff;
   dataSource!: StepDataSource;

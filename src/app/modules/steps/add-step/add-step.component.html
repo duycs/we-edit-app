@@ -23,10 +23,18 @@
   </mat-form-field>
 
   <mat-form-field appearance="fill">
+    <mat-label>Groups</mat-label>
+    <mat-select formControlName="groupId">
+      <mat-option *ngFor="let group of groups" [value]="group.id">{{group.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
     <mat-label>Product Level</mat-label>
     <mat-select formControlName="productLevelId">
       <mat-option>None</mat-option>
-      <mat-option *ngFor="let productLevel of productLevels" [value]="productLevel.id">{{productLevel.code}}</mat-option>
+      <mat-option *ngFor="let productLevel of productLevels" [value]="productLevel.id">{{productLevel.code}}
+      </mat-option>
     </mat-select>
   </mat-form-field>
 

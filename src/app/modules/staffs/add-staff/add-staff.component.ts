@@ -27,6 +27,18 @@ export class AddStaffComponent implements OnInit {
         { id: 9, name: 'DCQC' }
     ];
     roleIds = new FormControl();
+
+    groups: any[] = [
+        { id: 1, name: 'Admin' },
+        { id: 2, name: 'QC' },
+        { id: 3, name: 'High Quanlity' },
+        { id: 4, name: 'Photo Editing' },
+        { id: 5, name: 'Merge Retouch' },
+        { id: 6, name: 'Video' },
+        { id: 7, name: '2D&3D' },
+    ];
+    groupIds = new FormControl();
+
     productLevelIds = new FormControl();
     productLevels!: ProductLevel[];
 
@@ -66,6 +78,7 @@ export class AddStaffComponent implements OnInit {
             account: this.form.get('account')?.value,
             email: this.form.get('email')?.value,
             roleIds: this.roleIds?.value,
+            groupIds: this.groupIds?.value,
             productLevelIds: this.productLevelIds?.value
         };
 

@@ -1,6 +1,7 @@
   <h1 mat-dialog-title>Add Step to Job {{data.jobId}}</h1>
 
   <mat-dialog-content [formGroup]="form">
+
     <mat-form-field appearance="fill">
       <mat-label>Step</mat-label>
       <mat-select formControlName="stepId">
@@ -8,6 +9,7 @@
         <mat-option *ngFor="let step of steps" [value]="step.id">{{step.name}}</mat-option>
       </mat-select>
     </mat-form-field>
+
   </mat-dialog-content>
 
   <mat-dialog-actions class="container">

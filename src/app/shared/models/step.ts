@@ -6,5 +6,8 @@ export interface Step {
     code: string;
     orderNumber: number;
     productLevelId: number;
+    groupId: number;
     estimationInSeconds: number;
+
+    groupname: string;
 }
