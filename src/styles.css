@@ -85,3 +85,28 @@ tbody tr .id {
 .margin-bottom {
   margin-bottom: 12px;
 }
+
+mat-toolbar .menu {
+  font-size: 16px;
+}
+
+.search-field {
+  padding: 0px;
+  margin: 0px;
+  padding: 10px;
+  min-width: 50vh;
+}
+
+.search-field .mat-mdc-form-field-infix {
+  margin: 0px;
+  padding: 10px !important;
+  min-height: 40px;
+}
+
+.search-field .mat-mdc-form-field-subscript-wrapper {
+  display: none;
+}
+
+.header-button-row button {
+  margin: 10px;
+}

@@ -18,6 +18,7 @@ import { RemoveJobComponent } from '../remove-job/remove-job.component';
 @Component({
   selector: 'app-job-list',
   templateUrl: './job-list.component.html',
+  styleUrls: ['../../../shared/components/table/table-base.component.scss'],
 })
 
 export class JobListComponent implements OnInit, AfterViewInit {
@@ -36,8 +37,8 @@ export class JobListComponent implements OnInit, AfterViewInit {
   showFirstLastButtons = true;
   disabled = false;
 
-  displayedColumns: string[] = ['action', 'id', 'date', 'location', 'cso', 'jobId', 'code', 'instruction', 'inputNumber',
-    'productLevel', 'startTime', 'endTime', 'deadline', 'deliverType', 'app',];
+  displayedColumns: string[] = ['action', 'code', 'jobId', 'date', 'location', 'cso', 'instruction', 'inputNumber',
+    'productLevel', 'startTime', 'endTime', 'deadline', 'deliverType', 'app', 'id'];
   job!: Job;
   jobCount!: number;
   dataSource!: JobsDataSource;
@@ -53,9 +54,9 @@ export class JobListComponent implements OnInit, AfterViewInit {
     private mappingModel: MappingModels,
     private dialog: MatDialog,
     private alertService: AlertService) {
-      // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
-      //   this.currentUser = user;
-      // });
+    // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
+    //   this.currentUser = user;
+    // });
     this.dataSource = new JobsDataSource(this.jobService, this.mappingModel);
   }
 

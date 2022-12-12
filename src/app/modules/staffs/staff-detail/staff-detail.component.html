@@ -1,137 +1,157 @@
-<div class="mat-elevation-z8">
+<div fxFlex="1 0 100%" fxLayout="column" fxLayoutAlign="start stretch">
+  <mat-sidenav-container fxFlex="0 1 auto">
 
-  <table mat-table class="staffs-table mat-elevation-z8" [dataSource]="staffs" matSort matSortActive="id"
-    matSortDirection="asc" matSortDisableClear>
+    <mat-sidenav-content>
 
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> Id </th>
-      <td mat-cell *matCellDef="let element" class="id">
-        {{element.id}}
-      </td>
-    </ng-container>
+      <table mat-table class="staffs-table mat-elevation-z8" [dataSource]="staffs" matSort matSortActive="id"
+        matSortDirection="asc" matSortDisableClear>
 
-    <ng-container matColumnDef="fullname">
-      <th mat-header-cell *matHeaderCellDef> FullName </th>
-      <td mat-cell *matCellDef="let element"> {{element.fullName}} </td>
-    </ng-container>
+        <ng-container matColumnDef="fullname">
+          <th mat-header-cell *matHeaderCellDef> FullName </th>
+          <td mat-cell *matCellDef="let element"> {{element.fullName}} </td>
+        </ng-container>
 
-    <ng-container matColumnDef="account">
-      <th mat-header-cell *matHeaderCellDef> Account </th>
-      <td mat-cell *matCellDef="let element"> {{element.account}} </td>
-    </ng-container>
+        <ng-container matColumnDef="account" sticky>
+          <th mat-header-cell *matHeaderCellDef> Account </th>
+          <td mat-cell *matCellDef="let element"> {{element.account}} </td>
+        </ng-container>
 
-    <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef> Email </th>
-      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
-    </ng-container>
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef> Email </th>
+          <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        </ng-container>
 
-    <ng-container matColumnDef="roles">
-      <th mat-header-cell *matHeaderCellDef> Roles </th>
-      <td mat-cell *matCellDef="let element"> {{element.rolenames}} </td>
-    </ng-container>
+        <ng-container matColumnDef="roles">
+          <th mat-header-cell *matHeaderCellDef> Roles </th>
+          <td mat-cell *matCellDef="let element"> {{element.rolenames}} </td>
+        </ng-container>
 
-    <ng-container matColumnDef="productLevels">
-      <th mat-header-cell *matHeaderCellDef> Product Levels </th>
-      <td mat-cell *matCellDef="let element"> {{element.productLevelnames}} </td>
-    </ng-container>
+        <ng-container matColumnDef="productLevels">
+          <th mat-header-cell *matHeaderCellDef> Product Levels </th>
+          <td mat-cell *matCellDef="let element"> {{element.productLevelnames}} </td>
+        </ng-container>
 
-    <ng-container matColumnDef="currentShift">
-      <th mat-header-cell *matHeaderCellDef> Current Shift</th>
-      <td mat-cell *matCellDef="let element"> {{element.currentShiftname}} </td>
-    </ng-container>
+        <ng-container matColumnDef="currentShift">
+          <th mat-header-cell *matHeaderCellDef> Current Shift</th>
+          <td mat-cell *matCellDef="let element"> {{element.currentShiftname}} </td>
+        </ng-container>
 
-    <ng-container matColumnDef="isAssigned">
-      <th mat-header-cell *matHeaderCellDef> Is Assigned </th>
-      <td mat-cell *matCellDef="let element"> {{element.isAssigned}} </td>
-    </ng-container>
+        <ng-container matColumnDef="isAssigned">
+          <th mat-header-cell *matHeaderCellDef> Is Assigned </th>
+          <td mat-cell *matCellDef="let element"> {{element.isAssigned}} </td>
+        </ng-container>
 
-    <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef> Status </th>
-      <td mat-cell *matCellDef="let element"> {{element.statusname}} </td>
-    </ng-container>
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Status </th>
+          <td mat-cell *matCellDef="let element"> {{element.statusname}} </td>
+        </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedStaffColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedStaffColumns;"></tr>
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> Id </th>
+          <td mat-cell *matCellDef="let element" class="id">
+            {{element.id}}
+          </td>
+        </ng-container>
 
-  </table>
+        <tr mat-header-row *matHeaderRowDef="displayedStaffColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedStaffColumns;"></tr>
 
-  <div class="header-button-row margin-top-double margin-bottom">
+      </table>
+
+
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+</div>
+
+
+<div fxFlex="1 0 100%" fxLayout="column" fxLayoutAlign="start stretch">
+  <div class="header-button-row margin-top-double">
     <button mat-raised-button color="primary" (click)="openAddStepForJobDialog()">Add Step</button>
-
   </div>
 
-  <table mat-table class="jobs-table mat-elevation-z8" [dataSource]="jobSteps" matSort matSortActive="id"
-    matSortDirection="asc" matSortDisableClear>
+  <mat-sidenav-container fxFlex="0 1 auto">
+    <mat-sidenav-content>
 
-    <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef> Action </th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-raised-button color="warn" (click)="openRemoveStepOfStaffDialog(element)">Remove </button>
-        <button mat-raised-button color="primary" class="margin-left"
-          (click)="openAssignStaffForStepOfJobDialog(element)">
-          Assign Staff
-        </button>
-      </td>
-    </ng-container>
+      <div class="mat-elevation-z8 m-12">
+        <table mat-table class="jobs-table mat-elevation-z8" [dataSource]="jobSteps" matSort matSortActive="id"
+          matSortDirection="asc" matSortDisableClear>
 
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Step Id </th>
-      <td mat-cell *matCellDef="let element" class="id">
-        <a href="/steps/{{element.step.id}}">
-          {{element.step.id}}
-        </a>
-      </td>
-    </ng-container>
+          <ng-container matColumnDef="action" sticky>
+            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-raised-button color="warn" (click)="openRemoveStepOfStaffDialog(element)">Remove </button>
+              <button mat-raised-button color="primary" class="margin-left"
+                (click)="openAssignStaffForStepOfJobDialog(element)">
+                Assign Staff
+              </button>
+            </td>
+          </ng-container>
 
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.step?.name}} </td>
-    </ng-container>
+          <ng-container matColumnDef="name" sticky>
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.step?.name}} </td>
+          </ng-container>
 
-    <ng-container matColumnDef="productLevel">
-      <th mat-header-cell *matHeaderCellDef> Product Level </th>
-      <td mat-cell *matCellDef="let element"> {{element.step?.productLevel?.code}} </td>
-    </ng-container>
+          <ng-container matColumnDef="productLevel">
+            <th mat-header-cell *matHeaderCellDef> Product-Level </th>
+            <td mat-cell *matCellDef="let element"> {{element.step?.productLevel?.code}} </td>
+          </ng-container>
 
-    <ng-container matColumnDef="inputNumber">
-      <th mat-header-cell *matHeaderCellDef> Input Number </th>
-      <td mat-cell *matCellDef="let element"> {{element.inputNumber}} </td>
-    </ng-container>
+          <ng-container matColumnDef="inputNumber">
+            <th mat-header-cell *matHeaderCellDef> Input Number </th>
+            <td mat-cell *matCellDef="let element"> {{element.inputNumber}} </td>
+          </ng-container>
 
-    <ng-container matColumnDef="worker">
-      <th mat-header-cell *matHeaderCellDef> Worker </th>
-      <td mat-cell *matCellDef="let element"> {{element.worker?.fullName}} </td>
-    </ng-container>
+          <ng-container matColumnDef="worker">
+            <th mat-header-cell *matHeaderCellDef> Worker </th>
+            <td mat-cell *matCellDef="let element"> {{element.worker?.fullName}} </td>
+          </ng-container>
 
-    <ng-container matColumnDef="shift">
-      <th mat-header-cell *matHeaderCellDef> Shift </th>
-      <td mat-cell *matCellDef="let element"> {{element.shift?.name}} </td>
-    </ng-container>
+          <ng-container matColumnDef="shift">
+            <th mat-header-cell *matHeaderCellDef> Shift </th>
+            <td mat-cell *matCellDef="let element"> {{element.shift?.name}} </td>
+          </ng-container>
 
-    <ng-container matColumnDef="estimationInSeconds">
-      <th mat-header-cell *matHeaderCellDef> estimationInSeconds </th>
-      <td mat-cell *matCellDef="let element"> {{element.estimationInSeconds}} </td>
-    </ng-container>
+          <ng-container matColumnDef="estimationInSeconds">
+            <th mat-header-cell *matHeaderCellDef> estimationInSeconds </th>
+            <td mat-cell *matCellDef="let element"> {{element.estimationInSeconds}} </td>
+          </ng-container>
 
-    <ng-container matColumnDef="startTime">
-      <th mat-header-cell *matHeaderCellDef> Start Time </th>
-      <td mat-cell *matCellDef="let element">
-        {{element.startTime == '0001-01-01T00:00:00' ? '---' : (element.startTime | date :'short')}} </td>
-    </ng-container>
+          <ng-container matColumnDef="startTime">
+            <th mat-header-cell *matHeaderCellDef> Start Time </th>
+            <td mat-cell *matCellDef="let element">
+              {{element.startTime == '0001-01-01T00:00:00' ? '---' : (element.startTime | date :'short')}} </td>
+          </ng-container>
 
-    <ng-container matColumnDef="endTime">
-      <th mat-header-cell *matHeaderCellDef> End Time </th>
-      <td mat-cell *matCellDef="let element">
-        {{element.endTime == '0001-01-01T00:00:00' ? '---' : (element.endTime | date :'short')}} </td>
-    </ng-container>
+          <ng-container matColumnDef="endTime">
+            <th mat-header-cell *matHeaderCellDef> End Time </th>
+            <td mat-cell *matCellDef="let element">
+              {{element.endTime == '0001-01-01T00:00:00' ? '---' : (element.endTime | date :'short')}} </td>
+          </ng-container>
 
-    <ng-container matColumnDef="statusname">
-      <th mat-header-cell *matHeaderCellDef> Status </th>
-      <td mat-cell *matCellDef="let element">
-        {{element.statusname}} </td>
-    </ng-container>
+          <ng-container matColumnDef="statusname">
+            <th mat-header-cell *matHeaderCellDef> Status </th>
+            <td mat-cell *matCellDef="let element">
+              {{element.statusname}} </td>
+          </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedJobStepColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedJobStepColumns;"></tr>
-  </table>
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Step Id </th>
+            <td mat-cell *matCellDef="let element" class="id">
+              <a href="/steps/{{element.step.id}}">
+                {{element.step.id}}
+              </a>
+            </td>
+          </ng-container>
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedJobStepColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedJobStepColumns;"></tr>
+        </table>
+      </div>
+
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
 </div>

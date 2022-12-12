@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ElementRef, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { debounceTime, distinctUntilChanged, fromEvent, merge, Subscription, tap } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { AuthenticationService } from 'src/app/core/authentication/authentication.service';
 import { Staff } from 'src/app/shared/models/staff';
@@ -9,11 +9,8 @@ import { Job } from 'src/app/shared/models/job';
 import { MappingModels } from 'src/app/shared/models/mapping-models';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { AddJobComponent } from '../add-job/add-job.component';
-import { RemoveJobComponent } from '../remove-job/remove-job.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { JobStep } from 'src/app/shared/models/jobStep';
-import { JobsDataSource } from '../jobs-data-source';
 import { AddJobStepComponent } from '../add-job-step/add-job-step.component';
 import { RemoveStepOfJobComponent } from '../remove-step-of-job/remove-step-of-job.component';
 import { MatTableDataSource } from '@angular/material/table';
@@ -22,6 +19,7 @@ import { AssignStaffComponent } from '../assign-staff/assign-staff.component';
 @Component({
   selector: 'job-detail',
   templateUrl: './job-detail.component.html',
+  styleUrls: ['../../../shared/components/table/table-base.component.scss']
 })
 
 export class JobDetailComponent implements OnInit, AfterViewInit {
@@ -40,11 +38,11 @@ export class JobDetailComponent implements OnInit, AfterViewInit {
   showFirstLastButtons = true;
   disabled = false;
 
-  displayedJobColumns: string[] = ['id', 'date', 'location', 'cso', 'jobId', 'code', 'instruction', 'inputNumber',
-    'productLevel', 'startTime', 'endTime', 'deadline', 'deliverType', 'app',];
+  displayedJobColumns: string[] = ['code', 'date', 'location', 'cso', 'jobId', 'instruction', 'inputNumber',
+    'productLevel', 'startTime', 'endTime', 'deadline', 'deliverType', 'app', 'id',];
 
-  displayedJobStepColumns: string[] = ['action', 'id', 'name', 'productLevel', 'group', 'inputNumber', 'worker', 'shift', 'estimationInSeconds',
-    'startTime', 'endTime', 'statusname'];
+  displayedJobStepColumns: string[] = ['action', 'code', 'name', 'productLevel', 'group', 'inputNumber', 'worker', 'shift', 'estimationInSeconds',
+    'startTime', 'endTime', 'statusname', 'id',];
 
   jobs!: Job[];
   jobSteps = new MatTableDataSource<JobStep>([]);

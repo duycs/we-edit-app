@@ -16,6 +16,7 @@ import { MatSort } from '@angular/material/sort';
 @Component({
   selector: 'app-productlevel-list',
   templateUrl: './productlevel-list.component.html',
+  styleUrls: ['../../../shared/components/table/table-base.component.scss']
 })
 
 export class ProductLevelListComponent implements OnInit {
@@ -35,7 +36,7 @@ export class ProductLevelListComponent implements OnInit {
   disabled = false;
 
   title: string = "Product-Levels";
-  displayedColumns: string[] = ['action', 'id', 'name', 'code', 'description'];
+  displayedColumns: string[] = ['action','code', 'name', 'description', 'id'];
 
   productLevel!: ProductLevel;
   dataSource!: ProductLevelDataSource;

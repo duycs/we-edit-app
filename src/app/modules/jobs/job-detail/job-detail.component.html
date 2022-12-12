@@ -1,170 +1,199 @@
-<div class="mat-elevation-z8">
+<div fxFlex="1 0 100%" fxLayout="column" fxLayoutAlign="start stretch">
 
-  <table mat-table class="jobs-table mat-elevation-z8" [dataSource]="jobs" matSort matSortActive="id"
-    matSortDirection="asc" matSortDisableClear>
+  <mat-sidenav-container fxFlex="0 1 auto">
 
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> Id </th>
-      <td mat-cell *matCellDef="let element" class="id">
-        {{element.id}}
-      </td>
-    </ng-container>
+    <mat-sidenav-content>
 
-    <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef> Date </th>
-      <td mat-cell *matCellDef="let element"> {{element.date | date :'short'}} </td>
-    </ng-container>
+      <table mat-table class="jobs-table mat-elevation-z8" [dataSource]="jobs" matSort matSortActive="id"
+        matSortDirection="asc" matSortDisableClear>
 
-    <ng-container matColumnDef="location">
-      <th mat-header-cell *matHeaderCellDef> Location </th>
-      <td mat-cell *matCellDef="let element"> {{element.locationname}} </td>
-    </ng-container>
+        <ng-container matColumnDef="code" sticky>
+          <th mat-header-cell *matHeaderCellDef> Code </th>
+          <td mat-cell *matCellDef="let element"> {{element.code}} </td>
+        </ng-container>
 
-    <ng-container matColumnDef="cso">
-      <th mat-header-cell *matHeaderCellDef> CSO </th>
-      <td mat-cell *matCellDef="let element"> {{element.cso.fullName}} </td>
-    </ng-container>
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef> Date </th>
+          <td mat-cell *matCellDef="let element"> {{element.date | date :'short'}} </td>
+        </ng-container>
 
-    <ng-container matColumnDef="jobId">
-      <th mat-header-cell *matHeaderCellDef> Job ID </th>
-      <td mat-cell *matCellDef="let element"> {{element.jobId}} </td>
-    </ng-container>
+        <ng-container matColumnDef="location">
+          <th mat-header-cell *matHeaderCellDef> Location </th>
+          <td mat-cell *matCellDef="let element"> {{element.locationname}} </td>
+        </ng-container>
 
-    <ng-container matColumnDef="code">
-      <th mat-header-cell *matHeaderCellDef> Code </th>
-      <td mat-cell *matCellDef="let element"> {{element.code}} </td>
-    </ng-container>
+        <ng-container matColumnDef="cso">
+          <th mat-header-cell *matHeaderCellDef> CSO </th>
+          <td mat-cell *matCellDef="let element"> {{element.cso.fullName}} </td>
+        </ng-container>
 
-    <ng-container matColumnDef="instruction">
-      <th mat-header-cell *matHeaderCellDef> Instruction </th>
-      <td mat-cell *matCellDef="let element"> {{element.instruction}} </td>
-    </ng-container>
+        <ng-container matColumnDef="jobId">
+          <th mat-header-cell *matHeaderCellDef> Job ID </th>
+          <td mat-cell *matCellDef="let element"> {{element.jobId}} </td>
+        </ng-container>
 
-    <ng-container matColumnDef="inputNumber">
-      <th mat-header-cell *matHeaderCellDef> Input Number </th>
-      <td mat-cell *matCellDef="let element"> {{element.inputNumber}} </td>
-    </ng-container>
 
-    <ng-container matColumnDef="productLevel">
-      <th mat-header-cell *matHeaderCellDef> Product-Level </th>
-      <td mat-cell *matCellDef="let element"> {{element.productLevel.code}} </td>
-    </ng-container>
 
-    <ng-container matColumnDef="startTime">
-      <th mat-header-cell *matHeaderCellDef> Start Time </th>
-      <td mat-cell *matCellDef="let element">
-        {{element.startTime == '0001-01-01T00:00:00' ? '---' : (element.startTime | date :'short')}} </td>
-    </ng-container>
+        <ng-container matColumnDef="instruction">
+          <th mat-header-cell *matHeaderCellDef> Instruction </th>
+          <td mat-cell *matCellDef="let element"> {{element.instruction}} </td>
+        </ng-container>
 
-    <ng-container matColumnDef="endTime">
-      <th mat-header-cell *matHeaderCellDef> End Time </th>
-      <td mat-cell *matCellDef="let element">
-        {{element.endTime == '0001-01-01T00:00:00' ? '---' : (element.endTime | date :'short')}} </td>
-    </ng-container>
+        <ng-container matColumnDef="inputNumber">
+          <th mat-header-cell *matHeaderCellDef> Input Number </th>
+          <td mat-cell *matCellDef="let element"> {{element.inputNumber}} </td>
+        </ng-container>
 
-    <ng-container matColumnDef="deadline">
-      <th mat-header-cell *matHeaderCellDef> Deadline </th>
-      <td mat-cell *matCellDef="let element">
-        {{element.deadline == '0001-01-01T00:00:00' ? '---' : (element.deadline | date :'short')}} </td>
-    </ng-container>
+        <ng-container matColumnDef="productLevel">
+          <th mat-header-cell *matHeaderCellDef> Product-Level </th>
+          <td mat-cell *matCellDef="let element"> {{element.productLevel.code}} </td>
+        </ng-container>
 
-    <ng-container matColumnDef="deliverType">
-      <th mat-header-cell *matHeaderCellDef> Deliver Type </th>
-      <td mat-cell *matCellDef="let element"> {{element.deliverTypename}} </td>
-    </ng-container>
+        <ng-container matColumnDef="startTime">
+          <th mat-header-cell *matHeaderCellDef> Start Time </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.startTime == '0001-01-01T00:00:00' ? '---' : (element.startTime | date :'short')}} </td>
+        </ng-container>
 
-    <ng-container matColumnDef="app">
-      <th mat-header-cell *matHeaderCellDef> App </th>
-      <td mat-cell *matCellDef="let element"> {{element.appname}} </td>
-    </ng-container>
+        <ng-container matColumnDef="endTime">
+          <th mat-header-cell *matHeaderCellDef> End Time </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.endTime == '0001-01-01T00:00:00' ? '---' : (element.endTime | date :'short')}} </td>
+        </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedJobColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedJobColumns;"></tr>
+        <ng-container matColumnDef="deadline">
+          <th mat-header-cell *matHeaderCellDef> Deadline </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.deadline == '0001-01-01T00:00:00' ? '---' : (element.deadline | date :'short')}} </td>
+        </ng-container>
 
-  </table>
+        <ng-container matColumnDef="deliverType">
+          <th mat-header-cell *matHeaderCellDef> Deliver Type </th>
+          <td mat-cell *matCellDef="let element"> {{element.deliverTypename}} </td>
+        </ng-container>
 
-  <div class="header-button-row margin-top-double margin-bottom">
+        <ng-container matColumnDef="app">
+          <th mat-header-cell *matHeaderCellDef> App </th>
+          <td mat-cell *matCellDef="let element"> {{element.appname}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> Id </th>
+          <td mat-cell *matCellDef="let element" class="id">
+            {{element.id}}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedJobColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedJobColumns;"></tr>
+
+      </table>
+
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+</div>
+
+
+<div fxFlex="1 0 100%" fxLayout="column" fxLayoutAlign="start stretch">
+
+  <div class="header-button-row margin-top-double">
     <button mat-raised-button color="primary" (click)="openAddStepForJobDialog()">Add Step</button>
-
   </div>
 
-  <table mat-table class="jobs-table mat-elevation-z8" [dataSource]="jobSteps" matSort matSortActive="id"
-    matSortDirection="asc" matSortDisableClear>
+  <mat-sidenav-container fxFlex="0 1 auto">
+    <mat-sidenav-content>
 
-    <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef> Action </th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-raised-button color="warn" (click)="openRemoveStepOfJobDialog(element)">Remove </button>
-        <button mat-raised-button color="primary" class="margin-left"
-          (click)="openAssignStaffToStepOfJobDialog(element)">
-          Assign Staff
-        </button>
-      </td>
-    </ng-container>
+      <div class="mat-elevation-z8">
 
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Step Id </th>
-      <td mat-cell *matCellDef="let element" class="id">
-        <a href="/steps/{{element.step.id}}">
-          {{element.step.id}}
-        </a>
-      </td>
-    </ng-container>
+        <table mat-table class="jobs-table mat-elevation-z8" [dataSource]="jobSteps" matSort matSortActive="id"
+          matSortDirection="asc" matSortDisableClear>
 
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.step?.name}} </td>
-    </ng-container>
+          <ng-container matColumnDef="action" sticky>
+            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-raised-button color="warn" (click)="openRemoveStepOfJobDialog(element)">Remove </button>
+              <button mat-raised-button color="primary" class="margin-left"
+                (click)="openAssignStaffToStepOfJobDialog(element)">
+                Assign Staff
+              </button>
+            </td>
+          </ng-container>
 
-    <ng-container matColumnDef="group">
-      <th mat-header-cell *matHeaderCellDef> Group </th>
-      <td mat-cell *matCellDef="let element"> {{element?.groupname}} </td>
-    </ng-container>
+          <ng-container matColumnDef="code" sticky>
+            <th mat-header-cell *matHeaderCellDef> Code </th>
+            <td mat-cell *matCellDef="let element"> {{element.step?.code}} </td>
+          </ng-container>
 
-    <ng-container matColumnDef="productLevel">
-      <th mat-header-cell *matHeaderCellDef> Product Level </th>
-      <td mat-cell *matCellDef="let element"> {{element.step?.productLevel?.code}} </td>
-    </ng-container>
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.step?.name}} </td>
+          </ng-container>
 
-    <ng-container matColumnDef="inputNumber">
-      <th mat-header-cell *matHeaderCellDef> Input Number </th>
-      <td mat-cell *matCellDef="let element"> {{element.inputNumber}} </td>
-    </ng-container>
+          <ng-container matColumnDef="group">
+            <th mat-header-cell *matHeaderCellDef> Group </th>
+            <td mat-cell *matCellDef="let element"> {{element?.groupname}} </td>
+          </ng-container>
 
-    <ng-container matColumnDef="worker">
-      <th mat-header-cell *matHeaderCellDef> Worker </th>
-      <td mat-cell *matCellDef="let element"> {{element.worker?.fullName}} </td>
-    </ng-container>
+          <ng-container matColumnDef="productLevel">
+            <th mat-header-cell *matHeaderCellDef> Product-Level </th>
+            <td mat-cell *matCellDef="let element"> {{element.step?.productLevel?.code}} </td>
+          </ng-container>
 
-    <ng-container matColumnDef="shift">
-      <th mat-header-cell *matHeaderCellDef> Shift </th>
-      <td mat-cell *matCellDef="let element"> {{element.shift?.name}} </td>
-    </ng-container>
+          <ng-container matColumnDef="inputNumber">
+            <th mat-header-cell *matHeaderCellDef> Input Number </th>
+            <td mat-cell *matCellDef="let element"> {{element.inputNumber}} </td>
+          </ng-container>
 
-    <ng-container matColumnDef="estimationInSeconds">
-      <th mat-header-cell *matHeaderCellDef> estimationInSeconds </th>
-      <td mat-cell *matCellDef="let element"> {{element.estimationInSeconds}} </td>
-    </ng-container>
+          <ng-container matColumnDef="worker">
+            <th mat-header-cell *matHeaderCellDef> Worker </th>
+            <td mat-cell *matCellDef="let element"> {{element.worker?.fullName}} </td>
+          </ng-container>
 
-    <ng-container matColumnDef="startTime">
-      <th mat-header-cell *matHeaderCellDef> Start Time </th>
-      <td mat-cell *matCellDef="let element">
-        {{element.startTime == '0001-01-01T00:00:00' ? '---' : (element.startTime | date :'short')}} </td>
-    </ng-container>
+          <ng-container matColumnDef="shift">
+            <th mat-header-cell *matHeaderCellDef> Shift </th>
+            <td mat-cell *matCellDef="let element"> {{element.shift?.name}} </td>
+          </ng-container>
 
-    <ng-container matColumnDef="endTime">
-      <th mat-header-cell *matHeaderCellDef> End Time </th>
-      <td mat-cell *matCellDef="let element">
-        {{element.endTime == '0001-01-01T00:00:00' ? '---' : (element.endTime | date :'short')}} </td>
-    </ng-container>
+          <ng-container matColumnDef="estimationInSeconds">
+            <th mat-header-cell *matHeaderCellDef> estimationInSeconds </th>
+            <td mat-cell *matCellDef="let element"> {{element.estimationInSeconds}} </td>
+          </ng-container>
 
-    <ng-container matColumnDef="statusname">
-      <th mat-header-cell *matHeaderCellDef> Status </th>
-      <td mat-cell *matCellDef="let element">
-        {{element.statusname}} </td>
-    </ng-container>
+          <ng-container matColumnDef="startTime">
+            <th mat-header-cell *matHeaderCellDef> Start Time </th>
+            <td mat-cell *matCellDef="let element">
+              {{element.startTime == '0001-01-01T00:00:00' ? '---' : (element.startTime | date :'short')}} </td>
+          </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedJobStepColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedJobStepColumns;"></tr>
-  </table>
+          <ng-container matColumnDef="endTime">
+            <th mat-header-cell *matHeaderCellDef> End Time </th>
+            <td mat-cell *matCellDef="let element">
+              {{element.endTime == '0001-01-01T00:00:00' ? '---' : (element.endTime | date :'short')}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="statusname">
+            <th mat-header-cell *matHeaderCellDef> Status </th>
+            <td mat-cell *matCellDef="let element">
+              {{element.statusname}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Step Id </th>
+            <td mat-cell *matCellDef="let element" class="id">
+              <a href="/steps/{{element.step.id}}">
+                {{element.step.id}}
+              </a>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedJobStepColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedJobStepColumns;"></tr>
+        </table>
+      </div>
+
+
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
 </div>

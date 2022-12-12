@@ -16,6 +16,7 @@ import { RemoveStepComponent } from '../remove-step/remove-step.component';
 @Component({
   selector: 'app-step-list',
   templateUrl: './step-list.component.html',
+  styleUrls: ['../../../shared/components/table/table-base.component.scss']
 })
 
 export class StepListComponent implements OnInit {
@@ -35,7 +36,7 @@ export class StepListComponent implements OnInit {
   disabled = false;
 
   title: string = "Steps";
-  displayedColumns: string[] = ['action', 'id', 'name', 'code', "orderNumber", 'group', 'productLevel', "estimationInSeconds"];
+  displayedColumns: string[] = ['action', 'code', 'name', "orderNumber", 'group', 'productLevel', "estimationInSeconds", 'id'];
 
   staff!: Staff;
   dataSource!: StepDataSource;

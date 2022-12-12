@@ -18,6 +18,7 @@ import { RemoveStepOfJobComponent } from '../../jobs/remove-step-of-job/remove-s
 @Component({
   selector: 'app-staff-detail',
   templateUrl: './staff-detail.component.html',
+  styleUrls: ['../../../shared/components/table/table-base.component.scss']
 })
 
 export class StaffDetailComponent implements OnInit {
@@ -36,10 +37,10 @@ export class StaffDetailComponent implements OnInit {
   showFirstLastButtons = true;
   disabled = false;
 
-  displayedStaffColumns: string[] = ['id', 'fullname', 'account', "email", 'roles', "productLevels", "currentShift", "isAssigned", "status"];
+  displayedStaffColumns: string[] = ['account','fullname',  "email", 'roles', "productLevels", "currentShift", "isAssigned", "status", 'id',];
 
-  displayedJobStepColumns: string[] = ['action', 'id', 'name', 'productLevel', 'inputNumber', 'worker', 'shift', 'estimationInSeconds',
-    'startTime', 'endTime', 'statusname'];
+  displayedJobStepColumns: string[] = ['action', 'name', 'productLevel', 'inputNumber', 'worker', 'shift', 'estimationInSeconds',
+    'startTime', 'endTime', 'statusname', 'id',];
 
   staffs!: Staff[];
   jobSteps = new MatTableDataSource<JobStep>([]);
