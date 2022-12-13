@@ -40,7 +40,7 @@ export class StaffDetailComponent implements OnInit {
   displayedStaffColumns: string[] = ['account','fullname',  "email", 'roles', "productLevels", "currentShift", "isAssigned", "status", 'id',];
 
   displayedJobStepColumns: string[] = ['action', 'name', 'productLevel', 'inputNumber', 'worker', 'shift', 'estimationInSeconds',
-    'startTime', 'endTime', 'statusname', 'id',];
+    'startTime', 'endTime', 'statusname', 'id'];
 
   staffs!: Staff[];
   jobSteps = new MatTableDataSource<JobStep>([]);

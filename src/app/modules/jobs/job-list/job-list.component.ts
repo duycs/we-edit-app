@@ -38,7 +38,7 @@ export class JobListComponent implements OnInit, AfterViewInit {
   disabled = false;
 
   displayedColumns: string[] = ['action', 'code', 'jobId', 'date', 'location', 'cso', 'instruction', 'inputNumber',
-    'productLevel', 'startTime', 'endTime', 'deadline', 'deliverType', 'app', 'id'];
+    'productLevel', 'startTime', 'endTime', 'deadline', 'deliverType', 'app', 'steps'];
   job!: Job;
   jobCount!: number;
   dataSource!: JobsDataSource;
