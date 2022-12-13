@@ -1,7 +1,7 @@
 <div fxFlex="1 0 100%" fxLayout="column" fxLayoutAlign="start stretch">
 
   <div class="header-button-row">
-    
+
     <button mat-raised-button color="primary" (click)="openAddJobDialog()">Add Job</button>
 
     <mat-form-field class="search-field">
@@ -115,7 +115,7 @@
           </table>
 
           <div>
-            <mat-paginator [length]="this.dataSource.count" [pageSize]="5" [pageSizeOptions]="[5, 10, 15, 20]"
+            <mat-paginator [length]="this.dataSource.count" [pageIndex]="1" [pageSize]="5" [pageSizeOptions]="[5, 10, 15, 20]"
               showFirstLastButtons aria-label="Select page of periodic elements" (page)="handlePageEvent($event)">
             </mat-paginator>
           </div>

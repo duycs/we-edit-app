@@ -48,11 +48,6 @@ mat-dialog-actions {
   width: 30vw;
 }
 
-.search-field {
-  width: 500px;
-  float: right;
-}
-
 .mat-elevation-z8 {
   padding: 12px;
 }
@@ -93,8 +88,11 @@ mat-toolbar .menu {
 .search-field {
   padding: 0px;
   margin: 0px;
-  padding: 10px;
-  min-width: 50vh;
+  /* padding: 10px; */
+  float: right;
+  width: 500px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .search-field .mat-mdc-form-field-infix {
@@ -109,4 +107,38 @@ mat-toolbar .menu {
 
 .header-button-row button {
   margin: 10px;
+}
+
+.mat-drawer-content {
+  overflow: hidden;
+}
+
+.mat-mdc-paginator-outer-container{
+  width: 100%;
+}
+
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .search-field {
+    width: auto;
+  }
+  .notify-message {display: none;}
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .search-field {
+    width: 200px;
+  }
+
+  .notify-message {display: none;}
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .search-field {
+    width: 500px;
+  }
+  .notify-message {display: block;}
 }

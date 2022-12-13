@@ -66,12 +66,16 @@
 }
 
 .mat-mdc-paginator{
-    float: left;
+    // float: left;
     width: 100%;
 }
 
-.mat-drawer-content, .mat-sidenav-content {
-    overflow: hidden!important;
+.mat-drawer-content{
+    overflow: hidden;
+} 
+
+mat-sidenav-content {
+    overflow: hidden;
 }
 
 .mat-mdc-table td button {margin: 5px;}

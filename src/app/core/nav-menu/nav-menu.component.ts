@@ -35,8 +35,6 @@ export class NavMenuComponent implements OnInit, OnDestroy {
     // });
   }
 
-
-
   ngOnInit() {
     console.log(this.currentUser);
     if (this.currentUser == null) {
