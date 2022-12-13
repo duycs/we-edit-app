@@ -22,10 +22,11 @@ import { StepsModule } from './modules/steps/steps.module';
 import { ProductLevelsComponent } from './modules/productlevels/productlevels.component';
 import { ProductLevelsModule } from './modules/productlevels/productlevels.module';
 import { HeaderComponent } from './core/header/header.component';
+import { HomeComponent } from './modules/home/home.component';
 
 
 const appRoutes: Routes = [
-  // { path: '', component: HomeComponent, pathMatch: 'full' },
+  { path: '', component: HomeComponent, pathMatch: 'full' },
   // { path: 'about', component: AboutComponent },
   // { path: 'menu', component: MenuComponent },
   // { path: 'login', component: LoginComponent },
@@ -39,6 +40,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [
+    HomeComponent,
     AppComponent,
     NavMenuComponent,
     HeaderComponent,

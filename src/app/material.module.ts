@@ -28,6 +28,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatGridListModule } from '@angular/material/grid-list';
 
 const materialModules = [
   CdkTreeModule,
@@ -60,6 +61,7 @@ const materialModules = [
   PortalModule,
   MatDatepickerModule,
   MatNativeDateModule,
+  MatGridListModule,
 ];
 
 @NgModule({
