@@ -30,12 +30,17 @@
                     <span>Remove</span>
                   </button>
 
-                </mat-menu>
+                  <button mat-menu-item (click)="addInShift(element)">
+                    <mat-icon>assignment_ind</mat-icon>
+                    <span>In Shift</span>
+                  </button>
 
-                <button mat-raised-button color="primary" class="margin-left" (click)="addInShift(element)">In
-                  Shift</button>
-                <button mat-raised-button color="basic" class="margin-left" (click)="addOutShift(element)">Out
-                  Shift</button>
+                  <button mat-menu-item (click)="addOutShift(element)">
+                    <mat-icon>exit_to_app</mat-icon>
+                    <span>Out Shift</span>
+                  </button>
+
+                </mat-menu>
               </td>
             </ng-container>
 
