@@ -146,4 +146,8 @@ export class StaffDetailComponent implements OnInit {
     });
   }
 
+  openUpdateStepStatusDialog(element: any, status: any){
+    console.log("status", status);
+  }
+
 }
