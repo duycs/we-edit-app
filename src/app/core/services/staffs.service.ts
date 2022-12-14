@@ -13,6 +13,7 @@ import { RemoveProdutLevelsForStaffVM } from 'src/app/shared/models/removeProdut
 import { StaffInShiftVM } from 'src/app/shared/models/staffInShiftVM';
 import { StaffOutShiftVM } from 'src/app/shared/models/staffOutShiftVM';
 import { JobStep } from 'src/app/shared/models/jobStep';
+import { UpdateStepStatusVM } from 'src/app/shared/models/updateStepStatusVM';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -125,6 +126,14 @@ export class StaffService {
     return this.http.post<StaffOutShiftVM>(url, staffOutShiftVM, httpOptions).pipe(
       tap((staffOutShiftVM: StaffOutShiftVM) => console.log('added')),
       catchError(this.handleError<StaffOutShiftVM>('addStaffOutShiftVM'))
+    );
+  }
+
+  updateStepStatus(updateStepStatusVM: UpdateStepStatusVM){
+    let url = `${apiUrl}/stepstatus`;
+    return this.http.post<JobStep>(url, updateStepStatusVM, httpOptions).pipe(
+      tap((jobStep: JobStep) => console.log('updated')),
+      catchError(this.handleError<StaffOutShiftVM>('updateStepStatusVM'))
     );
   }
 

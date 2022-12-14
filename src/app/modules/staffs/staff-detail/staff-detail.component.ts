@@ -14,6 +14,7 @@ import { MappingModels } from 'src/app/shared/models/mapping-models';
 import { AddJobStepComponent } from '../../jobs/add-job-step/add-job-step.component';
 import { AssignStaffComponent } from '../../jobs/assign-staff/assign-staff.component';
 import { RemoveStepOfJobComponent } from '../../jobs/remove-step-of-job/remove-step-of-job.component';
+import { UpdateStepStatusVM } from 'src/app/shared/models/updateStepStatusVM';
 
 @Component({
   selector: 'app-staff-detail',
@@ -37,7 +38,7 @@ export class StaffDetailComponent implements OnInit {
   showFirstLastButtons = true;
   disabled = false;
 
-  displayedStaffColumns: string[] = ['account','fullname',  "email", 'roles', "productLevels", "currentShift", "isAssigned", "status", 'id',];
+  displayedStaffColumns: string[] = ['account', 'fullname', "email", 'roles', "productLevels", "currentShift", "isAssigned", "status", 'id',];
 
   displayedJobStepColumns: string[] = ['action', 'name', 'productLevel', 'inputNumber', 'worker', 'shift', 'estimationInSeconds',
     'startTime', 'endTime', 'statusname', 'id'];
@@ -96,24 +97,6 @@ export class StaffDetailComponent implements OnInit {
   onRowClicked(row: any) {
   }
 
-  openAddStepForJobDialog() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = true;
-    dialogConfig.data = { staffId: this.staffId };
-
-    const dialogRef = this.dialog.open(AddJobStepComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe(
-      result => {
-        setTimeout(() => {
-          console.log("reload after added", result);
-          this.getJobSteps();
-          this.getStaff();
-        }, 2000);
-      }
-    );
-  }
-
   openRemoveStepOfStaffDialog(element: any): void {
     const dialogRef = this.dialog.open(RemoveStepOfJobComponent, {
       data: { staffId: this.staffId, jobName: this.staffs[0].fullName, stepId: element.step.id, stepName: element.step.name },
@@ -132,22 +115,28 @@ export class StaffDetailComponent implements OnInit {
     console.log("updateJobDialog");
   }
 
-  openAssignStaffForStepOfJobDialog(element: any) {
-    const dialogRef = this.dialog.open(AssignStaffComponent, {
-      data: { staffId: this.staffId, jobName: this.staffs[0].fullName, stepId: element.step.id, stepName: element.step.name },
-    });
+  openUpdateStepStatusDialog(element: any, status: number) {
+    let updateStepStatusVM: UpdateStepStatusVM = {
+      jobId: element.job.id,
+      staffId: this.staffId,
+      stepId: element.step.id,
+      status: status,
+    };
 
-    dialogRef.afterClosed().subscribe(result => {
-      setTimeout(() => {
-        console.log("reload after added", result);
-        this.getJobSteps();
-        this.getStaff();
-      }, 2000);
-    });
-  }
+    console.log("updateStepStatusVM", updateStepStatusVM);
 
-  openUpdateStepStatusDialog(element: any, status: any){
-    console.log("status", status);
+    this.staffService.updateStepStatus(updateStepStatusVM)
+      .subscribe(res => {
+        this.alertService.showToastSuccess();
+        setTimeout(() => {
+          console.log("reload after updated");
+          this.getJobSteps();
+          this.getStaff();
+        }, 2000);
+      }, (err) => {
+        this.alertService.showToastError();
+        console.log(err);
+      });
   }
 
 }

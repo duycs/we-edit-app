@@ -37,6 +37,7 @@ export class StaffListComponent implements OnInit {
   showPageSizeOptions = true;
   showFirstLastButtons = true;
   disabled = false;
+  isInShift!: boolean;
 
   title: string = "Staffs";
   displayedColumns: string[] = ['action', 'account', 'fullname', "email", 'roles', 'groups', "productLevels", "currentShift", "isAssigned", "status", 'steps'];

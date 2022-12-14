@@ -72,41 +72,46 @@ export class MappingModels {
 
     public MappingDisplayNameFieldsOfJobStep(jobStep: JobStep) {
         jobStep.groupname = this.MappingDisplayGroupName(jobStep.step.groupId);
-        switch (jobStep.status) {
+        jobStep.statusname = this.MappingStepStatus(jobStep.status);
+        return jobStep;
+    }
+
+    public MappingStepStatus(status: number) {
+        let statusname = "none";
+        switch (status) {
             case 0:
-                jobStep.statusname = "Todo";
+                statusname = "Todo";
                 break;
 
             case 1:
-                jobStep.statusname = "Doding";
+                statusname = "Doding";
                 break;
 
             case 2:
-                jobStep.statusname = "Done";
+                statusname = "Done";
                 break;
 
             case 3:
-                jobStep.statusname = "Approved";
+                statusname = "Approved";
                 break;
 
             case 4:
-                jobStep.statusname = "Rejected";
+                statusname = "Rejected";
                 break;
 
             case 5:
-                jobStep.statusname = "Pending";
+                statusname = "Pending";
                 break;
 
             case 6:
-                jobStep.statusname = "Assigned";
+                statusname = "Assigned";
                 break;
 
             default:
-                jobStep.statusname = "none";
+                statusname = "none";
                 break;
         }
-
-        return jobStep;
+        return statusname;
     }
 
     public MappingDisplayNameFieldsOfJobs(jobs: Job[]) {

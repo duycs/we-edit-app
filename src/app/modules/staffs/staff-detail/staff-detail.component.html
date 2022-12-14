@@ -66,10 +66,6 @@
 
 
 <div fxFlex="1 0 100%" fxLayout="column" fxLayoutAlign="start stretch">
-  <!-- <div class="header-button-row margin-top-double">
-    <button mat-raised-button color="primary" (click)="openAddStepForJobDialog()">Add Step</button>
-  </div> -->
-
   <mat-sidenav-container fxFlex="0 1 auto">
     <mat-sidenav-content>
 
@@ -90,38 +86,37 @@
                   <span>Remove</span>
                 </button>
 
-                <button mat-menu-item (click)="openAssignStaffForStepOfJobDialog(element)">
-                  <mat-icon>assignment_ind</mat-icon>
-                  <span>Assign</span>
+                <button mat-menu-item (click)="openUpdateStepStatusDialog(element, 0)">
+                  <mat-icon>assignment</mat-icon>
+                  <span>Todo</span>
                 </button>
 
-                <button mat-menu-item (click)="openUpdateStepStatusDialog(element, 'doing')">
+                <button mat-menu-item (click)="openUpdateStepStatusDialog(element, 1)">
                   <mat-icon>directions_run</mat-icon>
                   <span>Doing</span>
                 </button>
 
-                <button mat-menu-item (click)="openUpdateStepStatusDialog(element, 'done')">
+                <button mat-menu-item (click)="openUpdateStepStatusDialog(element, 5)">
+                  <mat-icon>stop</mat-icon>
+                  <span>Pending</span>
+                </button>
+
+                <button mat-menu-item (click)="openUpdateStepStatusDialog(element, 2)">
                   <mat-icon>done</mat-icon>
                   <span>Done</span>
                 </button>
                 
-                <button mat-menu-item (click)="openUpdateStepStatusDialog(element, 'approve')">
-                  <mat-icon>thumb_up</mat-icon>
+                <button mat-menu-item (click)="openUpdateStepStatusDialog(element, 3)">
+                  <mat-icon>assignment_turned_in</mat-icon>
                   <span>Approve</span>
                 </button>
 
-                <button mat-menu-item (click)="openUpdateStepStatusDialog(element, 'reject')">
-                  <mat-icon>thumb_down</mat-icon>
+                <button mat-menu-item (click)="openUpdateStepStatusDialog(element, 4)">
+                  <mat-icon>assignment_return</mat-icon>
                   <span>Reject</span>
                 </button>
 
               </mat-menu>
-
-              <!-- <button mat-raised-button color="warn" (click)="openRemoveStepOfStaffDialog(element)">Remove </button>
-              <button mat-raised-button color="primary" class="margin-left"
-                (click)="openAssignStaffForStepOfJobDialog(element)">
-                Assign Staff
-              </button> -->
             </td>
           </ng-container>
 

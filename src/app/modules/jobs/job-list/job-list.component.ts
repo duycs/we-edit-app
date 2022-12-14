@@ -126,7 +126,7 @@ export class JobListComponent implements OnInit, AfterViewInit {
     );
   }
 
-  openRemoveJobDialog(element: any): void {
+  openRemoveDialog(element: any): void {
     const dialogRef = this.dialog.open(RemoveJobComponent, {
       data: { id: element.id, name: element.jobId },
     });
