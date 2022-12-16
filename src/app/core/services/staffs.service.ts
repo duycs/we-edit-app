@@ -14,6 +14,7 @@ import { StaffInShiftVM } from 'src/app/shared/models/staffInShiftVM';
 import { StaffOutShiftVM } from 'src/app/shared/models/staffOutShiftVM';
 import { JobStep } from 'src/app/shared/models/jobStep';
 import { UpdateStepStatusVM } from 'src/app/shared/models/updateStepStatusVM';
+import { JobStepDto } from 'src/app/shared/models/jobStepDto';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -57,11 +58,11 @@ export class StaffService {
     );
   }
 
-  getJobStepsOfStaff(id: number): Observable<JobStep[]> {
+  getJobStepsOfStaff(id: number): Observable<JobStepDto[]> {
     const url = `${apiUrl}/${id}/jobSteps`;
-    return this.http.get<JobStep[]>(url).pipe(
+    return this.http.get<JobStepDto[]>(url).pipe(
       tap(_ => console.log('fetched jobSteps of staff id=${id}')),
-      catchError(this.handleError<JobStep[]>('getJobStepsOfStaff id=${id}'))
+      catchError(this.handleError<JobStepDto[]>('getJobStepsOfStaff id=${id}'))
     );
   }
 
@@ -116,7 +117,7 @@ export class StaffService {
   addInShiftForStaff(staffInShiftVM: any): Observable<StaffInShiftVM> {
     let url = `${apiUrl}/shifts/in`;
     return this.http.post<StaffInShiftVM>(url, staffInShiftVM, httpOptions).pipe(
-      tap((staffInShiftVM: StaffInShiftVM) => console.log('added')),
+      tap((message: any) => console.log(message)),
       catchError(this.handleError<StaffInShiftVM>('addStaffInShiftVM'))
     );
   }

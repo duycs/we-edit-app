@@ -4,6 +4,7 @@ import { Staff } from "./staff";
 import { Step } from "./step";
 
 export interface JobStep {
+    id: number;
     jobId: number;
     job: Job;
     stepId: number;

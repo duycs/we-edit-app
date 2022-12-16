@@ -15,6 +15,9 @@ import { AddJobStepComponent } from '../../jobs/add-job-step/add-job-step.compon
 import { AssignStaffComponent } from '../../jobs/assign-staff/assign-staff.component';
 import { RemoveStepOfJobComponent } from '../../jobs/remove-step-of-job/remove-step-of-job.component';
 import { UpdateStepStatusVM } from 'src/app/shared/models/updateStepStatusVM';
+import { UpdateStepStatusComponent } from '../update-step-status/update-step-status.component';
+import { NoteService } from 'src/app/core/services/notes.service';
+import { JobStepDto } from 'src/app/shared/models/jobStepDto';
 
 @Component({
   selector: 'app-staff-detail',
@@ -41,10 +44,10 @@ export class StaffDetailComponent implements OnInit {
   displayedStaffColumns: string[] = ['account', 'fullname', "email", 'roles', "productLevels", "currentShift", "isAssigned", "status", 'id',];
 
   displayedJobStepColumns: string[] = ['action', 'name', 'productLevel', 'inputNumber', 'worker', 'shift', 'estimationInSeconds',
-    'startTime', 'endTime', 'statusname', 'id'];
+    'startTime', 'endTime', 'statusname', 'notes', 'id'];
 
   staffs!: Staff[];
-  jobSteps = new MatTableDataSource<JobStep>([]);
+  jobStepDtos = new MatTableDataSource<JobStepDto>([]);
   staffId!: number;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -55,6 +58,7 @@ export class StaffDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private authenticationService: AuthenticationService,
     private staffService: StaffService,
+    private noteService: NoteService,
     private mappingModel: MappingModels,
     private dialog: MatDialog,
     private alertService: AlertService) {
@@ -71,7 +75,7 @@ export class StaffDetailComponent implements OnInit {
     this.staffService.getJobStepsOfStaff(this.staffId)
       .subscribe(res => {
         console.log(res);
-        this.jobSteps.data = this.mappingModel.MappingDisplayNameFieldsOfJobSteps(res);
+        this.jobStepDtos.data = this.mappingModel.MappingDisplayNameFieldsOfJobStepDtos(res);
       }, (err) => {
         this.alertService.showToastError();
         console.log(err);
@@ -99,7 +103,7 @@ export class StaffDetailComponent implements OnInit {
 
   openRemoveStepOfStaffDialog(element: any): void {
     const dialogRef = this.dialog.open(RemoveStepOfJobComponent, {
-      data: { staffId: this.staffId, jobName: this.staffs[0].fullName, stepId: element.step.id, stepName: element.step.name },
+      data: { staffId: this.staffId, staffName: this.staffs[0].fullName, stepId: element.step.id, stepName: element.step.name },
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -115,7 +119,7 @@ export class StaffDetailComponent implements OnInit {
     console.log("updateJobDialog");
   }
 
-  openUpdateStepStatusDialog(element: any, status: number) {
+  openUpdateStepStatus(element: any, status: number) {
     let updateStepStatusVM: UpdateStepStatusVM = {
       jobId: element.job.id,
       staffId: this.staffId,
@@ -137,6 +141,25 @@ export class StaffDetailComponent implements OnInit {
         this.alertService.showToastError();
         console.log(err);
       });
+  }
+
+  openUpdateStepStatusDialog(element: any, status: number): void {
+    const dialogRef = this.dialog.open(UpdateStepStatusComponent, {
+      data: {
+        jobstep: {id: element.id},
+        job: {id: element.job.id},
+        staff: { id: this.staffId },
+        step: { id: element.step.id, name: element.step.name, status: status, statusname: this.mappingModel.MappingStepStatus(status) },
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      setTimeout(() => {
+        console.log("reload after updated", result);
+        this.getJobSteps();
+        this.getStaff();
+      }, 2000);
+    });
   }
 
 }

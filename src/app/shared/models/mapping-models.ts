@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Job } from "./job";
 import { JobStep } from "./jobStep";
+import { JobStepDto } from "./jobStepDto";
 import { Staff } from "./staff";
 import { Step } from "./step";
 
@@ -60,6 +61,17 @@ export class MappingModels {
         }
 
         return groupname;
+    }
+
+    public MappingDisplayNameFieldsOfJobStepDtos(jobStepDtos: JobStepDto[]) {
+        jobStepDtos.forEach(jobStepDto => {
+            jobStepDto.jobStep = this.MappingDisplayNameFieldsOfJobStep(jobStepDto.jobStep);
+            jobStepDto.noteDescriptions = jobStepDto.notes.map(elm => { return elm.description }).join(", ");
+        });
+
+
+
+        return jobStepDtos;
     }
 
     public MappingDisplayNameFieldsOfJobSteps(jobSteps: JobStep[]) {

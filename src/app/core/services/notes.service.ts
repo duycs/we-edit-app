@@ -1,14 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { catchError, tap, map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, tap } from 'rxjs/operators';
 import { AppSettings } from 'src/app/configs/app-settings.config';
-import { Job } from 'src/app/shared/models/job';
-import { CreateJobVM } from 'src/app/shared/models/createJobVM';
-import { JobStep } from 'src/app/shared/models/jobStep';
-import { PaggedDataJob } from 'src/app/shared/models/paggedDataJob';
-import { ProductLevel } from 'src/app/shared/models/productLevel';
 import { Note } from 'src/app/shared/models/note';
+import { UpdateNoteVM } from 'src/app/shared/models/updateNoteVM';
+import { CreateNoteVM } from 'src/app/shared/models/createNoteVM';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -24,7 +21,7 @@ export class NoteService {
 
   constructor(private http: HttpClient) { }
 
-  getNotes(): Observable<Note> {
+  getNotesByObjectIds(objectIds: number[]): Observable<Note> {
     const url = `${apiUrl}`;
     return this.http.get<Note>(url)
       .pipe(
@@ -41,17 +38,17 @@ export class NoteService {
     );
   }
 
-  addNote(productLevel: any): Observable<Note> {
-    return this.http.post<Note>(apiUrl, productLevel, httpOptions).pipe(
+  addNote(createNoteVM: CreateNoteVM): Observable<Note> {
+    return this.http.post<Note>(apiUrl, createNoteVM, httpOptions).pipe(
       tap((note: Note) => console.log('added')),
       catchError(this.handleError<Note>('addNote'))
     );
   }
 
-  updateNote(note: any): Observable<Note> {
-    return this.http.put<Note>(apiUrl, note, httpOptions).pipe(
+  updateNote(updateNoteVM: UpdateNoteVM): Observable<Note> {
+    return this.http.put<Note>(apiUrl, updateNoteVM, httpOptions).pipe(
       tap((note: Note) => console.log('updated')),
-      catchError(this.handleError<Note>('addNote'))
+      catchError(this.handleError<Note>('updateNote'))
     );
   }
 
