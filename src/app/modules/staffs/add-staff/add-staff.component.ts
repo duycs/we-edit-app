@@ -19,12 +19,7 @@ export class AddStaffComponent implements OnInit {
         { id: 1, name: 'Admin' },
         { id: 2, name: 'CSO' },
         { id: 3, name: 'Editor' },
-        { id: 4, name: 'High Quanlity' },
-        { id: 5, name: 'Merge Retouch' },
-        { id: 6, name: 'Video' },
-        { id: 7, name: '2D&3D' },
-        { id: 8, name: 'QC' },
-        { id: 9, name: 'DCQC' }
+        { id: 4, name: 'QC' },
     ];
     roleIds = new FormControl();
 
