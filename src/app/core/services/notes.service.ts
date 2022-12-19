@@ -6,6 +6,8 @@ import { AppSettings } from 'src/app/configs/app-settings.config';
 import { Note } from 'src/app/shared/models/note';
 import { UpdateNoteVM } from 'src/app/shared/models/updateNoteVM';
 import { CreateNoteVM } from 'src/app/shared/models/createNoteVM';
+import { PaggedDataJob } from 'src/app/shared/models/paggedDataJob';
+import { PaggedDataNote } from 'src/app/shared/models/paggedDataNote';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -27,6 +29,26 @@ export class NoteService {
       .pipe(
         tap(notes => console.log('Fetch Notes')),
         catchError(this.handleError<Note>('getNotes'))
+      );
+  }
+
+  getNotes(page: number = 1, size: number = sizeDefault, objectName: string = '', objectIds: number[], searchValue: string = '', isInclude: boolean = true)
+    : Observable<PaggedDataNote> {
+    let params: any = {
+      pageNumber: page,
+      pageSize: size,
+      isInclude: isInclude,
+      searchValue: searchValue,
+      objectName: objectName,
+      objectIds: objectIds
+    };
+
+    console.log("params", params);
+    
+    return this.http.get<PaggedDataNote>(apiUrl, { params: params })
+      .pipe(
+        tap(paggedJobData => console.log('Fetch PaggedDataNote')),
+        catchError(this.handleError<PaggedDataNote>('getNotes'))
       );
   }
 

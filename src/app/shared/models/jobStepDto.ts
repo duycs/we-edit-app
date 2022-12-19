@@ -5,5 +5,6 @@ export interface JobStepDto {
     jobStep: JobStep;
     notes: Note[];
 
+    lastNote: string;
     noteDescriptions: string;
 }

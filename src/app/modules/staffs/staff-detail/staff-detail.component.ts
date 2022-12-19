@@ -5,14 +5,11 @@ import { AlertService } from 'src/app/core/services/alert.service';
 import { AuthenticationService } from 'src/app/core/authentication/authentication.service';
 import { Staff } from 'src/app/shared/models/staff';
 import { StaffService } from 'src/app/core/services/staffs.service';
-import { JobStep } from 'src/app/shared/models/jobStep';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { PageEvent, MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MappingModels } from 'src/app/shared/models/mapping-models';
-import { AddJobStepComponent } from '../../jobs/add-job-step/add-job-step.component';
-import { AssignStaffComponent } from '../../jobs/assign-staff/assign-staff.component';
 import { RemoveStepOfJobComponent } from '../../jobs/remove-step-of-job/remove-step-of-job.component';
 import { UpdateStepStatusVM } from 'src/app/shared/models/updateStepStatusVM';
 import { UpdateStepStatusComponent } from '../update-step-status/update-step-status.component';
@@ -119,11 +116,11 @@ export class StaffDetailComponent implements OnInit {
     console.log("updateJobDialog");
   }
 
-  openUpdateStepStatus(element: any, status: number) {
+  openUpdateStepStatus(jobStep: any, status: number) {
     let updateStepStatusVM: UpdateStepStatusVM = {
-      jobId: element.job.id,
+      jobId: jobStep.job.id,
       staffId: this.staffId,
-      stepId: element.step.id,
+      stepId: jobStep.step.id,
       status: status,
     };
 
@@ -143,13 +140,13 @@ export class StaffDetailComponent implements OnInit {
       });
   }
 
-  openUpdateStepStatusDialog(element: any, status: number): void {
+  openUpdateStepStatusDialog(jobStep: any, status: number): void {
     const dialogRef = this.dialog.open(UpdateStepStatusComponent, {
       data: {
-        jobstep: {id: element.id},
-        job: {id: element.job.id},
+        jobstep: {id: jobStep.id, oldStatusname: jobStep.statusname},
+        job: {id: jobStep.job.id},
         staff: { id: this.staffId },
-        step: { id: element.step.id, name: element.step.name, status: status, statusname: this.mappingModel.MappingStepStatus(status) },
+        step: { id: jobStep.step.id, name: jobStep.step.name, status: status, statusname: this.mappingModel.MappingStepStatus(status) },
       }
     });
 

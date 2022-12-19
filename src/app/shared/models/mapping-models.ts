@@ -66,10 +66,15 @@ export class MappingModels {
     public MappingDisplayNameFieldsOfJobStepDtos(jobStepDtos: JobStepDto[]) {
         jobStepDtos.forEach(jobStepDto => {
             jobStepDto.jobStep = this.MappingDisplayNameFieldsOfJobStep(jobStepDto.jobStep);
-            jobStepDto.noteDescriptions = jobStepDto.notes.map(elm => { return elm.description }).join(", ");
+            // jobStepDto.noteDescriptions = jobStepDto.notes.map(elm => { return elm.description }).join(", ");
+            if (jobStepDto.notes.length > 0) {
+                jobStepDto.lastNote = jobStepDto.notes[jobStepDto.notes.length - 1].description;
+            }
+
+            if (jobStepDto.notes.length > 1) {
+                jobStepDto.lastNote += "...";
+            }
         });
-
-
 
         return jobStepDtos;
     }

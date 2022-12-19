@@ -23,6 +23,8 @@ import { ProductLevelsComponent } from './modules/productlevels/productlevels.co
 import { ProductLevelsModule } from './modules/productlevels/productlevels.module';
 import { HeaderComponent } from './core/header/header.component';
 import { HomeComponent } from './modules/home/home.component';
+import { NotesComponent } from './modules/notes/notes.component';
+import { NotesModule } from './modules/notes/notes.module';
 
 
 const appRoutes: Routes = [
@@ -35,6 +37,7 @@ const appRoutes: Routes = [
   { path: 'modules/steps', component: StepsComponent },
   { path: 'modules/staffs', component: StaffsComponent },
   { path: 'modules/productlevels', component: ProductLevelsComponent },
+  { path: 'modules/notes', component: NotesComponent },
 ];
 
 
@@ -48,6 +51,7 @@ const appRoutes: Routes = [
     StaffsComponent,
     StepsComponent,
     ProductLevelsComponent,
+    NotesComponent,
   ],
   imports: [
     SharedModule,
@@ -68,6 +72,7 @@ const appRoutes: Routes = [
     StaffsModule,
     StepsModule,
     ProductLevelsModule,
+    NotesModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

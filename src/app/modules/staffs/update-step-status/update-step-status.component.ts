@@ -15,6 +15,7 @@ import { UpdateStepStatusVM } from "src/app/shared/models/updateStepStatusVM";
 export class UpdateStepStatusComponent implements OnInit {
     form!: FormGroup;
     title: string = "";
+    titleDefault: string = "";
 
     constructor(
         private fb: FormBuilder,
@@ -26,8 +27,10 @@ export class UpdateStepStatusComponent implements OnInit {
 
     ngOnInit(): void {
         this.title = this.data.step.statusname + " for " + this.data.step.name;
+
+        this.titleDefault = "update from " + this.data.jobstep.oldStatusname + " to " + this.title;
         this.form = this.fb.group({
-            title: [null],
+            title: [this.titleDefault],
             description: [null],
         });
     }
@@ -60,7 +63,7 @@ export class UpdateStepStatusComponent implements OnInit {
         let title = this.form.get('title')?.value;
         let description = this.form.get('description')?.value;
 
-        if ((title && title !== "") && (description && description !== "")) {
+        if (description && description !== "") {
             let createNoteVM: CreateNoteVM = {
                 title: this.form.get('title')?.value,
                 description: this.form.get('description')?.value,
