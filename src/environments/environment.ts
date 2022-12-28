@@ -1,5 +1,6 @@
 export const environment = {
     production: false,
+    ssoUrl: 'http://localhost:5001',
     apiUrl: 'https://localhost:7227',
-    ssoUrl: 'https://sso-identity-server.herokuapp.com'
+    appUrl: 'http://localhost:4200',
 };
