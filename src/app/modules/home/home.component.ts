@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { AuthenticationService } from 'src/app/core/authentication/authentication.service';
+import { AuthService } from 'src/app/core/authentication/auth.service';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { JobService } from 'src/app/core/services/jobs.service';
 import { ProductLevelService } from 'src/app/core/services/productLevels.service';
@@ -17,9 +17,9 @@ import { Staff } from 'src/app/shared/models/staff';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, AfterViewInit {
-  currentUser!: Staff;
-  currentUserSubscription!: Subscription;
-  users: Staff[] = [];
+  name!: string;
+  isAuthenticated!: boolean;
+  subscription!: Subscription;
 
   jobsCount: number = 0;
   stepsCount: number = 0;
@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   constructor(private router: Router,
     private route: ActivatedRoute,
-    private authenticationService: AuthenticationService,
+    private authService: AuthService,
     private jobService: JobService,
     private staffService: StaffService,
     private stepService: StepService,
@@ -36,19 +36,26 @@ export class HomeComponent implements OnInit, AfterViewInit {
     private mappingModel: MappingModels,
     private dialog: MatDialog,
     private alertService: AlertService) {
-    // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
-    //   this.currentUser = user;
-    // });
   }
 
   ngAfterViewInit() {
-    this.getJobs();
-    this.getSteps();
-    this.getStaffs();
-    this.getProductLevels();
+    if (this.isAuthenticated) {
+      this.getJobs();
+      this.getSteps();
+      this.getStaffs();
+      this.getProductLevels();
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
   ngOnInit(): void {
+    this.subscription = this.authService.authNavStatus$
+      .subscribe(status => {
+        this.name = this.authService.name,
+          this.isAuthenticated = status
+      }
+      );
   }
 
   onRowClicked(row: any) {

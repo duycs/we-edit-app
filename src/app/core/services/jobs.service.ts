@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { catchError, tap, map } from 'rxjs/operators';
-import { AppSettings } from 'src/app/configs/app-settings.config';
+import { Observable, of } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, tap } from 'rxjs/operators';
 import { Job } from 'src/app/shared/models/job';
 import { CreateJobVM } from 'src/app/shared/models/createJobVM';
 import { JobStep } from 'src/app/shared/models/jobStep';
@@ -11,19 +10,19 @@ import { RemoveStepsFromJobVM } from 'src/app/shared/models/removeStepsFromJobVM
 import { AssignStaffToStepVM } from 'src/app/shared/models/assignStaffToStepVM';
 import { UpdateJobStatusVM } from 'src/app/shared/models/updateJobStatusVM';
 import { AddStepsToJobVM } from 'src/app/shared/models/addStepsToJobVM';
+import { environment } from 'src/environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-const apiUrl = `${AppSettings.API_URL}/jobs`;
+const apiUrl = `${environment.apiUrl}/jobs`;
 const sizeDefault = 10;
 
 @Injectable({
   providedIn: 'root'
 })
 export class JobService {
-
   constructor(private http: HttpClient) { }
 
   getJobs(page: number = 1, size: number = sizeDefault, searchValue: string = '', isInclude: boolean = true)
@@ -38,7 +37,7 @@ export class JobService {
 
   getJob(id: number): Observable<Job> {
     const url = `${apiUrl}/${id}`;
-    return this.http.get<Job>(url).pipe(
+    return this.http.get<Job>(url, httpOptions).pipe(
       tap(_ => console.log('fetched job id=${id}')),
       catchError(this.handleError<Job>('getJob id=${id}'))
     );

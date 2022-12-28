@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { debounceTime, distinctUntilChanged, fromEvent, merge, Subscription, tap } from 'rxjs';
 import { AlertService } from 'src/app/core/services/alert.service';
-import { AuthenticationService } from 'src/app/core/authentication/authentication.service';
+import { AuthService } from 'src/app/core/authentication/auth.service';
 import { Staff } from 'src/app/shared/models/staff';
 import { StaffService } from 'src/app/core/services/staffs.service';
 import { AddStaffComponent } from '../add-staff/add-staff.component';
@@ -15,6 +15,7 @@ import { RemoveStaffComponent } from '../remove-staff/remove-staff.component';
 import { AddProductLevelForStaffComponent } from '../add-productlevel-for-staff/add-productlevel-for-staff.component';
 import { StaffInShiftVM } from 'src/app/shared/models/staffInShiftVM';
 import { StaffOutShiftVM } from 'src/app/shared/models/staffOutShiftVM';
+import { UpdateStaffComponent } from '../update-staff/update-staff.component';
 
 @Component({
   selector: 'app-staff-list',
@@ -49,13 +50,13 @@ export class StaffListComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild('input') input!: ElementRef;
 
-  constructor(private authenticationService: AuthenticationService,
+  constructor(private AuthService: AuthService,
     private staffService: StaffService,
     private mappingModels: MappingModels,
     private dialog: MatDialog,
     private route: ActivatedRoute,
     private alertService: AlertService) {
-    // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
+    // this.currentUserSubscription = this.AuthService.currentUser.subscribe(user => {
     //   this.currentUser = user;
     // });
     this.dataSource = new StaffDataSource(this.staffService, this.mappingModels);
@@ -128,6 +129,23 @@ export class StaffListComponent implements OnInit {
     );
   }
 
+  openUpdateDialog(element: any) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = element;
+
+    const dialogRef = this.dialog.open(UpdateStaffComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(
+      result => {
+        setTimeout(() => {
+          console.log("reload after added", result);
+          this.loadPage();
+        }, 2000);
+      }
+    );
+  }
+
   openAddProductLevelDialog(element: any) {
     const dialogRef = this.dialog.open(AddProductLevelForStaffComponent, {
       data: { id: element.id, name: element.fullName },
@@ -150,9 +168,6 @@ export class StaffListComponent implements OnInit {
         this.loadPage();
       }, 2000);
     });
-  }
-
-  openUpdateDialog(element: any) {
   }
 
   addInShift(element: any) {

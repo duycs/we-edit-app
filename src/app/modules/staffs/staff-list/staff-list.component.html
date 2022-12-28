@@ -1,7 +1,7 @@
 <div fxFlex="1 0 100%" fxLayout="column" fxLayoutAlign="start stretch">
 
   <div class="header-button-row">
-    <button mat-raised-button color="primary" (click)="openAddDialog()">Add Staff</button>
+    <!-- <button mat-raised-button color="primary" (click)="openAddDialog()">Add Staff</button> -->
 
     <mat-form-field class="search-field">
       <!-- <mat-label>Search</mat-label> -->
@@ -29,6 +29,12 @@
                     <mat-icon>delete</mat-icon>
                     <span>Remove</span>
                   </button>
+
+                  <button mat-menu-item (click)="openUpdateDialog(element)">
+                    <mat-icon>edit</mat-icon>
+                    <span>Update</span>
+                  </button>
+
 
                   <button mat-menu-item (click)="addInShift(element)">
                     <mat-icon>assignment_ind</mat-icon>

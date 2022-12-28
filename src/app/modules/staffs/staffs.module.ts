@@ -12,6 +12,7 @@ import { AddStaffComponent } from './add-staff/add-staff.component';
 import { AddProductLevelForStaffComponent } from './add-productlevel-for-staff/add-productlevel-for-staff.component';
 import { RemoveStaffComponent } from './remove-staff/remove-staff.component';
 import { UpdateStepStatusComponent } from './update-step-status/update-step-status.component';
+import { UpdateStaffComponent } from './update-staff/update-staff.component';
 
 
 const routes: Routes = [
@@ -38,6 +39,7 @@ const routes: Routes = [
     StaffListComponent,
     StaffDetailComponent,
     AddStaffComponent,
+    UpdateStaffComponent,
     AddProductLevelForStaffComponent,
     RemoveStaffComponent,
     UpdateStepStatusComponent,

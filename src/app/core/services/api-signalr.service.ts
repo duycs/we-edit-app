@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as signalR from "@microsoft/signalr"
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -10,10 +11,11 @@ export class APISignalRService {
     public message: string = "API signal is disabled";
     public jobs!: any[];
     public bradcastedJobs!: any[];
+    private url = environment.apiUrl;
 
     public startConnection = () => {
         this.hubConnection = new signalR.HubConnectionBuilder()
-            .withUrl('https://localhost:7227/apishub')
+            .withUrl(`${this.url}/apishub`)
             .build();
         this.hubConnection
             .start()

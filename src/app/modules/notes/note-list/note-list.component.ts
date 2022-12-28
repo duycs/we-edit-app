@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { debounceTime, distinctUntilChanged, fromEvent, merge, Subscription, tap } from 'rxjs';
 import { AlertService } from 'src/app/core/services/alert.service';
-import { AuthenticationService } from 'src/app/core/authentication/authentication.service';
+import { AuthService } from 'src/app/core/authentication/auth.service';
 import { Staff } from 'src/app/shared/models/staff';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent, MatPaginator } from '@angular/material/paginator';
@@ -46,13 +46,13 @@ export class NoteListComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild('input') input!: ElementRef;
 
-  constructor(private authenticationService: AuthenticationService,
+  constructor(private AuthService: AuthService,
     private mappingModels: MappingModels,
     private noteService: NoteService,
     private dialog: MatDialog,
     private route: ActivatedRoute,
     private alertService: AlertService) {
-    // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
+    // this.currentUserSubscription = this.AuthService.currentUser.subscribe(user => {
     //   this.currentUser = user;
     // });
     this.dataSource = new NoteDataSource(this.noteService, this.mappingModels);

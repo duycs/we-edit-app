@@ -1,17 +1,30 @@
 <mat-nav-list>
-  <a mat-list-item routerLink="/" (click)="onSidenavClose()">
-    <mat-icon></mat-icon> <span class="nav-caption">Home</span>
-  </a>
-  <a mat-list-item routerLink="/staffs" (click)="onSidenavClose()">
-    <mat-icon></mat-icon> <span class="nav-caption">Staffs</span>
-  </a>
-  <a mat-list-item routerLink="/jobs" (click)="onSidenavClose()">
-    <mat-icon></mat-icon> <span class="nav-caption">Jobs</span>
-  </a>
-  <a mat-list-item routerLink="/steps" (click)="onSidenavClose()">
-    <mat-icon></mat-icon> <span class="nav-caption">Steps</span>
-  </a>
-  <a mat-list-item routerLink="/productlevels" (click)="onSidenavClose()">
-    <mat-icon></mat-icon> <span class="nav-caption">Product-Level</span>
-  </a>
+  <div *ngIf="isAuthenticated">
+    <a mat-list-item routerLink="/" (click)="onSidenavClose()">
+      <mat-icon></mat-icon> <span class="nav-caption">Home</span>
+    </a>
+    <a mat-list-item routerLink="/staffs" (click)="onSidenavClose()">
+      <mat-icon></mat-icon> <span class="nav-caption">Staffs</span>
+    </a>
+    <a mat-list-item routerLink="/jobs" (click)="onSidenavClose()">
+      <mat-icon></mat-icon> <span class="nav-caption">Jobs</span>
+    </a>
+    <a mat-list-item routerLink="/steps" (click)="onSidenavClose()">
+      <mat-icon></mat-icon> <span class="nav-caption">Steps</span>
+    </a>
+    <a mat-list-item routerLink="/productlevels" (click)="onSidenavClose()">
+      <mat-icon></mat-icon> <span class="nav-caption">PLevels</span>
+    </a>
+    <a mat-list-item (click)="signout()" href="javascript:void(0)">
+      <mat-icon></mat-icon> <span class="nav-caption">Signout {{name}}</span>
+    </a>
+  </div>
+  <div *ngIf="!isAuthenticated">
+    <a mat-list-item routerLink="/register">
+      <span class="nav-caption">Signup</span>
+    </a>
+    <a mat-list-item (click)="login()">
+      <span class="nav-caption hover-pointer">Login</span>
+    </a>
+  </div>
 </mat-nav-list>

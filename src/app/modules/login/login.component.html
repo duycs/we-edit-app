@@ -1,0 +1,19 @@
+<div class="parent">
+  <mat-card class="example-card">
+    <h2 mat-dialog-title>{{title}}</h2>
+    <mat-card-content>
+      <p>Login with single sign on</p>
+      <img src="assets/images/open-identity.png" width="175" class="mb-4" />
+    </mat-card-content>
+
+    <div class="group-btn">
+      <button mat-raised-button color="primary" (click)="login()">Go to SSO</button>
+    </div>
+
+    <div class="group-btn">
+      <a routerLink="/register">
+        <p>Or register a new account</p>
+      </a>
+    </div>
+  </mat-card>
+</div>

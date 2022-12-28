@@ -1,20 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { catchError, tap, map } from 'rxjs/operators';
-import { AppSettings } from 'src/app/configs/app-settings.config';
-import { Job } from 'src/app/shared/models/job';
-import { CreateJobVM } from 'src/app/shared/models/createJobVM';
-import { JobStep } from 'src/app/shared/models/jobStep';
-import { PaggedDataJob } from 'src/app/shared/models/paggedDataJob';
+import { Observable, of } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, tap } from 'rxjs/operators';
 import { ProductLevel } from 'src/app/shared/models/productLevel';
 import { PaggedDataProductLevel } from 'src/app/shared/models/paggedDataProductLevel';
+import { environment } from 'src/environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-const apiUrl = `${AppSettings.API_URL}/productlevels`;
+const apiUrl = `${environment.apiUrl}/productlevels`;
 const sizeDefault = 10;
 
 @Injectable({

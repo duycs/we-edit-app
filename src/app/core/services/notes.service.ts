@@ -2,18 +2,18 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
-import { AppSettings } from 'src/app/configs/app-settings.config';
 import { Note } from 'src/app/shared/models/note';
 import { UpdateNoteVM } from 'src/app/shared/models/updateNoteVM';
 import { CreateNoteVM } from 'src/app/shared/models/createNoteVM';
 import { PaggedDataJob } from 'src/app/shared/models/paggedDataJob';
 import { PaggedDataNote } from 'src/app/shared/models/paggedDataNote';
+import { environment } from 'src/environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-const apiUrl = `${AppSettings.API_URL}/notes`;
+const apiUrl = `${environment.apiUrl}/notes`;
 const sizeDefault = 10;
 
 @Injectable({

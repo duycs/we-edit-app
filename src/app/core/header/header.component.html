@@ -12,7 +12,10 @@
     <span class="notify-message">Auto assign Staff to Step of Job by trigger API</span>
   </div>
   <div class="menu" fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
-    <ul fxLayout fxLayoutGap="15px" class="navigation-items">
+    <ul *ngIf="isAuthenticated" fxLayout fxLayoutGap="15px" class="navigation-items">
+      <li>
+        <a (click)="signout()" href="javascript:void(0)">Signout {{name}}</a>
+      </li>
       <li>
         <a routerLink="/productlevels">PLevels</a>
       </li>
@@ -24,6 +27,19 @@
       </li>
       <li>
         <a routerLink="/staffs">Staffs</a>
+      </li>
+    </ul>
+
+    <ul *ngIf="!isAuthenticated" fxLayout fxLayoutGap="15px" class="navigation-items">
+      <li>
+        <a routerLink="/register">
+          <p>Register</p>
+        </a>
+      </li>
+      <li>
+        <a>
+          <p class="hover-pointer" (click)="login()">Login</p>
+        </a>
       </li>
     </ul>
   </div>

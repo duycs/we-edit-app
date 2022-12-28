@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AlertService } from 'src/app/core/services/alert.service';
-import { AuthenticationService } from 'src/app/core/authentication/authentication.service';
+import { AuthService } from 'src/app/core/authentication/auth.service';
 import { Staff } from 'src/app/shared/models/staff';
 import { StaffService } from 'src/app/core/services/staffs.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -53,13 +53,13 @@ export class StaffDetailComponent implements OnInit {
 
   constructor(private router: Router,
     private route: ActivatedRoute,
-    private authenticationService: AuthenticationService,
+    private AuthService: AuthService,
     private staffService: StaffService,
     private noteService: NoteService,
     private mappingModel: MappingModels,
     private dialog: MatDialog,
     private alertService: AlertService) {
-    // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
+    // this.currentUserSubscription = this.AuthService.currentUser.subscribe(user => {
     //   this.currentUser = user;
     // });
   }

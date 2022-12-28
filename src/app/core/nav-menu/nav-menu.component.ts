@@ -1,9 +1,6 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
-import { Staff } from 'src/app/shared/models/staff';
 import { Subscription } from 'rxjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthenticationService } from '../authentication/authentication.service';
-import { first } from 'rxjs/operators';
+import { AuthService } from '../authentication/auth.service';
 import { Router } from '@angular/router';
 import { AlertService } from '../services/alert.service';
 import { CronJobSignalrService } from '../services/cronjob-signalr.service';
@@ -14,13 +11,9 @@ import { CronJobSignalrService } from '../services/cronjob-signalr.service';
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent implements OnInit, OnDestroy {
-  currentUser!: Staff;
-  currentUserSubscription!: Subscription;
-  users: Staff[] = [];
-  isExpanded = false;
-  isAnonymous = false;
-  isMember = false;
-  isLibrarian = false;
+  name!: string;
+  isAuthenticated!: boolean;
+  subscription!: Subscription;
 
   @Output() sidenavClose = new EventEmitter();
 
@@ -28,44 +21,38 @@ export class NavMenuComponent implements OnInit, OnDestroy {
     public cronJobSignalRService: CronJobSignalrService,
     private alertService: AlertService,
     private router: Router,
-    private authenticationService: AuthenticationService,
+    private authService: AuthService,
   ) {
-    // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
-    //   this.currentUser = user;
-    // });
-  }
+
+  };
 
   ngOnInit() {
-    console.log(this.currentUser);
-    if (this.currentUser == null) {
-      this.isAnonymous = true;
-      //this.alertService.open("You should register or login", "Thanks!", { duration: 2000, });
-    } else {
-      // let accountTypes = this.currentUser.accountTypes;
-      // this.isMember = accountTypes.includes('member');
-      // this.isLibrarian = accountTypes.includes('librarian');
-    }
+    this.subscription = this.authService.authNavStatus$
+      .subscribe(status => {
+        this.name = this.authService.name,
+          this.isAuthenticated = status
+      }
+      );
 
     // this.cronJobSignalRService.startConnection();
     // this.cronJobSignalRService.addJobListener();   
   }
 
+  login() {
+    this.authService.login();
+  }
+
+  async signout() {
+    await this.authService.signout();
+  }
+
   ngOnDestroy() {
-    // unsubscribe to ensure no memory leaks
-    this.currentUserSubscription.unsubscribe();
+    // prevent memory leak when component is destroyed
+    this.subscription.unsubscribe();
   }
 
   public onSidenavClose = () => {
     this.sidenavClose.emit();
-  }
-
-  logout() {
-    let account = this.currentUser?.email;
-    this.authenticationService.logout(account).pipe(first()).subscribe(() => {
-      console.log(account);
-      this.alertService.showToastSuccess();
-      this.router.navigate(['/']);
-    });
   }
 
 }

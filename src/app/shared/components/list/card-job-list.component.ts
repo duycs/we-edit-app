@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from 'src/app/core/authentication/authentication.service';
+import { AuthService } from 'src/app/core/authentication/auth.service';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { Subscription } from 'rxjs';
 import { Job } from '../../models/job';
@@ -21,9 +21,9 @@ export class CardJobListComponent implements OnInit {
   @Input() jobs!: Job[];
 
   constructor(private router: Router,
-    private authenticationService: AuthenticationService,
+    private AuthService: AuthService,
     private alertService: AlertService) {
-    // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
+    // this.currentUserSubscription = this.AuthService.currentUser.subscribe(user => {
     //   this.currentUser = user;
     // });
   }

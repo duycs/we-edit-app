@@ -3,6 +3,7 @@ html,
 body {
   margin: 0;
   height: 100%;
+  font-family: Open Sans, sans-serif;
 }
 
 mat-sidenav-container,
@@ -113,17 +114,23 @@ mat-toolbar .menu {
   overflow: hidden;
 }
 
-.mat-mdc-paginator-outer-container{
+.mat-mdc-paginator-outer-container {
   width: 100%;
 }
 
+.hover-pointer{
+  cursor: pointer;
+}
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
   .search-field {
     width: auto;
   }
-  .notify-message {display: none;}
+
+  .notify-message {
+    display: none;
+  }
 }
 
 /* Extra small devices (phones, 600px and down) */
@@ -132,7 +139,9 @@ mat-toolbar .menu {
     width: 200px;
   }
 
-  .notify-message {display: none;}
+  .notify-message {
+    display: none;
+  }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -140,5 +149,8 @@ mat-toolbar .menu {
   .search-field {
     width: 500px;
   }
-  .notify-message {display: block;}
+
+  .notify-message {
+    display: block;
+  }
 }

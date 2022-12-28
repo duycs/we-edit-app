@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
-import { AppSettings } from 'src/app/configs/app-settings.config';
 import { Step } from 'src/app/shared/models/step';
 import { PaggedDataStep } from 'src/app/shared/models/paggedDataStep';
+import { environment } from 'src/environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-const apiUrl = `${AppSettings.API_URL}/steps`;
+const apiUrl = `${environment.apiUrl}/steps`;
 const sizeDefault = 10;
 
 @Injectable({

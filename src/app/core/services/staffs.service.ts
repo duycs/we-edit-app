@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
-import { AppSettings } from 'src/app/configs/app-settings.config';
 import { PaggedDataStaff } from 'src/app/shared/models/paggedDataStaff';
 import { Staff } from 'src/app/shared/models/staff';
 import { CreateStaffVM } from 'src/app/shared/models/createStaffVM';
@@ -15,12 +14,14 @@ import { StaffOutShiftVM } from 'src/app/shared/models/staffOutShiftVM';
 import { JobStep } from 'src/app/shared/models/jobStep';
 import { UpdateStepStatusVM } from 'src/app/shared/models/updateStepStatusVM';
 import { JobStepDto } from 'src/app/shared/models/jobStepDto';
+import { environment } from 'src/environments/environment';
+import { UpdateStaffVM } from 'src/app/shared/models/updateStaffVM';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-const apiUrl = `${AppSettings.API_URL}/staffs`;
+const apiUrl = `${environment.apiUrl}/staffs`;
 const sizeDefault = 10;
 
 @Injectable({
@@ -71,6 +72,13 @@ export class StaffService {
     return this.http.post<Staff>(apiUrl, createStaffVM, httpOptions).pipe(
       tap((staff: Staff) => console.log('added')),
       catchError(this.handleError<Staff>('addStaff'))
+    );
+  }
+
+  updateStaff(updateStaffVM: UpdateStaffVM): Observable<Staff> {
+    return this.http.put<Staff>(apiUrl, updateStaffVM, httpOptions).pipe(
+      tap((staff: Staff) => console.log('updated')),
+      catchError(this.handleError<Staff>('updateStaff'))
     );
   }
 

@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { debounceTime, distinctUntilChanged, fromEvent, merge, Subscription, tap } from 'rxjs';
 import { AlertService } from 'src/app/core/services/alert.service';
-import { AuthenticationService } from 'src/app/core/authentication/authentication.service';
+import { AuthService } from 'src/app/core/authentication/auth.service';
 import { Staff } from 'src/app/shared/models/staff';
 import { ProductLevelService } from 'src/app/core/services/productLevels.service';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -45,12 +45,12 @@ export class ProductLevelListComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild('input') input!: ElementRef;
 
-  constructor(private authenticationService: AuthenticationService,
+  constructor(private AuthService: AuthService,
     private productLevelService: ProductLevelService,
     private dialog: MatDialog,
     private route: ActivatedRoute,
     private alertService: AlertService) {
-    // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
+    // this.currentUserSubscription = this.AuthService.currentUser.subscribe(user => {
     //   this.currentUser = user;
     // });
     this.dataSource = new ProductLevelDataSource(this.productLevelService);

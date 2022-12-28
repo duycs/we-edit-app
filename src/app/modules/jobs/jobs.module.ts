@@ -14,6 +14,7 @@ import { AssignStaffComponent } from './assign-staff/assign-staff.component';
 import { RemoveJobComponent } from './remove-job/remove-job.component';
 import { RemoveStepOfJobComponent } from './remove-step-of-job/remove-step-of-job.component';
 import { NgModule } from '@angular/core';
+import { AuthGuard } from 'src/app/core/authentication/auth.guard';
 
 
 const routes: Routes = [
@@ -25,11 +26,13 @@ const routes: Routes = [
         path: '',
         redirectTo: '',
         pathMatch: 'full',
-        component: JobListComponent
+        component: JobListComponent,
+        //canActivate: [AuthGuard] 
       },
       {
         path: ':id',
-        component: JobDetailComponent
+        component: JobDetailComponent,
+        //canActivate: [AuthGuard] 
       }
     ]
   }

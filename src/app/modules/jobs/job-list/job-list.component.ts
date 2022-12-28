@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit, ElementRef, Inject } from 
 import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, fromEvent, merge, Subscription, tap } from 'rxjs';
 import { AlertService } from 'src/app/core/services/alert.service';
-import { AuthenticationService } from 'src/app/core/authentication/authentication.service';
+import { AuthService } from 'src/app/core/authentication/auth.service';
 import { Staff } from 'src/app/shared/models/staff';
 import { JobService } from 'src/app/core/services/jobs.service';
 import { Job } from 'src/app/shared/models/job';
@@ -49,12 +49,12 @@ export class JobListComponent implements OnInit, AfterViewInit {
 
   constructor(private router: Router,
     private route: ActivatedRoute,
-    private authenticationService: AuthenticationService,
+    private AuthService: AuthService,
     private jobService: JobService,
     private mappingModel: MappingModels,
     private dialog: MatDialog,
     private alertService: AlertService) {
-    // this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
+    // this.currentUserSubscription = this.AuthService.currentUser.subscribe(user => {
     //   this.currentUser = user;
     // });
     this.dataSource = new JobsDataSource(this.jobService, this.mappingModel);
