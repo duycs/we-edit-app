@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
- 
-@Injectable()
-export class ConfigService {    
+import { environment } from 'src/environments/environment';
 
-    constructor() {}
+@Injectable()
+export class ConfigService {
+
+    constructor() { }
 
     get authApiURI() {
-        return 'https://localhost:44305/api';
-    }    
-     
+        return `${environment.ssoUrl}/api`;
+    }
+
     get resourceApiURI() {
-        return 'https://localhost:44305/api';
-    }  
+        return `${environment.apiUrl}`;
+    }
 }
