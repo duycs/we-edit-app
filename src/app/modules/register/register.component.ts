@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { finalize } from 'rxjs/operators'
+import { catchError, finalize } from 'rxjs/operators'
 import { UserRegistration } from 'src/app/shared/models/userRegistration';
 import { AuthService } from '../../core/authentication/auth.service';
 
@@ -15,7 +15,7 @@ export class RegisterComponent implements OnInit {
     title = "Register";
     hide = true;
     success!: boolean;
-    error!: string;
+    error!: any;
 
     userRegistration: UserRegistration = { name: '', email: '', password: '' };
     submitted: boolean = false;
@@ -42,7 +42,8 @@ export class RegisterComponent implements OnInit {
         this.authService.register(userRegistration)
             .pipe(finalize(() => {
                 this.spinner.hide();
-            }))
+            })
+            )
             .subscribe(
                 result => {
                     if (result) {
@@ -51,6 +52,7 @@ export class RegisterComponent implements OnInit {
                     }
                 },
                 error => {
+                    console.log("error", error);
                     this.error = error;
                 });
     }
