@@ -37,7 +37,9 @@
       </div>
       <div *ngIf="success" class="alert alert-success" role="alert">
         <h4 class="alert-heading">Well done!</h4>
-        <p>Your account was created successfully, Please <a (click)="login()"><p>login</p></a> to continue.</p>
+        <a class="hover-pointer" (click)="login()">
+          <p>Your account was created successfully. Please login to continue.</p>
+        </a>
       </div>
     </mat-dialog-actions>
   </mat-card>
