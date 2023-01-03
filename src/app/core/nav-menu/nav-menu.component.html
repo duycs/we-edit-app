@@ -6,7 +6,7 @@
     <a mat-list-item routerLink="/" (click)="onSidenavClose()">
       <mat-icon></mat-icon> <span class="nav-caption">Home</span>
     </a>
-    <a mat-list-item *ngIf="isAdmin" routerLink="/management/staffs" (click)="onSidenavClose()">
+    <a mat-list-item routerLink="/management/staffs" (click)="onSidenavClose()">
       <mat-icon></mat-icon> <span class="nav-caption">Staffs</span>
     </a>
     <a mat-list-item *ngIf="isAdmin" routerLink="/management/jobs" (click)="onSidenavClose()">
@@ -24,7 +24,7 @@
   </div>
 
   <div *ngIf="!isAuthenticated">
-    <a mat-list-item routerLink="/register">
+    <a mat-list-item routerLink="/authentication/register">
       <span class="nav-caption">Signup</span>
     </a>
     <a mat-list-item (click)="login()">

@@ -78,7 +78,7 @@ export function getClientSettings(): UserManagerSettings {
   return {
     authority: environment.ssoUrl,
     client_id: 'we-edit-web-app',
-    redirect_uri: `${environment.appUrl}/auth-callback`,
+    redirect_uri: `${environment.appUrl}/authentication/callback`,
     post_logout_redirect_uri: environment.appUrl,
     response_type: "id_token token",
     scope: "openid profile email api.read",

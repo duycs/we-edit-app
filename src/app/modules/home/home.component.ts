@@ -36,29 +36,20 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if (this.isAuthenticated) {
-      this.getJobs();
-      this.getSteps();
-      this.getStaffs();
-      this.getProductLevels();
-    } else {
-      this.router.navigate(['/login']);
-    }
+    this.getJobs();
+    this.getSteps();
+    this.getStaffs();
+    this.getProductLevels();
   }
 
   ngOnInit(): void {
     this.subscription = this.authService.authNavStatus$
       .subscribe(status => {
-          this.name = this.authService.name,
+        this.name = this.authService.name,
           this.isAuthenticated = status,
           this.isAdmin = this.authService.isUserAdmin();
       }
       );
-  }
-
-  onRowClicked(row: any) {
-    console.log('Row clicked: ', row);
-    this.router.navigate([`/management/jobs/${row.id}`]);
   }
 
   getJobs() {
@@ -84,7 +75,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
     return this.productLevelsCount;
   }
-
 
   getSteps() {
     this.stepService.getSteps().subscribe(data => {

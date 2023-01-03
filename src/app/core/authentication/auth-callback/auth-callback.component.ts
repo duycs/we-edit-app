@@ -17,7 +17,6 @@ export class AuthCallbackComponent implements OnInit {
 
     async ngOnInit() {
 
-
         // check for error
         var errIndex = this.route?.snapshot.fragment?.indexOf('error') ?? 0;
 

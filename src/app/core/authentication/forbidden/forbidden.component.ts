@@ -14,6 +14,6 @@ export class ForbiddenComponent implements OnInit {
   }
   
   public navigateToLogin = () => {
-    this.router.navigate(['/login'], { queryParams: { returnUrl: this.returnUrl }});
+    this.router.navigate(['/authentication/login'], { queryParams: { returnUrl: this.returnUrl }});
   }
 }

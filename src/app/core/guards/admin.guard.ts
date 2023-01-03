@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import { AuthService } from './auth.service';
+import { AuthService } from '../authentication/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class AdminGuard implements CanActivate {
     if(this.authService.isUserAdmin())
       return true;
       
-    this.router.navigate(['/forbidden'], { queryParams: { returnUrl: state.url }});
+    this.router.navigate(['/authentication/forbidden'], { queryParams: { returnUrl: state.url }});
     return false;
   }
 }

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { catchError, finalize } from 'rxjs/operators'
 import { UserRegistration } from 'src/app/shared/models/userRegistration';
-import { AuthService } from '../../core/authentication/auth.service';
+import { AuthService } from '../auth.service';
 
 @Component({
     selector: 'app-register',

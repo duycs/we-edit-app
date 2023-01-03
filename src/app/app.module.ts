@@ -15,47 +15,39 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared.module';
 import { HeaderComponent } from './core/header/header.component';
 import { HomeComponent } from './modules/home/home.component';
-import { RegisterComponent } from './modules/register/register.component';
-import { LoginComponent } from './modules/login/login.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ConfigService } from './shared/config.service';
-import { AuthCallbackComponent } from './modules/auth-callback/auth-callback.component';
 import { CoreModule } from './core/core.module';
-import { AuthGuard } from './core/authentication/auth.guard';
+import { AuthGuard } from './core/guards/auth.guard';
 import { TokenInterceptorService } from './core/interceptors/token-interceptor';
-import { ForbiddenComponent } from './modules/forbidden/forbidden.component';
-import { AdminGuard } from './core/authentication/admin.guard';
-import { NotFoundComponent } from './modules/not-found/not-found.component';
+import { AdminGuard } from './core/guards/admin.guard';
 import { ManagementComponent } from './modules/management/management.component';
 import { ManagementModule } from './modules/management/management.module';
+import { AuthenticationModule } from './core/authentication/authentication.module';
+import { AuthenticationComponent } from './core/authentication/authentication.component';
+import { StaffComponent } from './modules/staff/staff.component';
+import { StaffModule } from './modules/staff/staff.module';
 
 const appRoutes: Routes = [
-  { path: 'forbidden', component: ForbiddenComponent },
-  { path: 'notfound', component: NotFoundComponent },
-  // { path: '**', redirectTo: '/notfound', pathMatch: 'full'},
-  { path: 'register', component: RegisterComponent, pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
-  { path: 'auth-callback', component: AuthCallbackComponent },
-  
-  { path: 'home', component: HomeComponent, pathMatch: 'full', canActivate: [AuthGuard] },
+  { path: 'authentication', loadChildren: () => import('./core/authentication/authentication.module').then(m => m.AuthenticationModule), component: AuthenticationComponent },
+
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/home', pathMatch: 'full', canActivate: [AuthGuard] },
 
   { path: 'management', loadChildren: () => import('./modules/management/management.module').then(m => m.ManagementModule), component: ManagementComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'staffs', loadChildren: () => import('./modules/staff/staff.module').then(m => m.StaffModule), component: StaffComponent, canActivate: [AuthGuard] },
 
 ];
 
 @NgModule({
   declarations: [
-    NotFoundComponent,
-    ForbiddenComponent,
-    LoginComponent,
-    RegisterComponent,
     HomeComponent,
-    AuthCallbackComponent,
     AppComponent,
     NavMenuComponent,
     HeaderComponent,
+    AuthenticationComponent,
     ManagementComponent,
+    StaffComponent,
   ],
   imports: [
     NgxSpinnerModule,
@@ -73,7 +65,9 @@ const appRoutes: Routes = [
 
     //app modules
     CoreModule,
+    AuthenticationModule,
     ManagementModule,
+    StaffModule,
   ],
   providers: [
     ConfigService,

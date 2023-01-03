@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { AuthService } from '../../core/authentication/auth.service';
+import { AuthService } from '../auth.service';
 
 @Component({
     selector: 'app-login',

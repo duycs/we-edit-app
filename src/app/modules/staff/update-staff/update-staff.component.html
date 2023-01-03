@@ -1,0 +1,47 @@
+<h1 mat-dialog-title>Update Staff {{staffName}}</h1>
+
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field>
+    <mat-label>Fullname</mat-label>
+    <input matInput placeholder="" formControlName="fullname">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Account</mat-label>
+    <input matInput placeholder="" formControlName="account">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input matInput placeholder="" formControlName="email">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Roles</mat-label>
+    <mat-select [formControl]="roleIds" multiple>
+      <mat-option *ngFor="let role of roles" [value]="role.id">{{role.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Groups</mat-label>
+    <mat-select [formControl]="groupIds" multiple>
+      <mat-option *ngFor="let group of groups" [value]="group.id">{{group.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Product Levels</mat-label>
+    <mat-select [formControl]="productLevelIds" multiple>
+      <mat-option *ngFor="let productLevel of productLevels" [value]="productLevel.id">{{productLevel.code}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</mat-dialog-content>
+
+<mat-dialog-actions class="container">
+  <div class="group-btn">
+    <button mat-button color="primary" (click)="close()">Close</button>
+    <button mat-button mat-dialog-close color="primary" (click)="save()" cdkFocusInitial>Save</button>
+  </div>
+</mat-dialog-actions>

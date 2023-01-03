@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Add Product-Level for Staff {{data.name}}</h1>
+
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field appearance="fill">
+    <mat-label>Product Level</mat-label>
+    <mat-select formControlName="productLevelId">
+      <mat-option>None</mat-option>
+      <mat-option *ngFor="let productLevel of productLevels" [value]="productLevel.id">{{productLevel.code}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions class="container">
+  <div class="group-btn">
+    <button mat-button color="primary" (click)="close()">Close</button>
+    <button mat-button mat-dialog-close color="primary" (click)="save()" cdkFocusInitial>Save</button>
+  </div>
+</mat-dialog-actions>

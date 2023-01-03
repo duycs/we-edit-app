@@ -25,14 +25,14 @@
       <li *ngIf="isAdmin">
         <a routerLink="/management/jobs">Jobs</a>
       </li>
-      <li *ngIf="isAdmin">
+      <li>
         <a routerLink="/management/staffs">Staffs</a>
       </li>
     </ul>
 
     <ul *ngIf="!isAuthenticated" fxLayout fxLayoutGap="15px" class="navigation-items">
       <li>
-        <a routerLink="/register">
+        <a routerLink="/authentication/register">
           <p>Register</p>
         </a>
       </li>

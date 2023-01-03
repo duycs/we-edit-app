@@ -37,13 +37,13 @@ export class ErrorHandlerService implements HttpInterceptor {
   }
 
   private handleForbidden = (error: HttpErrorResponse) => {
-    this.router.navigate(["/forbidden"], { queryParams: { returnUrl: this.router.url }});
+    this.router.navigate(["/authentication/forbidden"], { queryParams: { returnUrl: this.router.url }});
     
     return "Forbidden";
   }
 
   private handleNotFound = (error: HttpErrorResponse): string => {
-    this.router.navigate(['/404']);
+    this.router.navigate(['/authentication/notfound']);
     return error.message;
   }
   
