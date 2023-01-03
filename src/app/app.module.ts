@@ -13,18 +13,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SharedModule } from './shared.module';
-import { JobsComponent } from './modules/jobs/jobs.component';
-import { JobsModule } from './modules/jobs/jobs.module';
-import { StaffsComponent } from './modules/staffs/staffs.component';
-import { StaffsModule } from './modules/staffs/staffs.module';
-import { StepsComponent } from './modules/steps/steps.component';
-import { StepsModule } from './modules/steps/steps.module';
-import { ProductLevelsComponent } from './modules/productlevels/productlevels.component';
-import { ProductLevelsModule } from './modules/productlevels/productlevels.module';
 import { HeaderComponent } from './core/header/header.component';
 import { HomeComponent } from './modules/home/home.component';
-import { NotesComponent } from './modules/notes/notes.component';
-import { NotesModule } from './modules/notes/notes.module';
 import { RegisterComponent } from './modules/register/register.component';
 import { LoginComponent } from './modules/login/login.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -33,27 +23,31 @@ import { AuthCallbackComponent } from './modules/auth-callback/auth-callback.com
 import { CoreModule } from './core/core.module';
 import { AuthGuard } from './core/authentication/auth.guard';
 import { TokenInterceptorService } from './core/interceptors/token-interceptor';
-
+import { ForbiddenComponent } from './modules/forbidden/forbidden.component';
+import { AdminGuard } from './core/authentication/admin.guard';
+import { NotFoundComponent } from './modules/not-found/not-found.component';
+import { ManagementComponent } from './modules/management/management.component';
+import { ManagementModule } from './modules/management/management.module';
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent, pathMatch: 'full' },
+  { path: 'forbidden', component: ForbiddenComponent },
+  { path: 'notfound', component: NotFoundComponent },
+  // { path: '**', redirectTo: '/notfound', pathMatch: 'full'},
   { path: 'register', component: RegisterComponent, pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'auth-callback', component: AuthCallbackComponent },
-  { path: '**', redirectTo: '', pathMatch: 'full' },
-  // { path: 'about', component: AboutComponent },
-  // { path: 'menu', component: MenuComponent },
+  
+  { path: 'home', component: HomeComponent, pathMatch: 'full', canActivate: [AuthGuard] },
+  { path: '', redirectTo: '/home', pathMatch: 'full', canActivate: [AuthGuard] },
 
-  { path: 'modules/jobs', component: JobsComponent, canActivate: [AuthGuard] },
-  { path: 'modules/steps', component: StepsComponent },
-  { path: 'modules/staffs', component: StaffsComponent },
-  { path: 'modules/productlevels', component: ProductLevelsComponent },
-  { path: 'modules/notes', component: NotesComponent },
+  { path: 'management', loadChildren: () => import('./modules/management/management.module').then(m => m.ManagementModule), component: ManagementComponent, canActivate: [AuthGuard, AdminGuard] },
+
 ];
-
 
 @NgModule({
   declarations: [
+    NotFoundComponent,
+    ForbiddenComponent,
     LoginComponent,
     RegisterComponent,
     HomeComponent,
@@ -61,11 +55,7 @@ const appRoutes: Routes = [
     AppComponent,
     NavMenuComponent,
     HeaderComponent,
-    JobsComponent,
-    StaffsComponent,
-    StepsComponent,
-    ProductLevelsComponent,
-    NotesComponent,
+    ManagementComponent,
   ],
   imports: [
     NgxSpinnerModule,
@@ -79,16 +69,11 @@ const appRoutes: Routes = [
     RouterModule.forChild([]),
     BrowserAnimationsModule,
     NoopAnimationsModule,
-
     MaterialModule,
 
     //app modules
     CoreModule,
-    JobsModule,
-    StaffsModule,
-    StepsModule,
-    ProductLevelsModule,
-    NotesModule,
+    ManagementModule,
   ],
   providers: [
     ConfigService,

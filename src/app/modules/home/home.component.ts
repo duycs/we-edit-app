@@ -19,6 +19,7 @@ import { Staff } from 'src/app/shared/models/staff';
 export class HomeComponent implements OnInit, AfterViewInit {
   name!: string;
   isAuthenticated!: boolean;
+  isAdmin!: boolean;
   subscription!: Subscription;
 
   jobsCount: number = 0;
@@ -27,15 +28,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
   productLevelsCount: number = 0;
 
   constructor(private router: Router,
-    private route: ActivatedRoute,
     private authService: AuthService,
     private jobService: JobService,
     private staffService: StaffService,
     private stepService: StepService,
-    private productLevelService: ProductLevelService,
-    private mappingModel: MappingModels,
-    private dialog: MatDialog,
-    private alertService: AlertService) {
+    private productLevelService: ProductLevelService) {
   }
 
   ngAfterViewInit() {
@@ -52,15 +49,16 @@ export class HomeComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.subscription = this.authService.authNavStatus$
       .subscribe(status => {
-        this.name = this.authService.name,
-          this.isAuthenticated = status
+          this.name = this.authService.name,
+          this.isAuthenticated = status,
+          this.isAdmin = this.authService.isUserAdmin();
       }
       );
   }
 
   onRowClicked(row: any) {
     console.log('Row clicked: ', row);
-    this.router.navigate([`/jobs/${row.id}`]);
+    this.router.navigate([`/management/jobs/${row.id}`]);
   }
 
   getJobs() {

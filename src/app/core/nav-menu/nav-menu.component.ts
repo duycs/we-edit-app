@@ -13,6 +13,7 @@ import { CronJobSignalrService } from '../services/cronjob-signalr.service';
 export class NavMenuComponent implements OnInit, OnDestroy {
   name!: string;
   isAuthenticated!: boolean;
+  isAdmin!: boolean;
   subscription!: Subscription;
 
   @Output() sidenavClose = new EventEmitter();
@@ -29,8 +30,9 @@ export class NavMenuComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.authService.authNavStatus$
       .subscribe(status => {
-        this.name = this.authService.name,
+          this.name = this.authService.name,
           this.isAuthenticated = status
+          this.isAdmin = this.authService.isUserAdmin();
       }
       );
 

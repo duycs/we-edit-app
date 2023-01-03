@@ -16,17 +16,17 @@
       <li>
         <a (click)="signout()" href="javascript:void(0)">Signout {{name}}</a>
       </li>
-      <li>
-        <a routerLink="/productlevels">PLevels</a>
+      <li *ngIf="isAdmin">
+        <a routerLink="/management/plevels">PLevels</a>
       </li>
-      <li>
-        <a routerLink="/steps">Steps</a>
+      <li *ngIf="isAdmin">
+        <a routerLink="/management/steps">Steps</a>
       </li>
-      <li>
-        <a routerLink="/jobs">Jobs</a>
+      <li *ngIf="isAdmin">
+        <a routerLink="/management/jobs">Jobs</a>
       </li>
-      <li>
-        <a routerLink="/staffs">Staffs</a>
+      <li *ngIf="isAdmin">
+        <a routerLink="/management/staffs">Staffs</a>
       </li>
     </ul>
 

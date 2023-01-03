@@ -36,7 +36,7 @@ export class CardJobListComponent implements OnInit {
     console.log(jobId);
     if (this.currentUser == null) {
       //is anonymous
-      this.router.navigate(['/jobs/', jobId]);
+      this.router.navigate(['/management/jobs/', jobId]);
     }
 
   }

@@ -1,16 +1,16 @@
 <!-- <mat-label class="label">We-Edit statistic</mat-label> -->
 
-<mat-grid-list cols="2" rowHeight="2:1">
+<mat-grid-list cols="2" rowHeight="2:1" *ngIf="isAdmin">
   <mat-grid-tile class="label">
-    <a href="/jobs"> Jobs:{{jobsCount}}</a>
+    <a href="/management/jobs"> Jobs:{{jobsCount}}</a>
   </mat-grid-tile>
   <mat-grid-tile class="label">
-    <a href="/steps"> Steps: {{stepsCount}} </a>
+    <a href="/management/steps"> Steps: {{stepsCount}} </a>
   </mat-grid-tile>
   <mat-grid-tile class="label">
-    <a href="/staffs"> Staffs: {{stepsCount}} </a>
+    <a href="/management/staffs"> Staffs: {{stepsCount}} </a>
   </mat-grid-tile>
   <mat-grid-tile class="label">
-    <a href="/productlevels"> PLevels: {{productLevelsCount}} </a>
+    <a href="/management/productlevels"> PLevels: {{productLevelsCount}} </a>
   </mat-grid-tile>
 </mat-grid-list>

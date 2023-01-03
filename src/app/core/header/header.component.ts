@@ -11,6 +11,7 @@ import { CronJobSignalrService } from '../services/cronjob-signalr.service';
 export class HeaderComponent implements OnInit {
     name!: string;
     isAuthenticated!: boolean;
+    isAdmin!: boolean;
     subscription!: Subscription;
 
     @Output() public sidenavToggle = new EventEmitter();
@@ -23,7 +24,8 @@ export class HeaderComponent implements OnInit {
         this.subscription = this.authService.authNavStatus$.subscribe(status => {
             this.isAuthenticated = status;
             this.name = this.authService.name;
-            }
+            this.isAdmin = this.authService.isUserAdmin();
+        }
         );
 
         //this.cronJobSignalRService.startConnection();

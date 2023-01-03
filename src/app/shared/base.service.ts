@@ -6,7 +6,9 @@ export abstract class BaseService {
 
     protected handleError(error: any) {
 
-        var applicationError = error.headers.get('Application-Error');
+        return error;
+
+        var applicationError = error?.headers?.get('Application-Error');
 
         // either application-error in header or model error in body
         if (applicationError) {

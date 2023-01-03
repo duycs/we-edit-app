@@ -36,6 +36,9 @@ export class AuthService extends BaseService {
 
   async completeAuthentication() {
     this.user = await this.manager.signinRedirectCallback();
+
+    console.log("user", this.user);
+
     this._authNavStatusSource.next(this.isAuthenticated());
   }
 
@@ -45,6 +48,14 @@ export class AuthService extends BaseService {
 
   isAuthenticated(): boolean {
     return this.user != null && !this.user.expired;
+  }
+
+  public isUserAdmin = (): boolean => {
+    let roles = this.user?.profile['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+
+    console.log("roles", roles);
+
+    return Array.isArray(roles) ? roles.includes('admin') : roles == 'admin';
   }
 
   get authorizationHeaderValue(): string {
