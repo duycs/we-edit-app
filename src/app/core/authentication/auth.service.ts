@@ -2,11 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { UserManager, UserManagerSettings, User } from 'oidc-client';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { BaseService } from "../../shared/base.service";
 import { ConfigService } from '../../shared/config.service';
 import { environment } from 'src/environments/environment';
+import { StaffService } from '../services/staffs.service';
+import { MappingModels } from 'src/app/shared/models/mapping-models';
+import { Staff } from 'src/app/shared/models/staff';
 
 @Injectable({
   providedIn: 'root'
@@ -20,9 +24,12 @@ export class AuthService extends BaseService {
 
   private manager = new UserManager(getClientSettings());
   private user!: User | null;
+  private staff!: Staff;
 
   constructor(private http: HttpClient,
-    private configService: ConfigService) {
+    private configService: ConfigService,
+    private staffService: StaffService,
+    private mappingModel: MappingModels) {
     super();
     this.manager.getUser().then(user => {
       this.user = user;
@@ -36,10 +43,19 @@ export class AuthService extends BaseService {
 
   async completeAuthentication() {
     this.user = await this.manager.signinRedirectCallback();
+    this._authNavStatusSource.next(await this.doAuthentication());
+  }
 
+  async doAuthentication() {
     console.log("user", this.user);
+    this.staff = await this.getStaffByUserId(this.userId());
+    return this.isAuthenticated();
+  }
 
-    this._authNavStatusSource.next(this.isAuthenticated());
+  async getStaffByUserId(userId: any) {
+    let staff = await this.staffService.getStaffSync(userId);
+    let staffMapped = this.mappingModel.MappingDisplayNameFieldsOfStaff(staff);
+    return staffMapped;
   }
 
   register(userRegistration: any) {
@@ -50,9 +66,16 @@ export class AuthService extends BaseService {
     return this.user != null && !this.user.expired;
   }
 
+  userId(): string {
+    return this.user?.profile['id'];
+  }
+
+  getStaff(): Staff {
+    return this.staff;
+  }
+
   public isUserAdmin = (): boolean => {
     let roles = this.user?.profile['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
-
     console.log("roles", roles);
 
     return Array.isArray(roles) ? roles.includes('admin') : roles == 'admin';

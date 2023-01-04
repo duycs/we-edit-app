@@ -15,6 +15,8 @@ export class NavMenuComponent implements OnInit, OnDestroy {
   isAuthenticated!: boolean;
   isAdmin!: boolean;
   subscription!: Subscription;
+  userId!: string;
+  staffId!: number;
 
   @Output() sidenavClose = new EventEmitter();
 
@@ -30,9 +32,14 @@ export class NavMenuComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.authService.authNavStatus$
       .subscribe(status => {
-          this.name = this.authService.name,
-          this.isAuthenticated = status
-          this.isAdmin = this.authService.isUserAdmin();
+        this.name = this.authService.name;
+        this.isAuthenticated = status;
+        this.isAdmin = this.authService.isUserAdmin();
+        this.userId = this.authService.userId();
+        this.staffId = this.authService.getStaff()?.id;
+
+        console.log("staffId", this.staffId);
+        console.log("staff",  this.authService.getStaff());
       }
       );
 

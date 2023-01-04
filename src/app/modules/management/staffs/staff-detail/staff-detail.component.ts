@@ -50,11 +50,8 @@ export class StaffDetailComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild('input') input!: ElementRef;
 
-  constructor(private router: Router,
-    private route: ActivatedRoute,
-    private AuthService: AuthService,
+  constructor(private route: ActivatedRoute,
     private staffService: StaffService,
-    private noteService: NoteService,
     private mappingModel: MappingModels,
     private dialog: MatDialog,
     private alertService: AlertService) {
@@ -94,7 +91,7 @@ export class StaffDetailComponent implements OnInit {
     this.getStaff();
   }
 
-  onRowClicked(row: any) {
+  onRowClicked() {
   }
 
   openRemoveStepOfStaffDialog(element: any): void {
@@ -111,7 +108,7 @@ export class StaffDetailComponent implements OnInit {
     });
   }
 
-  openUpdateJobDialog(element: any) {
+  openUpdateJobDialog() {
     console.log("updateJobDialog");
   }
 
@@ -126,7 +123,7 @@ export class StaffDetailComponent implements OnInit {
     console.log("updateStepStatusVM", updateStepStatusVM);
 
     this.staffService.updateStepStatus(updateStepStatusVM)
-      .subscribe(res => {
+      .subscribe(() => {
         this.alertService.showToastSuccess();
         setTimeout(() => {
           console.log("reload after updated");

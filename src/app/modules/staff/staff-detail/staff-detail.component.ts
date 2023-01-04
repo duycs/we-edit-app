@@ -14,16 +14,20 @@ import { UpdateStepStatusVM } from 'src/app/shared/models/updateStepStatusVM';
 import { UpdateStepStatusComponent } from '../update-step-status/update-step-status.component';
 import { NoteService } from 'src/app/core/services/notes.service';
 import { JobStepDto } from 'src/app/shared/models/jobStepDto';
+import { AppUser } from 'src/app/shared/models/AppUser';
 
 @Component({
-  selector: 'app-staff-detail',
+  selector: 'app-staff-staff-detail',
   templateUrl: './staff-detail.component.html',
 })
 
 export class StaffDetailComponent implements OnInit {
   currentUser!: Staff;
-  currentUserSubscription!: Subscription;
+  subscription!: Subscription;
   users: Staff[] = [];
+
+  appUser!: AppUser;
+  staffId!: number;
 
   length = 50;
   pageSize = 10;
@@ -43,7 +47,7 @@ export class StaffDetailComponent implements OnInit {
 
   staffs!: Staff[];
   jobStepDtos = new MatTableDataSource<JobStepDto>([]);
-  staffId!: number;
+  userId!: string;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -51,16 +55,27 @@ export class StaffDetailComponent implements OnInit {
 
   constructor(private router: Router,
     private route: ActivatedRoute,
-    private AuthService: AuthService,
+    private authService: AuthService,
     private staffService: StaffService,
     private noteService: NoteService,
     private mappingModel: MappingModels,
     private dialog: MatDialog,
     private alertService: AlertService) {
-    // this.currentUserSubscription = this.AuthService.currentUser.subscribe(user => {
-    //   this.currentUser = user;
-    // });
   }
+
+  ngOnInit(): void {
+    this.staffId = this.route.snapshot.params['id'];
+    this.subscription = this.authService.authNavStatus$
+      .subscribe(appUser => {
+        this.staffs = [this.authService.getStaff()];
+        console.log("staff detail", this.staffs);
+        this.userId = this.authService.userId();
+      }
+      );
+
+    //this.getStaff();
+  }
+
 
   ngAfterViewInit() {
     this.getJobSteps();
@@ -78,7 +93,7 @@ export class StaffDetailComponent implements OnInit {
   }
 
   getStaff() {
-    this.staffService.getStaff(this.staffId)
+    this.staffService.getStaff(this.userId)
       .subscribe(res => {
         var staffMapped = this.mappingModel.MappingDisplayNameFieldsOfStaff(res);
         this.staffs = [staffMapped];
@@ -88,10 +103,6 @@ export class StaffDetailComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {
-    this.staffId = this.route.snapshot.params['id'];
-    this.getStaff();
-  }
 
   onRowClicked(row: any) {
   }
@@ -141,8 +152,8 @@ export class StaffDetailComponent implements OnInit {
   openUpdateStepStatusDialog(jobStep: any, status: number): void {
     const dialogRef = this.dialog.open(UpdateStepStatusComponent, {
       data: {
-        jobstep: {id: jobStep.id, oldStatusname: jobStep.statusname},
-        job: {id: jobStep.job.id},
+        jobstep: { id: jobStep.id, oldStatusname: jobStep.statusname },
+        job: { id: jobStep.job.id },
         staff: { id: this.staffId },
         step: { id: jobStep.step.id, name: jobStep.step.name, status: status, statusname: this.mappingModel.MappingStepStatus(status) },
       }

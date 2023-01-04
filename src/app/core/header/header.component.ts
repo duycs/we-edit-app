@@ -13,6 +13,8 @@ export class HeaderComponent implements OnInit {
     isAuthenticated!: boolean;
     isAdmin!: boolean;
     subscription!: Subscription;
+    userId!: string;
+    staffId!: number;
 
     @Output() public sidenavToggle = new EventEmitter();
 
@@ -25,6 +27,11 @@ export class HeaderComponent implements OnInit {
             this.isAuthenticated = status;
             this.name = this.authService.name;
             this.isAdmin = this.authService.isUserAdmin();
+            this.userId = this.authService.userId();
+            this.staffId = this.authService.getStaff()?.id;
+
+            console.log("staffId", this.staffId);
+            console.log("staff",  this.authService.getStaff());
         }
         );
 

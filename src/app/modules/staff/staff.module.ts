@@ -5,9 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { SharedModule } from 'src/app/shared.module';
-import { AddProductLevelForStaffComponent } from './add-productlevel-for-staff/add-productlevel-for-staff.component';
-import { StaffDetailComponent } from './staff-detail/staff-detail.component';
 import { StaffComponent } from './staff.component';
+import { StaffDetailComponent } from './staff-detail/staff-detail.component';
 import { UpdateStepStatusComponent } from './update-step-status/update-step-status.component';
 import { UpdateStaffComponent } from './update-staff/update-staff.component';
 
@@ -16,18 +15,10 @@ const routes: Routes = [
         path: 'staffs',
         component: StaffComponent,
         children: [
-            // staffs
+            // steps
             {
                 path: ':id',
                 component: StaffDetailComponent
-            },
-            {
-                path: 'step-status/update',
-                component: UpdateStepStatusComponent
-            },
-            {
-                path: 'product-level/add',
-                component: AddProductLevelForStaffComponent
             },
         ]
     }
@@ -36,12 +27,10 @@ const routes: Routes = [
 @NgModule({
     declarations: [
         StaffDetailComponent,
-        UpdateStaffComponent,
         UpdateStepStatusComponent,
-        AddProductLevelForStaffComponent,
+        UpdateStaffComponent
     ],
     imports: [
-        BrowserModule,
         SharedModule,
         MaterialModule,
         BrowserModule,

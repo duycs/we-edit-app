@@ -27,6 +27,9 @@ import { AuthenticationModule } from './core/authentication/authentication.modul
 import { AuthenticationComponent } from './core/authentication/authentication.component';
 import { StaffComponent } from './modules/staff/staff.component';
 import { StaffModule } from './modules/staff/staff.module';
+import { CommonModule } from '@angular/common';
+import { ImageModule } from './modules/image/image.module';
+import { ImageComponent } from './modules/image/image.component';
 
 const appRoutes: Routes = [
   { path: 'authentication', loadChildren: () => import('./core/authentication/authentication.module').then(m => m.AuthenticationModule), component: AuthenticationComponent },
@@ -36,6 +39,7 @@ const appRoutes: Routes = [
 
   { path: 'management', loadChildren: () => import('./modules/management/management.module').then(m => m.ManagementModule), component: ManagementComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'staffs', loadChildren: () => import('./modules/staff/staff.module').then(m => m.StaffModule), component: StaffComponent, canActivate: [AuthGuard] },
+  { path: 'images', loadChildren: () => import('./modules/image/image.module').then(m => m.ImageModule), component: ImageComponent, canActivate: [AuthGuard] },
 
 ];
 
@@ -48,8 +52,10 @@ const appRoutes: Routes = [
     AuthenticationComponent,
     ManagementComponent,
     StaffComponent,
+    ImageComponent,
   ],
   imports: [
+    CommonModule,
     NgxSpinnerModule,
     SharedModule,
     BrowserAnimationsModule,
@@ -68,6 +74,7 @@ const appRoutes: Routes = [
     AuthenticationModule,
     ManagementModule,
     StaffModule,
+    ImageModule
   ],
   providers: [
     ConfigService,

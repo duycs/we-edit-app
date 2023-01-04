@@ -51,12 +51,18 @@ export class StaffService {
       );
   }
 
-  getStaff(id: number): Observable<Staff> {
+  getStaff(id: any): Observable<Staff> {
     const url = `${apiUrl}/${id}`;
-    return this.http.get<Staff>(url).pipe(
+
+    return this.http.get<Staff>(url)
+    .pipe(
       tap(_ => console.log('fetched staff id=${id}')),
       catchError(this.handleError<Staff>('getStaff id=${id}'))
     );
+  }
+
+  getStaffSync(id: any): Promise<any> {
+    return this.getStaff(id).toPromise();
   }
 
   getJobStepsOfStaff(id: number): Observable<JobStepDto[]> {
@@ -66,7 +72,6 @@ export class StaffService {
       catchError(this.handleError<JobStepDto[]>('getJobStepsOfStaff id=${id}'))
     );
   }
-
 
   addStaff(createStaffVM: CreateStaffVM): Observable<Staff> {
     return this.http.post<Staff>(apiUrl, createStaffVM, httpOptions).pipe(
@@ -138,7 +143,7 @@ export class StaffService {
     );
   }
 
-  updateStepStatus(updateStepStatusVM: UpdateStepStatusVM){
+  updateStepStatus(updateStepStatusVM: UpdateStepStatusVM) {
     let url = `${apiUrl}/stepstatus`;
     return this.http.post<JobStep>(url, updateStepStatusVM, httpOptions).pipe(
       tap((jobStep: JobStep) => console.log('updated')),

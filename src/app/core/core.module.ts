@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { NgModule, Optional, SkipSelf } from '@angular/core'; 
 import { AuthService } from './authentication/auth.service';
 import { AuthGuard } from './guards/auth.guard';
@@ -8,7 +9,7 @@ import { AuthGuard } from './guards/auth.guard';
   ],
   providers: [
     AuthService,
-    AuthGuard    
+    AuthGuard,
   ]
 })
 export class CoreModule {

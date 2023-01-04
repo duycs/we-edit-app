@@ -4,8 +4,14 @@
       <mat-icon>menu</mat-icon>
     </button>
   </div>
-  <div>
+  <div *ngIf="!isAuthenticated">
     <a routerLink="/">We Edit</a>
+  </div>
+  <div *ngIf="isAuthenticated && isAdmin">
+    <a routerLink="/home">We Edit</a>
+  </div>
+  <div *ngIf="isAuthenticated && !isAdmin">
+    <a routerLink="/staffs/">We Edit</a>
   </div>
   <div>
     <!-- <span class="notify-message">{{cronJobSignalRService.message}}</span> -->
@@ -25,8 +31,11 @@
       <li *ngIf="isAdmin">
         <a routerLink="/management/jobs">Jobs</a>
       </li>
-      <li>
+      <li *ngIf="isAdmin">
         <a routerLink="/management/staffs">Staffs</a>
+      </li>
+      <li *ngIf="!isAdmin">
+        <a routerLink="/staffs/{{staffId}}">My Job</a>
       </li>
     </ul>
 

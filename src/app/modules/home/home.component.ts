@@ -1,15 +1,11 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/authentication/auth.service';
-import { AlertService } from 'src/app/core/services/alert.service';
 import { JobService } from 'src/app/core/services/jobs.service';
 import { ProductLevelService } from 'src/app/core/services/productLevels.service';
 import { StaffService } from 'src/app/core/services/staffs.service';
 import { StepService } from 'src/app/core/services/steps.service';
-import { MappingModels } from 'src/app/shared/models/mapping-models';
-import { Staff } from 'src/app/shared/models/staff';
 
 @Component({
   selector: 'app-home',

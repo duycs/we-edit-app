@@ -165,7 +165,6 @@ const routes: Routes = [
         RemoveNoteComponent
     ],
     imports: [
-        BrowserModule,
         SharedModule,
         MaterialModule,
         BrowserModule,
