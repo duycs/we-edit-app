@@ -138,6 +138,18 @@ mat-toolbar .menu {
   text-align: center;
 }
 
+.label-In-Shift {
+  background: #4CAF50;
+}
+
+.label-Out-Shift {
+  background: #9E9E9E;
+}
+
+.label-Free {
+  background: #607D8B;
+}
+
 .label-Todo {
   background: #009688;
 }
@@ -162,10 +174,10 @@ mat-toolbar .menu {
   background: #D32F2F;
 }
 
-.label-none, .label-Wating {
+.label-none,
+.label-Wating {
   background: #9E9E9E;
 }
-
 
 .full-width {
   float: left;

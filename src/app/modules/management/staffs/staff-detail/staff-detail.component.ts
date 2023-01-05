@@ -1,8 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AlertService } from 'src/app/core/services/alert.service';
-import { AuthService } from 'src/app/core/authentication/auth.service';
 import { Staff } from 'src/app/shared/models/staff';
 import { StaffService } from 'src/app/core/services/staffs.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -13,7 +12,6 @@ import { MappingModels } from 'src/app/shared/models/mapping-models';
 import { RemoveStepOfJobComponent } from '../../jobs/remove-step-of-job/remove-step-of-job.component';
 import { UpdateStepStatusVM } from 'src/app/shared/models/updateStepStatusVM';
 import { UpdateStepStatusComponent } from '../update-step-status/update-step-status.component';
-import { NoteService } from 'src/app/core/services/notes.service';
 import { JobStepDto } from 'src/app/shared/models/jobStepDto';
 import { environment } from 'src/environments/environment';
 import { StaffInShiftVM } from 'src/app/shared/models/staffInShiftVM';

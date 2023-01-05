@@ -289,22 +289,22 @@ export class MappingModels {
 
                 case 1:
                     staff.currentShiftname = "Shift 1";
-                    statusNameVal = "In Shift";
+                    statusNameVal = "In-Shift";
                     break;
 
                 case 2:
                     staff.currentShiftname = "Shift 2";
-                    statusNameVal = "In Shift";
+                    statusNameVal = "In-Shift";
                     break;
 
                 case 3:
                     staff.currentShiftname = "Shift 3";
-                    statusNameVal = "In Shift";
+                    statusNameVal = "In-Shift";
                     break;
 
                 case 4:
                     staff.currentShiftname = "Out";
-                    statusNameVal = "Out Shift";
+                    statusNameVal = "Out-Shift";
                     break;
 
                 case 5:

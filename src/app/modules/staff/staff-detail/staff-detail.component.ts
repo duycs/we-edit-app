@@ -14,8 +14,6 @@ import { UpdateStepStatusVM } from 'src/app/shared/models/updateStepStatusVM';
 import { UpdateStepStatusComponent } from '../update-step-status/update-step-status.component';
 import { NoteService } from 'src/app/core/services/notes.service';
 import { JobStepDto } from 'src/app/shared/models/jobStepDto';
-import { AppUser } from 'src/app/shared/models/AppUser';
-import { JobStep } from 'src/app/shared/models/jobStep';
 import { environment } from 'src/environments/environment';
 import { StaffInShiftVM } from 'src/app/shared/models/staffInShiftVM';
 import { StaffOutShiftVM } from 'src/app/shared/models/staffOutShiftVM';
@@ -30,7 +28,6 @@ export class StaffDetailComponent implements OnInit {
   subscription!: Subscription;
   users: Staff[] = [];
 
-  appUser!: AppUser;
   staffId!: number;
 
   length = 50;
@@ -57,11 +54,9 @@ export class StaffDetailComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild('input') input!: ElementRef;
 
-  constructor(private router: Router,
-    private route: ActivatedRoute,
+  constructor(private route: ActivatedRoute,
     private authService: AuthService,
     private staffService: StaffService,
-    private noteService: NoteService,
     private mappingModel: MappingModels,
     private dialog: MatDialog,
     private alertService: AlertService) {
@@ -70,7 +65,7 @@ export class StaffDetailComponent implements OnInit {
   ngOnInit(): void {
     this.staffId = this.route.snapshot.params['id'];
     this.subscription = this.authService.authNavStatus$
-      .subscribe(appUser => {
+      .subscribe(() => {
         let staff = this.authService.getStaff();
         if (staff != null) {
           this.staffs = [staff];
@@ -111,7 +106,7 @@ export class StaffDetailComponent implements OnInit {
   }
 
 
-  onRowClicked(row: any) {
+  onRowClicked() {
   }
 
   // openRemoveStepOfStaffDialog(element: any): void {
@@ -128,7 +123,7 @@ export class StaffDetailComponent implements OnInit {
   //   });
   // }
 
-  openUpdateJobDialog(element: any) {
+  openUpdateJobDialog() {
     console.log("updateJobDialog");
   }
 
@@ -143,7 +138,7 @@ export class StaffDetailComponent implements OnInit {
     console.log("updateStepStatusVM", updateStepStatusVM);
 
     this.staffService.updateStepStatus(updateStepStatusVM)
-      .subscribe(res => {
+      .subscribe(() => {
         this.alertService.showToastSuccess();
         setTimeout(() => {
           console.log("reload after updated");

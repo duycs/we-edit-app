@@ -1,8 +1,8 @@
 <mat-nav-list>
+  <a mat-list-item (click)="onSidenavClose()">
+    <mat-icon>close</mat-icon>
+  </a>
   <div *ngIf="isAuthenticated">
-    <a mat-list-item (click)="onSidenavClose()">
-      <mat-icon>close</mat-icon>
-    </a>
     <a mat-list-item *ngIf="isAdmin" routerLink="/home" (click)="onSidenavClose()">
       <mat-icon></mat-icon> <span class="nav-caption">Home</span>
     </a>

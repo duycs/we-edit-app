@@ -5,13 +5,19 @@
     </button>
   </div>
   <div *ngIf="!isAuthenticated">
-    <a routerLink="/">We Edit</a>
+    <a routerLink="/">
+      <img src="assets/images/logo.png" width="40" class="mb-4" />
+    </a>
   </div>
   <div *ngIf="isAuthenticated && isAdmin">
-    <a routerLink="/home">We Edit</a>
+    <a routerLink="/home">
+      <img src="assets/images/logo.png" width="40" class="mb-4" />
+    </a>
   </div>
   <div *ngIf="isAuthenticated && !isAdmin">
-    <a routerLink="/staffs/{{staffId}}">We Edit</a>
+    <a routerLink="/staffs/{{staffId}}">
+      <img src="assets/images/logo.png" width="40" class="mb-4" />
+    </a>
   </div>
   <div>
     <!-- <span class="notify-message">{{cronJobSignalRService.message}}</span> -->
