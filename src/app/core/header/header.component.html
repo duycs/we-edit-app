@@ -11,7 +11,7 @@
     <a routerLink="/home">We Edit</a>
   </div>
   <div *ngIf="isAuthenticated && !isAdmin">
-    <a routerLink="/staffs/">We Edit</a>
+    <a routerLink="/staffs/{{staffId}}">We Edit</a>
   </div>
   <div>
     <!-- <span class="notify-message">{{cronJobSignalRService.message}}</span> -->

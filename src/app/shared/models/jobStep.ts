@@ -23,5 +23,6 @@ export interface JobStep {
     status: number;
     
     statusname: string;
+    statuscolor: string;
     groupname: string;
 }

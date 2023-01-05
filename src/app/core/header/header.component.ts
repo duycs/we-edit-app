@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
     isAdmin!: boolean;
     subscription!: Subscription;
     userId!: string;
-    staffId!: number;
+    staffId!: number | null;
 
     @Output() public sidenavToggle = new EventEmitter();
 
@@ -28,10 +28,7 @@ export class HeaderComponent implements OnInit {
             this.name = this.authService.name;
             this.isAdmin = this.authService.isUserAdmin();
             this.userId = this.authService.userId();
-            this.staffId = this.authService.getStaff()?.id;
-
-            console.log("staffId", this.staffId);
-            console.log("staff",  this.authService.getStaff());
+            this.staffId = this.authService.getStaff()?.id || null;
         }
         );
 

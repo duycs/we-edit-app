@@ -30,15 +30,18 @@ import { StaffModule } from './modules/staff/staff.module';
 import { CommonModule } from '@angular/common';
 import { ImageModule } from './modules/image/image.module';
 import { ImageComponent } from './modules/image/image.component';
+import { NoteModule } from './modules/note/note.module';
+import { NoteComponent } from './modules/note/note.component';
 
 const appRoutes: Routes = [
   { path: 'authentication', loadChildren: () => import('./core/authentication/authentication.module').then(m => m.AuthenticationModule), component: AuthenticationComponent },
 
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: '', redirectTo: '/home', pathMatch: 'full', canActivate: [AuthGuard] },
+  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: '**', redirectTo: '' },
 
   { path: 'management', loadChildren: () => import('./modules/management/management.module').then(m => m.ManagementModule), component: ManagementComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'staffs', loadChildren: () => import('./modules/staff/staff.module').then(m => m.StaffModule), component: StaffComponent, canActivate: [AuthGuard] },
+  { path: 'notes', loadChildren: () => import('./modules/note/note.module').then(m => m.NoteModule), component: NoteComponent },
   { path: 'images', loadChildren: () => import('./modules/image/image.module').then(m => m.ImageModule), component: ImageComponent, canActivate: [AuthGuard] },
 
 ];
@@ -52,6 +55,7 @@ const appRoutes: Routes = [
     AuthenticationComponent,
     ManagementComponent,
     StaffComponent,
+    NoteComponent,
     ImageComponent,
   ],
   imports: [
@@ -74,6 +78,7 @@ const appRoutes: Routes = [
     AuthenticationModule,
     ManagementModule,
     StaffModule,
+    NoteModule,
     ImageModule
   ],
   providers: [

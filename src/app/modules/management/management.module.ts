@@ -26,8 +26,6 @@ import { RemoveJobComponent } from './jobs/remove-job/remove-job.component';
 import { RemoveStepOfJobComponent } from './jobs/remove-step-of-job/remove-step-of-job.component';
 import { ProductLevelListComponent } from './productlevels/productlevel-list/productlevel-list.component';
 import { RemoveProductLevelComponent } from './productlevels/remove-productlevel/remove-productlevel.component';
-import { NoteListComponent } from './notes/note-list/note-list.component';
-import { RemoveNoteComponent } from './notes/remove-note/remove-note.component';
 
 const routes: Routes = [
     {
@@ -121,16 +119,6 @@ const routes: Routes = [
                 path: 'plevels/remove',
                 component: RemoveProductLevelComponent
             },
-
-            // notes
-            {
-                path: 'notes',
-                component: NoteListComponent
-            },
-            {
-                path: 'notes/remove',
-                component: RemoveNoteComponent
-            },
         ]
     }
 ];
@@ -160,9 +148,6 @@ const routes: Routes = [
         ProductLevelListComponent,
         AddProductLevelComponent,
         RemoveProductLevelComponent,
-
-        NoteListComponent,
-        RemoveNoteComponent
     ],
     imports: [
         SharedModule,

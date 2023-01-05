@@ -32,10 +32,17 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.getJobs();
-    this.getSteps();
-    this.getStaffs();
-    this.getProductLevels();
+    if (this.isAuthenticated) {
+      if (this.isAdmin) {
+        this.getJobs();
+        this.getSteps();
+        this.getStaffs();
+        this.getProductLevels();
+      } else {
+        let staff = this.authService.getStaff();
+        this.router.navigate([`/staffs/${staff?.id}`]);
+      }
+    }
   }
 
   ngOnInit(): void {

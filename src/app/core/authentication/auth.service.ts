@@ -24,7 +24,8 @@ export class AuthService extends BaseService {
 
   private manager = new UserManager(getClientSettings());
   private user!: User | null;
-  private staff!: Staff;
+  private staff!: Staff | null;
+  private staffLocalStoreKey: string = 'staff';
 
   constructor(private http: HttpClient,
     private configService: ConfigService,
@@ -49,6 +50,10 @@ export class AuthService extends BaseService {
   async doAuthentication() {
     console.log("user", this.user);
     this.staff = await this.getStaffByUserId(this.userId());
+
+    // store staff
+    this.setStaff();
+
     return this.isAuthenticated();
   }
 
@@ -62,16 +67,42 @@ export class AuthService extends BaseService {
     return this.http.post(this.configService.authApiURI + '/account', userRegistration).pipe(catchError(this.handleError));
   }
 
+  getStaffLocalStoreKey(): string {
+    return this.staffLocalStoreKey;
+  }
+
   isAuthenticated(): boolean {
-    return this.user != null && !this.user.expired;
+    console.log("user auth: ", this.user);
+
+    this.staff = this.getStaff();
+
+    console.log("staff: ", this.staff);
+
+    // user auth or staff existing
+    return (this.user != null && !this.user.expired) || (this.staff != null && this.staff.id > 0);
   }
 
   userId(): string {
     return this.user?.profile['id'];
   }
 
-  getStaff(): Staff {
+  setStaff() {
+    if (this.staff != null) {
+      localStorage.setItem(this.staffLocalStoreKey, JSON.stringify(this.staff));
+    }
+  }
+
+  getStaff(): Staff | null {
+    let jsonStaff = localStorage.getItem(this.staffLocalStoreKey) ?? "";
+    if (!jsonStaff || jsonStaff.length == 0)
+      return null;
+
+    this.staff = JSON.parse(jsonStaff);
     return this.staff;
+  }
+
+  removeStaff() {
+    localStorage.removeItem(this.staffLocalStoreKey);
   }
 
   public isUserAdmin = (): boolean => {
@@ -93,6 +124,7 @@ export class AuthService extends BaseService {
   }
 
   async signout() {
+    this.removeStaff();
     await this.manager.signoutRedirect();
   }
 }
@@ -107,7 +139,7 @@ export function getClientSettings(): UserManagerSettings {
     scope: "openid profile email api.read",
     filterProtocolClaims: true,
     loadUserInfo: true,
-    automaticSilentRenew: true,
+    automaticSilentRenew: false,
     silent_redirect_uri: `${environment.appUrl}/silent-refresh.html`
   };
 }

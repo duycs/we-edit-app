@@ -15,6 +15,7 @@ import { UpdateStepStatusComponent } from '../update-step-status/update-step-sta
 import { NoteService } from 'src/app/core/services/notes.service';
 import { JobStepDto } from 'src/app/shared/models/jobStepDto';
 import { AppUser } from 'src/app/shared/models/AppUser';
+import { JobStep } from 'src/app/shared/models/jobStep';
 
 @Component({
   selector: 'app-staff-staff-detail',
@@ -67,7 +68,10 @@ export class StaffDetailComponent implements OnInit {
     this.staffId = this.route.snapshot.params['id'];
     this.subscription = this.authService.authNavStatus$
       .subscribe(appUser => {
-        this.staffs = [this.authService.getStaff()];
+        let staff = this.authService.getStaff();
+        if (staff != null) {
+          this.staffs = [staff];
+        }
         console.log("staff detail", this.staffs);
         this.userId = this.authService.userId();
       }

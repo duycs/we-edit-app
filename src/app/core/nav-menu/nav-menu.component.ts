@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { first, Subscription } from 'rxjs';
 import { AuthService } from '../authentication/auth.service';
 import { Router } from '@angular/router';
 import { AlertService } from '../services/alert.service';
@@ -16,7 +16,7 @@ export class NavMenuComponent implements OnInit, OnDestroy {
   isAdmin!: boolean;
   subscription!: Subscription;
   userId!: string;
-  staffId!: number;
+  staffId!: number | null;
 
   @Output() sidenavClose = new EventEmitter();
 
@@ -30,16 +30,15 @@ export class NavMenuComponent implements OnInit, OnDestroy {
   };
 
   ngOnInit() {
-    this.subscription = this.authService.authNavStatus$
+    this.subscription = this.authService.authNavStatus$.pipe()
       .subscribe(status => {
         this.name = this.authService.name;
         this.isAuthenticated = status;
         this.isAdmin = this.authService.isUserAdmin();
         this.userId = this.authService.userId();
-        this.staffId = this.authService.getStaff()?.id;
+        this.staffId = this.authService.getStaff()?.id || null;
 
         console.log("staffId", this.staffId);
-        console.log("staff",  this.authService.getStaff());
       }
       );
 

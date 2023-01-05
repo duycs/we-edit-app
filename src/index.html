@@ -12,5 +12,8 @@
 </head>
 <body>
   <app-root></app-root>
+  <script>
+    parent.postMessage(location.hash, location.origin);
+  </script>
 </body>
 </html>

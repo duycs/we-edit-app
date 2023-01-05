@@ -118,12 +118,53 @@ mat-toolbar .menu {
   width: 100%;
 }
 
-.hover-pointer{
+.hover-pointer {
   cursor: pointer;
 }
 
-.underline{
+.underline {
   text-decoration: underline;
+}
+
+.transition:hover {
+  transition: all 0.3s cubic-bezier(0.35, 0, 0.25, 1);
+}
+
+.border {
+  padding: 6px;
+  border-radius: 5px;
+  color: white;
+  font-weight: 500;
+  text-align: center;
+}
+
+.label-Todo {
+  background: #009688;
+}
+
+.label-Doing {
+  background: #2196F3;
+}
+
+.label-Pending {
+  background: rgb(255, 87, 34);
+}
+
+.label-Done {
+  background: #E040FB;
+}
+
+.label-Approved {
+  background: #4CAF50;
+}
+
+.label-Rejected {
+  background: #D32F2F;
+}
+
+.full-width {
+  float: left;
+  width: 100%;
 }
 
 /* Medium devices (landscape tablets, 768px and up) */

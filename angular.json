@@ -22,7 +22,9 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/silent-refresh.html",
+              "src/oidc-client.min.js"
             ],
             "styles": [
               "src/theme.scss",
@@ -102,7 +104,9 @@
             "tsConfig": "tsconfig.spec.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/silent-refresh.html",
+              "src/oidc-client.min.js"
             ],
             "styles": [
               "@angular/material/prebuilt-themes/purple-green.css",

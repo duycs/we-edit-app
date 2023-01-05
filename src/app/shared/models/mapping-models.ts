@@ -101,7 +101,7 @@ export class MappingModels {
                 break;
 
             case 1:
-                statusname = "Doding";
+                statusname = "Doing";
                 break;
 
             case 2:
