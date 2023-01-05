@@ -44,7 +44,7 @@ export class StaffDetailComponent implements OnInit {
   showFirstLastButtons = true;
   disabled = false;
 
-  displayedStaffColumns: string[] = ['action', 'account', 'fullname', "email", 'roles', "productLevels", "currentShift", "isAssigned", "status", 'id',];
+  displayedStaffColumns: string[] = ['action', 'account', 'fullname', "email", 'roles', 'groups', "productLevels", "currentShift", "isAssigned", "status", 'id',];
 
   displayedJobStepColumns: string[] = ['action', 'name', 'productLevel', 'inputNumber', 'worker', 'shift', 'estimationInSeconds',
     'startTime', 'endTime', 'statusname', 'notes', 'id'];
