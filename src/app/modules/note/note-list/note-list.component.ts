@@ -121,7 +121,7 @@ export class NoteListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       setTimeout(() => {
         this.loadPage();
-      }, 2000);
+      }, environment.loadTimeout;
     });
   }
 

@@ -123,7 +123,7 @@ export class StaffListComponent implements OnInit {
         setTimeout(() => {
           console.log("reload after added", result);
           this.loadPage();
-        }, 2000);
+        }, environment.loadTimeout;
       }
     );
   }
@@ -140,7 +140,7 @@ export class StaffListComponent implements OnInit {
         setTimeout(() => {
           console.log("reload after added", result);
           this.loadPage();
-        }, 2000);
+        }, environment.loadTimeout;
       }
     );
   }
@@ -153,7 +153,7 @@ export class StaffListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       setTimeout(() => {
         this.loadPage();
-      }, 2000);
+      }, environment.loadTimeout;
     });
   }
 
@@ -165,7 +165,7 @@ export class StaffListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       setTimeout(() => {
         this.loadPage();
-      }, 2000);
+      }, environment.loadTimeout;
     });
   }
 
@@ -179,7 +179,7 @@ export class StaffListComponent implements OnInit {
         this.alertService.showToastSuccess();
         setTimeout(() => {
           this.loadPage();
-        }, 2000);
+        }, environment.loadTimeout;
       }, (err) => {
         this.alertService.showToastError();
         console.log(err);
@@ -197,7 +197,7 @@ export class StaffListComponent implements OnInit {
         this.alertService.showToastSuccess();
         setTimeout(() => {
           this.loadPage();
-        }, 2000);
+        }, environment.loadTimeout;
       }, (err) => {
         this.alertService.showToastError();
         console.log(err);

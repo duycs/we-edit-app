@@ -15,6 +15,7 @@ import { AddJobStepComponent } from '../add-job-step/add-job-step.component';
 import { RemoveStepOfJobComponent } from '../remove-step-of-job/remove-step-of-job.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { AssignStaffComponent } from '../assign-staff/assign-staff.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'job-detail',
@@ -110,7 +111,7 @@ export class JobDetailComponent implements OnInit, AfterViewInit {
           console.log("reload after added", result);
           this.getJobSteps();
           this.getJob();
-        }, 2000);
+        }, environment.loadtimeout);
       }
     );
   }
@@ -125,7 +126,7 @@ export class JobDetailComponent implements OnInit, AfterViewInit {
         console.log("reload after removed", result);
         this.getJobSteps();
         this.getJob();
-      }, 2000);
+      }, environment.loadTimeout;
     });
   }
 
@@ -143,7 +144,7 @@ export class JobDetailComponent implements OnInit, AfterViewInit {
         console.log("reload after added", result);
         this.getJobSteps();
         this.getJob();
-      }, 2000);
+      }, environment.loadTimeout;
     });
   }
 

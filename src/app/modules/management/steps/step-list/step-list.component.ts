@@ -118,7 +118,7 @@ export class StepListComponent implements OnInit {
         setTimeout(() => {
           console.log("reload after added", result);
           this.loadPage();
-        }, 2000);
+        }, environment.loadTimeout;
       }
     );
   }
@@ -131,7 +131,7 @@ export class StepListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       setTimeout(() => {
         this.loadPage();
-      }, 2000);
+      }, environment.loadTimeout;
     });
   }
 

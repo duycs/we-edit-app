@@ -121,7 +121,7 @@ export class StaffDetailComponent implements OnInit {
   //       console.log("reload after removed", result);
   //       this.getJobSteps();
   //       this.getStaff();
-  //     }, 2000);
+  //     }, environment.loadTimeout;
   //   });
   // }
 
@@ -146,7 +146,7 @@ export class StaffDetailComponent implements OnInit {
           console.log("reload after updated");
           this.getJobSteps();
           this.getStaff();
-        }, 2000);
+        }, environment.loadTimeout;
       }, (err) => {
         this.alertService.showToastError();
         console.log(err);
@@ -168,7 +168,7 @@ export class StaffDetailComponent implements OnInit {
         console.log("reload after updated", result);
         this.getJobSteps();
         this.getStaff();
-      }, 2000);
+      }, environment.loadTimeout;
     });
   }
 

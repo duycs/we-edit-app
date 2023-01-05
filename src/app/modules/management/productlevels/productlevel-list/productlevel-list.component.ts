@@ -117,7 +117,7 @@ export class ProductLevelListComponent implements OnInit {
         setTimeout(() => {
           console.log("reload after added", result);
           this.loadJobsPage();
-        }, 2000);
+        }, environment.loadTimeout;
       }
     );
   }
@@ -130,7 +130,7 @@ export class ProductLevelListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       setTimeout(() => {
         this.loadJobsPage();
-      }, 2000);
+      }, environment.loadTimeout;
     });
   }
 
