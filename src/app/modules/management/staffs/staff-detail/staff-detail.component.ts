@@ -16,6 +16,8 @@ import { UpdateStepStatusComponent } from '../update-step-status/update-step-sta
 import { NoteService } from 'src/app/core/services/notes.service';
 import { JobStepDto } from 'src/app/shared/models/jobStepDto';
 import { environment } from 'src/environments/environment';
+import { StaffInShiftVM } from 'src/app/shared/models/staffInShiftVM';
+import { StaffOutShiftVM } from 'src/app/shared/models/staffOutShiftVM';
 
 @Component({
   selector: 'app-staff-detail',
@@ -38,7 +40,7 @@ export class StaffDetailComponent implements OnInit {
   showFirstLastButtons = true;
   disabled = false;
 
-  displayedStaffColumns: string[] = ['account', 'fullname', "email", 'roles', "productLevels", "currentShift", "isAssigned", "status", 'id',];
+  displayedStaffColumns: string[] = ['action', 'account', 'fullname', "email", 'roles', "productLevels", "currentShift", "isAssigned", "status", 'id',];
 
   displayedJobStepColumns: string[] = ['action', 'name', 'productLevel', 'inputNumber', 'worker', 'shift', 'estimationInSeconds',
     'startTime', 'endTime', 'statusname', 'notes', 'id'];
@@ -154,6 +156,41 @@ export class StaffDetailComponent implements OnInit {
         this.getStaff();
       }, environment.loadTimeout);
     });
+  }
+
+  addInShift() {
+    var staffInShiftVM: StaffInShiftVM = {
+      staffId: this.staffId,
+    };
+
+    this.staffService.addInShiftForStaff(staffInShiftVM)
+      .subscribe(() => {
+        this.alertService.showToastSuccess();
+        setTimeout(() => {
+          this.getStaff();
+        }, environment.loadTimeout);
+      }, (err) => {
+        this.alertService.showToastError();
+        console.log(err);
+      });
+  }
+
+
+  addOutShift() {
+    var staffOutShiftVM: StaffOutShiftVM = {
+      staffId: this.staffId,
+    };
+
+    this.staffService.addOutShiftForStaff(staffOutShiftVM)
+      .subscribe(() => {
+        this.alertService.showToastSuccess();
+        setTimeout(() => {
+          this.getStaff();
+        }, environment.loadTimeout);
+      }, (err) => {
+        this.alertService.showToastError();
+        console.log(err);
+      });
   }
 
 }
