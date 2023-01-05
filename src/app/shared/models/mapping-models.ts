@@ -25,7 +25,7 @@ export class MappingModels {
     }
 
     public MappingDisplayGroupName(groupId: number) {
-        let groupname = 'none';
+        let groupname = "--";
         switch (groupId) {
             case 2:
                 groupname = "Admin";
@@ -56,7 +56,7 @@ export class MappingModels {
                 break;
 
             default:
-                groupname = "none";
+                groupname = "--";
                 break;
         }
 
@@ -94,7 +94,7 @@ export class MappingModels {
     }
 
     public MappingStepStatus(status: number) {
-        let statusname = "none";
+        let statusname = "--";
         switch (status) {
             case 0:
                 statusname = "Todo";
@@ -125,7 +125,7 @@ export class MappingModels {
                 break;
 
             default:
-                statusname = "none";
+                statusname = "Wating";
                 break;
         }
         return statusname;
@@ -155,7 +155,7 @@ export class MappingModels {
                     break;
 
                 default:
-                    job.locationname = "none";
+                    job.locationname = "--";
                     break;
             }
         }
@@ -179,7 +179,7 @@ export class MappingModels {
                     break;
 
                 default:
-                    job.statusname = "none";
+                    job.statusname = "--";
                     break;
             }
         }
@@ -199,7 +199,7 @@ export class MappingModels {
                     break;
 
                 default:
-                    job.appname = "none";
+                    job.appname = "--";
                     break;
             }
         }
@@ -219,7 +219,7 @@ export class MappingModels {
                     break;
 
                 default:
-                    job.deliverTypename = "none";
+                    job.deliverTypename = "--";
                     break;
             }
         }
@@ -278,13 +278,13 @@ export class MappingModels {
         if (staff.currentShiftId != null) {
             switch (staff.currentShiftId) {
                 case 0:
-                    staff.currentShiftname = "none";
-                    statusNameVal = "none";
+                    staff.currentShiftname = "--";
+                    statusNameVal = "--";
                     break;
 
                 case 6:
-                    staff.currentShiftname = "none";
-                    statusNameVal = "none";
+                    staff.currentShiftname = "--";
+                    statusNameVal = "--";
                     break;
 
                 case 1:
@@ -313,8 +313,8 @@ export class MappingModels {
                     break;
 
                 default:
-                    staff.currentShiftname = "none";
-                    statusNameVal = "none";
+                    staff.currentShiftname = "--";
+                    statusNameVal = "--";
                     break;
             }
 

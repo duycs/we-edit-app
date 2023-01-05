@@ -162,6 +162,11 @@ mat-toolbar .menu {
   background: #D32F2F;
 }
 
+.label-none, .label-Wating {
+  background: #9E9E9E;
+}
+
+
 .full-width {
   float: left;
   width: 100%;

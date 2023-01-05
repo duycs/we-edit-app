@@ -111,7 +111,7 @@ export class JobDetailComponent implements OnInit, AfterViewInit {
           console.log("reload after added", result);
           this.getJobSteps();
           this.getJob();
-        }, environment.loadtimeout);
+        }, environment.loadTimeout);
       }
     );
   }
@@ -126,7 +126,7 @@ export class JobDetailComponent implements OnInit, AfterViewInit {
         console.log("reload after removed", result);
         this.getJobSteps();
         this.getJob();
-      }, environment.loadTimeout;
+      }, environment.loadTimeout);
     });
   }
 
@@ -144,7 +144,7 @@ export class JobDetailComponent implements OnInit, AfterViewInit {
         console.log("reload after added", result);
         this.getJobSteps();
         this.getJob();
-      }, environment.loadTimeout;
+      }, environment.loadTimeout);
     });
   }
 

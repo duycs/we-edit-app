@@ -16,6 +16,7 @@ import { NoteService } from 'src/app/core/services/notes.service';
 import { JobStepDto } from 'src/app/shared/models/jobStepDto';
 import { AppUser } from 'src/app/shared/models/AppUser';
 import { JobStep } from 'src/app/shared/models/jobStep';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-staff-staff-detail',
@@ -121,7 +122,7 @@ export class StaffDetailComponent implements OnInit {
   //       console.log("reload after removed", result);
   //       this.getJobSteps();
   //       this.getStaff();
-  //     }, environment.loadTimeout;
+  //     }, environment.loadTimeout);
   //   });
   // }
 
@@ -146,7 +147,7 @@ export class StaffDetailComponent implements OnInit {
           console.log("reload after updated");
           this.getJobSteps();
           this.getStaff();
-        }, environment.loadTimeout;
+        }, environment.loadTimeout);
       }, (err) => {
         this.alertService.showToastError();
         console.log(err);
@@ -168,7 +169,7 @@ export class StaffDetailComponent implements OnInit {
         console.log("reload after updated", result);
         this.getJobSteps();
         this.getStaff();
-      }, environment.loadTimeout;
+      }, environment.loadTimeout);
     });
   }
 

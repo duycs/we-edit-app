@@ -16,6 +16,7 @@ import { AddProductLevelForStaffComponent } from '../add-productlevel-for-staff/
 import { StaffInShiftVM } from 'src/app/shared/models/staffInShiftVM';
 import { StaffOutShiftVM } from 'src/app/shared/models/staffOutShiftVM';
 import { UpdateStaffComponent } from '../update-staff/update-staff.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-staff-list',
@@ -123,7 +124,7 @@ export class StaffListComponent implements OnInit {
         setTimeout(() => {
           console.log("reload after added", result);
           this.loadPage();
-        }, environment.loadTimeout;
+        }, environment.loadTimeout);
       }
     );
   }
@@ -140,7 +141,7 @@ export class StaffListComponent implements OnInit {
         setTimeout(() => {
           console.log("reload after added", result);
           this.loadPage();
-        }, environment.loadTimeout;
+        }, environment.loadTimeout);
       }
     );
   }
@@ -153,7 +154,7 @@ export class StaffListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       setTimeout(() => {
         this.loadPage();
-      }, environment.loadTimeout;
+      }, environment.loadTimeout);
     });
   }
 
@@ -165,7 +166,7 @@ export class StaffListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       setTimeout(() => {
         this.loadPage();
-      }, environment.loadTimeout;
+      }, environment.loadTimeout);
     });
   }
 
@@ -179,7 +180,7 @@ export class StaffListComponent implements OnInit {
         this.alertService.showToastSuccess();
         setTimeout(() => {
           this.loadPage();
-        }, environment.loadTimeout;
+        }, environment.loadTimeout);
       }, (err) => {
         this.alertService.showToastError();
         console.log(err);
@@ -197,7 +198,7 @@ export class StaffListComponent implements OnInit {
         this.alertService.showToastSuccess();
         setTimeout(() => {
           this.loadPage();
-        }, environment.loadTimeout;
+        }, environment.loadTimeout);
       }, (err) => {
         this.alertService.showToastError();
         console.log(err);

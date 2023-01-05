@@ -185,7 +185,8 @@
           <ng-container matColumnDef="statusname">
             <th mat-header-cell *matHeaderCellDef> Status </th>
             <td mat-cell *matCellDef="let element">
-              {{element.statusname}} </td>
+              <p class="border transition label-{{element.statusname}}"> {{element.statusname}}</p>
+            </td>
           </ng-container>
 
           <ng-container matColumnDef="id">

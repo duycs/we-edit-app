@@ -12,6 +12,7 @@ import { MappingModels } from 'src/app/shared/models/mapping-models';
 import { StepDataSource } from '../steps-data-source';
 import { AddStepComponent } from '../add-step/add-step.component';
 import { RemoveStepComponent } from '../remove-step/remove-step.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-step-list',
@@ -118,7 +119,7 @@ export class StepListComponent implements OnInit {
         setTimeout(() => {
           console.log("reload after added", result);
           this.loadPage();
-        }, environment.loadTimeout;
+        }, environment.loadTimeout);
       }
     );
   }
@@ -131,7 +132,7 @@ export class StepListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       setTimeout(() => {
         this.loadPage();
-      }, environment.loadTimeout;
+      }, environment.loadTimeout);
     });
   }
 

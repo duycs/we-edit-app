@@ -12,6 +12,7 @@ import { AddProductLevelComponent } from '../add-productlevel/add-productlevel.c
 import { RemoveProductLevelComponent } from '../remove-productlevel/remove-productlevel.component';
 import { ProductLevelDataSource } from '../productlevel-data-source';
 import { MatSort } from '@angular/material/sort';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-productlevel-list',
@@ -117,7 +118,7 @@ export class ProductLevelListComponent implements OnInit {
         setTimeout(() => {
           console.log("reload after added", result);
           this.loadJobsPage();
-        }, environment.loadTimeout;
+        }, environment.loadTimeout);
       }
     );
   }
@@ -130,7 +131,7 @@ export class ProductLevelListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       setTimeout(() => {
         this.loadJobsPage();
-      }, environment.loadTimeout;
+      }, environment.loadTimeout);
     });
   }
 

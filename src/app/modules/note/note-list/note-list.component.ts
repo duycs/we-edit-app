@@ -12,6 +12,7 @@ import { RemoveNoteComponent } from '../remove-note/remove-note.component';
 import { NoteService } from 'src/app/core/services/notes.service';
 import { Note } from 'src/app/shared/models/note';
 import { NoteDataSource } from '../notes-data-source';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-note-list',
@@ -121,7 +122,7 @@ export class NoteListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       setTimeout(() => {
         this.loadPage();
-      }, environment.loadTimeout;
+      }, environment.loadTimeout);
     });
   }
 
