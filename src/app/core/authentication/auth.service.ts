@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 import { StaffService } from '../services/staffs.service';
 import { MappingModels } from 'src/app/shared/models/mapping-models';
 import { Staff } from 'src/app/shared/models/staff';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,7 @@ export class AuthService extends BaseService {
   private staffLocalStoreKey: string = 'staff';
 
   constructor(private http: HttpClient,
+    private router: Router,
     private configService: ConfigService,
     private staffService: StaffService,
     private mappingModel: MappingModels) {
@@ -126,6 +128,10 @@ export class AuthService extends BaseService {
   async signout() {
     this.removeStaff();
     await this.manager.signoutRedirect();
+  }
+
+  goToForbidden(){
+    this.router.navigate([`/authentication/forbidden`])
   }
 }
 

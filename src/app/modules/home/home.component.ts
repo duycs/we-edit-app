@@ -6,6 +6,7 @@ import { JobService } from 'src/app/core/services/jobs.service';
 import { ProductLevelService } from 'src/app/core/services/productLevels.service';
 import { StaffService } from 'src/app/core/services/staffs.service';
 import { StepService } from 'src/app/core/services/steps.service';
+import { Staff } from 'src/app/shared/models/staff';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   name!: string;
   isAuthenticated!: boolean;
   isAdmin!: boolean;
+  staffId!: number | null;
+  message!: string;
   subscription!: Subscription;
 
   jobsCount: number = 0;
@@ -32,15 +35,18 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.staffId = this.authService.getStaff()?.id || null;
+
     if (this.isAuthenticated) {
       if (this.isAdmin) {
         this.getJobs();
         this.getSteps();
         this.getStaffs();
         this.getProductLevels();
+      } else if (this.staffId && this.staffId > 0) {
+        this.router.navigate([`/staffs/${this.staffId}`]);
       } else {
-        let staff = this.authService.getStaff();
-        this.router.navigate([`/staffs/${staff?.id}`]);
+        this.router.navigate([`/authentication/forbidden`]);
       }
     }
   }
