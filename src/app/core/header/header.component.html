@@ -40,6 +40,9 @@
       <li *ngIf="isAdmin">
         <a routerLink="/management/staffs">Staffs</a>
       </li>
+      <li *ngIf="isAdmin">
+        <a routerLink="/management/flows">Flows</a>
+      </li>
       <li *ngIf="!isAdmin && staffId">
         <a routerLink="/staffs/{{staffId}}">My Job</a>
       </li>

@@ -26,6 +26,14 @@ import { RemoveJobComponent } from './jobs/remove-job/remove-job.component';
 import { RemoveStepOfJobComponent } from './jobs/remove-step-of-job/remove-step-of-job.component';
 import { ProductLevelListComponent } from './productlevels/productlevel-list/productlevel-list.component';
 import { RemoveProductLevelComponent } from './productlevels/remove-productlevel/remove-productlevel.component';
+import { FlowListComponent } from './flows/flow-list/flow-list.component';
+import { AddFlowComponent } from './flows/add-flow/add-flow.component';
+import { RemoveFlowComponent } from './flows/remove-flow/remove-flow.component';
+import { FlowDetailComponent } from './flows/flow-detail/flow-detail.component';
+import { AddOperationComponent } from './flows/add-operation/add-operation.component';
+import { RemoveOperationComponent } from './flows/remove-operation/remove-operation.component';
+import { AssignActionOperationComponent } from './operations/assign-action/assign-action-operation.component';
+import { OperationDetailComponent } from './operations/operation-detail/operation-detail.component';
 
 const routes: Routes = [
     {
@@ -119,6 +127,30 @@ const routes: Routes = [
                 path: 'plevels/remove',
                 component: RemoveProductLevelComponent
             },
+
+            // flows
+            {
+                path: 'flows',
+                component: FlowListComponent
+            },
+            {
+                path: 'flows/:id',
+                component: FlowDetailComponent
+            },
+            {
+                path: 'flows/add',
+                component: AddFlowComponent
+            },
+            {
+                path: 'flows/remove',
+                component: RemoveFlowComponent
+            },
+
+            // operations
+            {
+                path: 'operations/:id',
+                component: OperationDetailComponent
+            },
         ]
     }
 ];
@@ -148,6 +180,17 @@ const routes: Routes = [
         ProductLevelListComponent,
         AddProductLevelComponent,
         RemoveProductLevelComponent,
+
+        FlowListComponent,
+        FlowDetailComponent,
+        AddFlowComponent,
+        RemoveFlowComponent,
+        AddOperationComponent,
+        RemoveOperationComponent,
+
+        AssignActionOperationComponent,
+
+        OperationDetailComponent
     ],
     imports: [
         SharedModule,

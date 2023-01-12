@@ -1,7 +1,9 @@
 import { Injectable } from "@angular/core";
+import { Flow } from "./flow";
 import { Job } from "./job";
 import { JobStep } from "./jobStep";
 import { JobStepDto } from "./jobStepDto";
+import { Operation } from "./operation";
 import { Staff } from "./staff";
 import { Step } from "./step";
 
@@ -326,5 +328,86 @@ export class MappingModels {
         }
 
         return staff;
+    }
+
+    MappingDisplayNameFieldsOfFlows(flows: Flow[]) {
+        flows.forEach(flow => {
+            flow = this.MappingDisplayNameFieldsOfFlow(flow);
+        });
+
+        return flows;
+    }
+
+    public MappingDisplayNameFieldsOfFlow(flow: Flow) {
+
+        flow.operations.forEach(operation => {
+            operation = this.MappingDisplayNameFieldsOfOperation(operation);
+        }
+        );
+
+        if (flow != null) {
+            switch (flow.status) {
+                case 1:
+                    flow.statusname = "Off";
+                    break;
+
+                case 2:
+                    flow.statusname = "On";
+                    break;
+
+                default:
+                    flow.statusname = "--";
+                    break;
+            }
+        }
+
+        if (flow.type != null) {
+            switch (flow.type) {
+                case 1:
+                    flow.typename = "Automated";
+                    break;
+
+                case 2:
+                    flow.typename = "Instant";
+                    break;
+
+                case 3:
+                    flow.typename = "Scheduled";
+                    break;
+
+                default:
+                    flow.typename = "--";
+                    break;
+            }
+        }
+        return flow;
+    }
+
+    MappingDisplayNameFieldsOfOperations(operations: Operation[]) {
+        operations.forEach(operation => {
+            operation = this.MappingDisplayNameFieldsOfOperation(operation);
+        });
+
+        return operations;
+    }
+
+    public MappingDisplayNameFieldsOfOperation(operation: Operation) {
+        if (operation != null) {
+            switch (operation.type) {
+                case 0:
+                    operation.typename = "Action";
+                    break;
+
+                case 1:
+                    operation.typename = "Trigger";
+                    break;
+
+                default:
+                    operation.typename = "--";
+                    break;
+            }
+        }
+
+        return operation;
     }
 }

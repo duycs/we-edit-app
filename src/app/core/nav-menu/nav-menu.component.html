@@ -6,6 +6,9 @@
     <a mat-list-item *ngIf="isAdmin" routerLink="/home" (click)="onSidenavClose()">
       <mat-icon></mat-icon> <span class="nav-caption">Home</span>
     </a>
+    <a mat-list-item *ngIf="isAdmin" routerLink="/management/flows" (click)="onSidenavClose()">
+      <mat-icon></mat-icon> <span class="nav-caption">Flows</span>
+    </a>
     <a mat-list-item *ngIf="isAdmin" routerLink="/management/staffs" (click)="onSidenavClose()">
       <mat-icon></mat-icon> <span class="nav-caption">Staffs</span>
     </a>
