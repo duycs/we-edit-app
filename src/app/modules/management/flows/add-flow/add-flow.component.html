@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>{{title}}</h2>
+
+<mat-dialog-content [formGroup]="form">
+
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="Name" formControlName="name">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <input matInput placeholder="description" formControlName="description">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Type</mat-label>
+    <mat-select formControlName="typeId">
+      <mat-option>None</mat-option>
+      <mat-option *ngFor="let type of types" [value]="type.id">{{type.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Status</mat-label>
+    <mat-select formControlName="statusId">
+      <mat-option>None</mat-option>
+      <mat-option *ngFor="let status of status" [value]="status.id">{{status.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</mat-dialog-content>
+
+<mat-dialog-actions class="container">
+  <div class="group-btn">
+    <button mat-raised-button color="primary" (click)="close()">Close</button>
+    <button mat-raised-button color="primary" (click)="save()">Save</button>
+  </div>
+</mat-dialog-actions>

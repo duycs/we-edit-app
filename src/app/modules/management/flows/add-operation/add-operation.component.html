@@ -1,0 +1,23 @@
+  <h1 mat-dialog-title>Add Operation to Flow {{data.flowName}}</h1>
+
+  <mat-dialog-content [formGroup]="form">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Operation</mat-label>
+      <mat-select formControlName="executionName">
+        <mat-option>None</mat-option>
+        <mat-option *ngFor="let operationTemplate of operationTemplates" [value]="operationTemplate.executionName">
+          {{operationTemplate.name}}
+          <mat-icon>{{operationTemplate.icon}}</mat-icon>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="container">
+    <div class="group-btn">
+      <button mat-button color="primary" (click)="close()">Close</button>
+      <button mat-button mat-dialog-close color="primary" (click)="openOperationDialog()" cdkFocusInitial>Open Operation</button>
+    </div>
+  </mat-dialog-actions>

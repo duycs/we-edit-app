@@ -1,0 +1,13 @@
+<mat-dialog-content>
+  <h1 mat-dialog-title>Remove Operation of Flow</h1>
+  <div mat-dialog-content>
+    Would you like to remove Operation {{data.operationName}} of Flow {{data.flowName}}?
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions class="container">
+  <div class="group-btn">
+    <button mat-button color="primary" (click)="onNoClick()">No</button>
+    <button mat-button mat-dialog-close color="primary" (click)="onRemove(data.jobId, data.stepId)"
+      cdkFocusInitial>Yes</button>
+  </div>
+</mat-dialog-actions>

@@ -1,0 +1,54 @@
+  <h1 mat-dialog-title>Operation {{executionName}}</h1>
+
+  <mat-dialog-content [formGroup]="form">
+
+    <!-- operation  -->
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Assign Action" formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <input matInput placeholder="Assign free active Staffs to Job-Steps todo matching some conditions"
+        formControlName="description">
+    </mat-form-field>
+
+    <!-- settings -->
+    <mat-form-field>
+      <mat-label>Filter Job-Steps</mat-label>
+      <input matInput placeholder="Filter job-steps" formControlName="rawSqlFilterJobStep">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Filter Staffs</mat-label>
+      <input matInput placeholder="Filter staffs" formControlName="rawSqlFilterStaff">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Execute Method</mat-label>
+      <input matInput placeholder="eg: set jobStep.IsExpried then IsExpried method will be execute if set"
+        formControlName="validJobStepIsExpriedMethod">
+    </mat-form-field>
+
+    <p>Matching Settings</p>
+    <mat-checkbox [formControl]="isGroupMatching">Group matching</mat-checkbox>
+    <mat-checkbox [formControl]="isProductLevelMatching">ProductLevel matching</mat-checkbox>
+
+    <!-- <mat-form-field appearance="fill">
+      <mat-label>Matching assign setting</mat-label>
+      <mat-select [formControl]="matchingAssignSetting" multiple>
+        <mat-option *ngFor="let setting of matchingAssignSettings" [value]="setting.key">{{setting.name}}</mat-option>
+      </mat-select>
+    </mat-form-field> -->
+
+
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="container">
+    <div class="group-btn">
+      <button mat-button color="primary" (click)="close()">Close</button>
+      <button mat-button mat-dialog-close color="primary" (click)="save()" cdkFocusInitial>Save</button>
+    </div>
+  </mat-dialog-actions>
