@@ -3,6 +3,8 @@
   <mat-dialog-content [formGroup]="form">
 
     <!-- operation  -->
+    <mat-checkbox [formControl]="isFirstRoute">Is First Operation</mat-checkbox>
+
     <mat-form-field>
       <mat-label>Name</mat-label>
       <input matInput placeholder="Assign Action" formControlName="name">
@@ -32,8 +34,8 @@
     </mat-form-field>
 
     <p>Matching Settings</p>
-    <mat-checkbox [formControl]="isGroupMatching">Group matching</mat-checkbox>
-    <mat-checkbox [formControl]="isProductLevelMatching">ProductLevel matching</mat-checkbox>
+    <mat-checkbox [formControl]="isGroupMatching">Group Matching</mat-checkbox>
+    <mat-checkbox [formControl]="isProductLevelMatching">ProductLevel Matching</mat-checkbox>
 
     <!-- <mat-form-field appearance="fill">
       <mat-label>Matching assign setting</mat-label>

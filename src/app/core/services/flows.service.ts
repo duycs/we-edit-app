@@ -12,6 +12,8 @@ import { CreateFlowVM } from 'src/app/shared/models/createFlowVM';
 import { UpdateFlowVM } from 'src/app/shared/models/updateFlowVM';
 import { CreateOperationVM } from 'src/app/shared/models/createOperationVM';
 import { RemoveOperationFromFlowVM } from 'src/app/shared/models/removeOperationFromFlowVM';
+import { InstantFlowVM } from 'src/app/shared/models/instantFlowVM';
+import { InvokeResult } from 'src/app/shared/models/invokeResult';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -73,19 +75,11 @@ export class FlowService {
     );
   }
 
-  addOperationForFlow(createOperationVM: CreateOperationVM): Observable<any> {
-    let url = `${apiUrl}/operation`;
-    return this.http.post<any>(url, createOperationVM, httpOptions).pipe(
-      tap(() => console.log('added')),
-      catchError(this.handleError<AddRolesForStaffVM>('addOperationForFlow'))
-    );
-  }
-
-  removeOperationFromFlow(removeOperationFromFlowVM: RemoveOperationFromFlowVM): Observable<any> {
-    let url = `${apiUrl}/operation`;
-    return this.http.post<any>(url, removeOperationFromFlowVM, httpOptions).pipe(
-      tap(_ => console.log('deleted')),
-      catchError(this.handleError<RemoveRolesForStaffVM>('removeOperationFromFlow'))
+  instantFlow(instantFlowVM: InstantFlowVM): Observable<InvokeResult> {
+    let url = `${apiUrl}/instant`;
+    return this.http.post<InvokeResult>(url, instantFlowVM, httpOptions).pipe(
+      tap((data: InvokeResult) => console.log(`updated instantFlow ${data.success}, ${data.message}`)),
+      catchError(this.handleError<InvokeResult>('instantFlow'))
     );
   }
 

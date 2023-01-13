@@ -6,5 +6,6 @@ export interface CreateOperationVM {
     name: string;
     description: string;
     executionName: string;
+    firstRoute: boolean;
     settings?: Setting[];
 }

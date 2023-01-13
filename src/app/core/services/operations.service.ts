@@ -56,10 +56,10 @@ export class OperationService {
     );
   }
 
-  deleteOperation(id: any): Observable<any> {
+  removeOperation(id: any): Observable<any> {
     const url = `${apiUrl}/${id}`;
     return this.http.delete<any>(url, httpOptions).pipe(
-      tap(_ => console.log('deleted Operation id=${id}')),
+      tap(_ => console.log(`deleted Operation id=${id}`)),
       catchError(this.handleError<Staff>('deleteOperation'))
     );
   }

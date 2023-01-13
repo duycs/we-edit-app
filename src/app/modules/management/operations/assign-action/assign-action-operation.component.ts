@@ -22,6 +22,7 @@ export class AssignActionOperationComponent implements OnInit, AfterViewInit {
     form!: FormGroup;
     isGroupMatching = new FormControl(false);
     isProductLevelMatching = new FormControl(false);
+    isFirstRoute = new FormControl(false);
     //matchingAssignSetting = new FormControl();
     operations!: Operation[];
     flowId!: number;
@@ -95,7 +96,8 @@ export class AssignActionOperationComponent implements OnInit, AfterViewInit {
             name: this.form.get('name')?.value,
             description: this.form.get('description')?.value,
             executionName: this.executionName,
-            settings: settings
+            settings: settings,
+            firstRoute: this.isFirstRoute?.value || false
         };
 
         console.log("createOperationVM", createOperationVM);

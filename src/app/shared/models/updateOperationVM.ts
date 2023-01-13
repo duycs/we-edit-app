@@ -7,4 +7,5 @@ export interface UpdateOperationVM {
     name: string;
     description: string;
     executionName: string;
+    firstRoute: boolean;
 }

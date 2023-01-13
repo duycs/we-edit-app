@@ -14,6 +14,7 @@ import { Flow } from 'src/app/shared/models/flow';
 import { FlowService } from 'src/app/core/services/flows.service';
 import { RemoveOperationComponent } from '../remove-operation/remove-operation.component';
 import { AddOperationComponent } from '../add-operation/add-operation.component';
+import { InstantFlowVM } from 'src/app/shared/models/instantFlowVM';
 
 @Component({
   selector: 'flow-detail',
@@ -36,7 +37,7 @@ export class FlowDetailComponent implements OnInit, AfterViewInit {
   showFirstLastButtons = true;
   disabled = false;
 
-  displayedFlowColumns: string[] = ['name', 'description', 'type', 'status', 'dateModified'];
+  displayedFlowColumns: string[] = ['action', 'name', 'description', 'type', 'status', 'dateModified'];
 
   displayedOperationColumns: string[] = ['action', 'name', 'description', 'executionName', 'type'];
 
@@ -96,7 +97,7 @@ export class FlowDetailComponent implements OnInit, AfterViewInit {
 
   openRemoveOperationDialog(element: any): void {
     const dialogRef = this.dialog.open(RemoveOperationComponent, {
-      data: { flowId: this.flowId, flowName: this.flows[0].name, operationId: element.operation.id, operationName: element.operation.name },
+      data: { flowId: this.flowId, flowName: this.flows[0].name, operationId: element.id, operationName: element.name },
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -108,7 +109,35 @@ export class FlowDetailComponent implements OnInit, AfterViewInit {
   }
 
   openUpdateOperationDialog(element: any) {
-    console.log("updateDialog");
+    console.log("openUpdateDialog");
+  }
+
+  openAutomatedFlowDialog(element: any) {
+    console.log("openAutomatedFlowDialog");
+  }
+
+  openInstantFlowDialog(element: any) {
+    let instantFlowVM: InstantFlowVM = {
+      flowId: element.id
+    };
+
+    console.log("instantFlowVM", instantFlowVM);
+
+    this.flowService.instantFlow(instantFlowVM)
+      .subscribe(res => {
+        this.alertService.success(res.message);
+      }, (err) => {
+        this.alertService.showToastError();
+      });
+  }
+
+  openSchedulerFlowDialog(element: any) {
+    console.log("openSchedulerFlowDialog");
+  }
+
+
+  openDeployFlowDialog(element: any) {
+    console.log("openDeployFlowDialog");
   }
 
 }

@@ -13,6 +13,8 @@ import { AddFlowComponent } from '../add-flow/add-flow.component';
 import { FlowService } from 'src/app/core/services/flows.service';
 import { RemoveFlowComponent } from '../remove-flow/remove-flow.component';
 import { FlowsDataSource } from '../flows-data-source';
+import { InstantFlowVM } from 'src/app/shared/models/instantFlowVM';
+import { Flow } from 'src/app/shared/models/flow';
 
 @Component({
   selector: 'app-flow-list',
@@ -35,9 +37,9 @@ export class FlowListComponent implements OnInit, AfterViewInit {
   showFirstLastButtons = true;
   disabled = false;
 
-  displayedColumns: string[] = ['action', 'name', 'description', 'type', 'status', 'dateModified'];
-  job!: Job;
-  jobCount!: number;
+  flow!: Flow;
+  flowId!: number;
+  displayedColumns: string[] = ['action', 'name', 'description', 'type', 'status', 'dateModified', 'id'];
   dataSource!: FlowsDataSource;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -65,7 +67,7 @@ export class FlowListComponent implements OnInit, AfterViewInit {
         distinctUntilChanged(),
         tap(() => {
           this.paginator.pageIndex = 0;
-          this.loadJobsPage();
+          this.loadPage();
         })
       )
       .subscribe();
@@ -77,25 +79,20 @@ export class FlowListComponent implements OnInit, AfterViewInit {
       // on sort or paginate events, load a new page
       merge(this.sort?.sortChange, this.paginator.page)
         .pipe(
-          tap(() => this.loadJobsPage())
+          tap(() => this.loadPage())
         )
         .subscribe();
     }
   }
 
   ngOnInit(): void {
-    this.job = this.route.snapshot.data["id"];
+    this.flowId = this.route.snapshot.data["id"];
     this.dataSource.load();
   }
 
-  onRowClicked(row: any) {
-    console.log('Row clicked: ', row);
-    this.router.navigate([`/management/flows/${row.id}`]);
-  }
-
-  loadJobsPage() {
+  loadPage() {
     this.dataSource.load(
-      this.job?.id,
+      this.flowId,
       this.input.nativeElement.value,
       this.sort.direction,
       this.paginator.pageIndex,
@@ -108,7 +105,7 @@ export class FlowListComponent implements OnInit, AfterViewInit {
     this.pageSize = e.pageSize;
     this.pageIndex = e.pageIndex;
 
-    this.loadJobsPage();
+    this.loadPage();
   }
 
   openAddFlowDialog() {
@@ -136,13 +133,29 @@ export class FlowListComponent implements OnInit, AfterViewInit {
     console.log("openUpdateDialog");
   }
 
+  openAutomatedFlowDialog(element: any) {
+    console.log("openAutomatedFlowDialog");
+  }
+
+  openInstantFlowDialog(element: any) {
+    let instantFlowVM: InstantFlowVM = {
+      flowId: element.id
+    };
+
+    console.log("instantFlowVM", instantFlowVM);
+
+    this.flowService.instantFlow(instantFlowVM)
+      .subscribe(res => {
+        this.alertService.success(res.message);
+      }, (err) => {
+        this.alertService.showToastError();
+      });
+  }
+
   openSchedulerFlowDialog(element: any) {
     console.log("openSchedulerFlowDialog");
   }
 
-  openTriggerFlowDialog(element: any) {
-    console.log("openTriggerFlowDialog");
-  }
 
   openDeployFlowDialog(element: any) {
     console.log("openDeployFlowDialog");

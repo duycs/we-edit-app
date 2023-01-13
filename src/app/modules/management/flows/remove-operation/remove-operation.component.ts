@@ -1,8 +1,7 @@
 import { Component, Inject } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { AlertService } from "src/app/core/services/alert.service";
-import { FlowService } from "src/app/core/services/flows.service";
-import { RemoveOperationFromFlowVM } from "src/app/shared/models/removeOperationFromFlowVM";
+import { OperationService } from "src/app/core/services/operations.service";
 
 @Component({
     selector: 'remove-operation',
@@ -11,7 +10,7 @@ import { RemoveOperationFromFlowVM } from "src/app/shared/models/removeOperation
 
 export class RemoveOperationComponent {
     constructor(
-        private flowService: FlowService,
+        private operationService: OperationService,
         private alertService: AlertService,
         public dialogRef: MatDialogRef<RemoveOperationComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any) { }
@@ -20,14 +19,9 @@ export class RemoveOperationComponent {
         this.dialogRef.close();
     }
 
-    onRemove(flowId: number, operationId: number) {
-        let removeOperationFromFlowVM: RemoveOperationFromFlowVM = {
-            flowId: flowId,
-            operationId: operationId
-        };
-        this.flowService.removeOperationFromFlow(removeOperationFromFlowVM).subscribe(res => {
+    onRemove(operationId: number) {
+        this.operationService.removeOperation(operationId).subscribe(res => {
             this.alertService.showToastSuccess();
-            console.log("remove operation", this.data);
         }, err => {
             console.log(err);
         });
