@@ -4,6 +4,7 @@ import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angu
 import { Operation } from 'src/app/shared/models/operation';
 import { environment } from 'src/environments/environment';
 import { AssignActionOperationComponent } from '../../operations/assign-action/assign-action-operation.component';
+import { GetJobStepActionOperationComponent } from '../../operations/get-jobstep-action/get-jobstep-action-operation.component';
 
 @Component({
     selector: 'add-operation',
@@ -19,6 +20,11 @@ export class AddOperationComponent implements OnInit, AfterViewInit {
             executionName: "AssignAction",
             name: "Assign Action",
             icon: "assignment"
+        },
+        {
+            executionName: "GetJobStepAction",
+            name: "Get JobStep Action",
+            icon: "get_app"
         }
     ];
 
@@ -48,6 +54,8 @@ export class AddOperationComponent implements OnInit, AfterViewInit {
         let dialogRef;
         if (executionName === "AssignAction") {
             dialogRef = this.dialog.open(AssignActionOperationComponent, dialogConfig);
+        }else if(executionName === "GetJobStepAction"){
+            dialogRef = this.dialog.open(GetJobStepActionOperationComponent, dialogConfig);
         } else {
             console.log(`Not found operation ${executionName}`);
 

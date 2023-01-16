@@ -34,6 +34,7 @@ import { AddOperationComponent } from './flows/add-operation/add-operation.compo
 import { RemoveOperationComponent } from './flows/remove-operation/remove-operation.component';
 import { AssignActionOperationComponent } from './operations/assign-action/assign-action-operation.component';
 import { OperationDetailComponent } from './operations/operation-detail/operation-detail.component';
+import { GetJobStepActionOperationComponent } from './operations/get-jobstep-action/get-jobstep-action-operation.component';
 
 const routes: Routes = [
     {
@@ -187,10 +188,11 @@ const routes: Routes = [
         RemoveFlowComponent,
         AddOperationComponent,
         RemoveOperationComponent,
+        OperationDetailComponent,
 
+        // operations
         AssignActionOperationComponent,
-
-        OperationDetailComponent
+        GetJobStepActionOperationComponent
     ],
     imports: [
         SharedModule,
