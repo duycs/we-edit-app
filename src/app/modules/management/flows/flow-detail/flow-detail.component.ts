@@ -140,4 +140,20 @@ export class FlowDetailComponent implements OnInit, AfterViewInit {
     console.log("openDeployFlowDialog");
   }
 
+  openAddNextOperationDialog(element: any){
+    console.log("openAddNextOperationDialog");
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = { flowId: this.flowId, flowName: this.flows[0].name };
+
+    const dialogRef = this.dialog.open(AddOperationComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(
+      result => {
+        // do nothing
+      }
+    );
+  }
+
 }
