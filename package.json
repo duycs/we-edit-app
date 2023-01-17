@@ -26,6 +26,8 @@
     "@auth0/angular-jwt": "^5.1.2",
     "@material/dialog": "^15.0.0-canary.ecfee946f.0",
     "@microsoft/signalr": "^7.0.0",
+    "gojs": "^2.2.22",
+    "gojs-angular": "^2.0.6",
     "ngx-spinner": "^15.0.1",
     "oidc-client": "^1.11.5",
     "rxjs": "~7.5.0",
