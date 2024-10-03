@@ -108,7 +108,7 @@ export class AuthService extends BaseService {
   }
 
   public isUserAdmin = (): boolean => {
-    let roles = this.user?.profile['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+    let roles = this.user?.profile["role"]; //['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
     console.log("roles", roles);
 
     return Array.isArray(roles) ? roles.includes('admin') : roles == 'admin';
